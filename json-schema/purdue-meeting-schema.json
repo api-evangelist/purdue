@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/purdue/main/json-schema/purdue-meeting-schema.json",
+  "title": "Meeting",
+  "description": "A scheduled meeting time/place for a section in the Purdue.io OData course catalog. Derived from the live OData v4 $metadata for the PurdueIo.Database.Models.Meeting entity type.",
+  "type": "object",
+  "required": ["Id", "DaysOfWeek", "Duration"],
+  "additionalProperties": false,
+  "properties": {
+    "Id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier (Edm.Guid)."
+    },
+    "SectionId": {
+      "type": ["string", "null"],
+      "format": "uuid",
+      "description": "Foreign key to the owning Section."
+    },
+    "Type": {
+      "type": ["string", "null"],
+      "description": "Meeting type, e.g. Lecture or Laboratory."
+    },
+    "StartDate": {
+      "type": ["string", "null"],
+      "format": "date",
+      "description": "Meeting start date (Edm.Date)."
+    },
+    "EndDate": {
+      "type": ["string", "null"],
+      "format": "date",
+      "description": "Meeting end date (Edm.Date)."
+    },
+    "DaysOfWeek": {
+      "type": "string",
+      "description": "Flags enumeration of meeting days (IsFlags, may be comma-separated combination of member names).",
+      "examples": ["None", "Monday", "Monday, Wednesday, Friday"]
+    },
+    "StartTime": {
+      "type": ["string", "null"],
+      "description": "Meeting start time of day (Edm.TimeOfDay, HH:mm:ss.fffffff)."
+    },
+    "Duration": {
+      "type": "string",
+      "description": "Meeting duration (Edm.Duration, ISO 8601 duration, e.g. PT50M)."
+    },
+    "RoomId": {
+      "type": ["string", "null"],
+      "format": "uuid",
+      "description": "Foreign key to the Room."
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.purdue.io/odata/Courses?$filter=Title eq 'Orbit Mechanics'"
+  },
+  "response": {
+    "@odata.context": "http://api.purdue.io/odata/$metadata#Courses",
+    "value": [
+      {
+        "Id": "03bf1e72-738f-4630-b6d0-eab42547bded",
+        "Number": "53200",
+        "SubjectId": "25183622-2773-4f40-a3cd-c9c909fc6cad",
+        "Title": "Orbit Mechanics",
+        "CreditHours": 3.0,
+        "Description": ""
+      },
+      {
+        "Id": "0dae7287-89c7-4a7a-8a51-19706ac97638",
+        "Number": "45100",
+        "SubjectId": "25183622-2773-4f40-a3cd-c9c909fc6cad",
+        "Title": "Aircraft Design",
+        "CreditHours": 3.0,
+        "Description": ""
+      }
+    ]
+  }
+}

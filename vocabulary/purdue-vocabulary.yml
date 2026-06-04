@@ -1,0 +1,48 @@
+vocabulary:
+  name: Purdue.io Course Catalog Vocabulary
+  description: >-
+    Controlled vocabulary for the core domain terms exposed by the Purdue.io
+    OData course catalog API, derived from the live OData v4 $metadata entity
+    model (campuses, buildings, rooms, terms, courses, classes, sections,
+    meetings, subjects, instructors).
+  version: "1.0.0"
+  terms:
+    - term: Campus
+      definition: A physical Purdue campus location, identified by a code such as PWL (West Lafayette).
+      tags: [location, entity]
+    - term: Building
+      definition: A building belonging to a campus, identified by name and short code.
+      tags: [location, entity]
+    - term: Room
+      definition: A room within a building, identified by a room number.
+      tags: [location, entity]
+    - term: Term
+      definition: An academic term or semester with a code, name, start date and end date.
+      tags: [time, entity]
+    - term: Subject
+      definition: An academic subject/discipline with a name and abbreviation (e.g. AAE for Aeronautics & Astronautics).
+      tags: [academic, entity]
+    - term: Course
+      definition: A catalog course belonging to a subject, with a number, title, credit hours and description.
+      tags: [academic, entity]
+    - term: Class
+      definition: An offering of a course within a specific term on a specific campus.
+      tags: [academic, scheduling, entity]
+    - term: Section
+      definition: A scheduled section of a class identified by a CRN (Course Reference Number), with a type and date range.
+      tags: [scheduling, entity]
+    - term: Meeting
+      definition: A scheduled meeting of a section, with days of week, start time, duration, room and instructors.
+      tags: [scheduling, entity]
+    - term: Instructor
+      definition: A person who teaches one or more meetings, identified by name and email.
+      tags: [people, entity]
+    - term: CRN
+      definition: Course Reference Number, the registration identifier for a section.
+      tags: [scheduling, identifier]
+    - term: CreditHours
+      definition: The number of credit hours a course awards.
+      tags: [academic, measure]
+    - term: DaysOfWeek
+      definition: A flags enumeration of the days a meeting occurs (Monday through Sunday, combinable).
+      tags: [scheduling, enumeration]

@@ -40,6 +40,32 @@ apis:
         url: https://github.com/Purdue-io/PurdueApi
       - type: GitHub
         url: https://github.com/Purdue-io
+      - type: OpenAPI
+        url: openapi/purdue-catalog.yaml
+      - type: JSONSchema
+        url: json-schema/purdue-course-schema.json
+      - type: JSONSchema
+        url: json-schema/purdue-subject-schema.json
+      - type: JSONSchema
+        url: json-schema/purdue-section-schema.json
+      - type: JSONSchema
+        url: json-schema/purdue-meeting-schema.json
+      - type: JSONStructure
+        url: json-structure/purdue-course-structure.json
+      - type: JSONStructure
+        url: json-structure/purdue-section-structure.json
+      - type: Example
+        url: examples/purdue-listCourses-example.json
+      - type: Example
+        url: examples/purdue-listSubjects-example.json
+      - type: Example
+        url: examples/purdue-listCampuses-example.json
+      - type: Rules
+        url: rules/purdue-rules.yml
+      - type: Vocabulary
+        url: vocabulary/purdue-vocabulary.yml
+      - type: JSONLD
+        url: json-ld/purdue-context.jsonld
   - aid: purdue:purr-oaipmh
     name: PURR OAI-PMH Metadata API
     description: >-
@@ -68,6 +94,8 @@ common:
     url: finops/purdue-finops.yml
   - type: Review
     url: review.yml
+  - type: JSONLD
+    url: json-ld/purdue-context.jsonld
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

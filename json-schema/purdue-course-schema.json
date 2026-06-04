@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/purdue/main/json-schema/purdue-course-schema.json",
+  "title": "Course",
+  "description": "A Purdue course in the Purdue.io OData course catalog. Derived from the live OData v4 $metadata for the PurdueIo.Database.Models.Course entity type.",
+  "type": "object",
+  "required": ["Id", "CreditHours"],
+  "additionalProperties": false,
+  "properties": {
+    "Id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier (Edm.Guid)."
+    },
+    "Number": {
+      "type": ["string", "null"],
+      "description": "Course number, e.g. 53200."
+    },
+    "SubjectId": {
+      "type": ["string", "null"],
+      "format": "uuid",
+      "description": "Foreign key to the owning Subject."
+    },
+    "Title": {
+      "type": ["string", "null"],
+      "description": "Human-readable course title."
+    },
+    "CreditHours": {
+      "type": "number",
+      "description": "Credit hours awarded for the course (Edm.Double)."
+    },
+    "Description": {
+      "type": ["string", "null"],
+      "description": "Course catalog description."
+    }
+  }
+}

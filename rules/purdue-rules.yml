@@ -1,0 +1,60 @@
+extends: [[spectral:oas, off]]
+formats:
+  - oas3
+documentationUrl: https://github.com/Purdue-io/PurdueApi
+rules:
+  purdue-info-contact:
+    description: API info must include a contact pointing at the Purdue.io project.
+    severity: warn
+    given: $.info
+    then:
+      field: contact
+      function: truthy
+  purdue-server-is-odata:
+    description: The server URL should be the Purdue.io OData base.
+    severity: error
+    given: $.servers[*].url
+    then:
+      function: pattern
+      functionOptions:
+        match: "^https://api\\.purdue\\.io/odata$"
+  purdue-operation-ids:
+    description: Every operation must declare an operationId.
+    severity: error
+    given: $.paths[*][*]
+    then:
+      field: operationId
+      function: truthy
+  purdue-entity-id-is-uuid:
+    description: Entity Id properties must be declared as string/uuid (OData Edm.Guid).
+    severity: warn
+    given: $.components.schemas[*].properties.Id
+    then:
+      - field: type
+        function: pattern
+        functionOptions:
+          match: "^string$"
+      - field: format
+        function: pattern
+        functionOptions:
+          match: "^uuid$"
+  purdue-collections-have-value-array:
+    description: OData collection wrappers must expose a value array property.
+    severity: warn
+    given: $.components.schemas[?(@property.match(/Collection$/))].properties
+    then:
+      field: value
+      function: truthy
+  purdue-read-only:
+    description: This is a read-only catalog; write methods are not expected.
+    severity: error
+    given: $.paths[*]
+    then:
+      - field: post
+        function: falsy
+      - field: put
+        function: falsy
+      - field: patch
+        function: falsy
+      - field: delete
+        function: falsy

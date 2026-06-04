@@ -1,0 +1,26 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.purdue.io/odata/Subjects"
+  },
+  "response": {
+    "@odata.context": "http://api.purdue.io/odata/$metadata#Subjects",
+    "value": [
+      {
+        "Id": "06e59f90-813a-4e1f-ab2f-a9b60c13debf",
+        "Name": "Theatre",
+        "Abbreviation": "THTR"
+      },
+      {
+        "Id": "09701eb6-87a0-4d07-b2c0-3f9bdb9b050c",
+        "Name": "Engineering",
+        "Abbreviation": "ENGR"
+      },
+      {
+        "Id": "0a03aa37-5e25-4342-bf76-c2de359405fc",
+        "Name": "Japanese",
+        "Abbreviation": "JPNS"
+      }
+    ]
+  }
+}

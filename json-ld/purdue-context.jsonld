@@ -1,0 +1,56 @@
+{
+  "@context": {
+    "schema": "https://schema.org/",
+    "purdue": "https://api.purdue.io/odata/vocab#",
+    "@vocab": "https://api.purdue.io/odata/vocab#",
+    "name": "schema:name",
+    "url": "schema:url",
+    "institution": {
+      "@id": "schema:CollegeOrUniversity",
+      "@type": "@id"
+    },
+    "Campus": "purdue:Campus",
+    "Building": "purdue:Building",
+    "Room": "purdue:Room",
+    "Term": "purdue:Term",
+    "Subject": "purdue:Subject",
+    "Course": {
+      "@id": "purdue:Course",
+      "@type": "schema:Course"
+    },
+    "Class": "purdue:Class",
+    "Section": "purdue:Section",
+    "Meeting": "purdue:Meeting",
+    "Instructor": {
+      "@id": "purdue:Instructor",
+      "@type": "schema:Person"
+    },
+    "Id": "schema:identifier",
+    "Code": "schema:identifier",
+    "ShortCode": "schema:identifier",
+    "Abbreviation": "schema:alternateName",
+    "Number": "schema:courseCode",
+    "Title": "schema:name",
+    "Description": "schema:description",
+    "CreditHours": "schema:numberOfCredits",
+    "Crn": "purdue:crn",
+    "ZipCode": "schema:postalCode",
+    "Email": "schema:email",
+    "StartDate": "schema:startDate",
+    "EndDate": "schema:endDate",
+    "StartTime": "schema:startTime",
+    "Duration": "schema:duration",
+    "DaysOfWeek": "schema:byDay",
+    "CampusId": "purdue:campusId",
+    "BuildingId": "purdue:buildingId",
+    "SubjectId": "purdue:subjectId",
+    "CourseId": "purdue:courseId",
+    "TermId": "purdue:termId",
+    "ClassId": "purdue:classId",
+    "SectionId": "purdue:sectionId",
+    "RoomId": "purdue:roomId"
+  },
+  "@type": "schema:CollegeOrUniversity",
+  "name": "Purdue University",
+  "url": "https://www.purdue.edu/"
+}

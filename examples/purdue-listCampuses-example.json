@@ -1,0 +1,29 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.purdue.io/odata/Campuses"
+  },
+  "response": {
+    "@odata.context": "http://api.purdue.io/odata/$metadata#Campuses",
+    "value": [
+      {
+        "Id": "411b2fab-8a93-4c69-8965-8faf78ccf1ea",
+        "Code": "CEC",
+        "Name": "West Lafayette Continuing Ed Campus",
+        "ZipCode": ""
+      },
+      {
+        "Id": "eb70e97b-3583-4ac9-86e5-468ad3869de8",
+        "Code": "PWL",
+        "Name": "West Lafayette Campus",
+        "ZipCode": ""
+      },
+      {
+        "Id": "bd06ddd9-8aa7-410e-b15a-798db3fbfc9e",
+        "Code": "PIU",
+        "Name": "IUPUI Campus",
+        "ZipCode": ""
+      }
+    ]
+  }
+}

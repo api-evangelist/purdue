@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/purdue/main/json-schema/purdue-subject-schema.json",
+  "title": "Subject",
+  "description": "A Purdue subject (academic department/discipline) in the Purdue.io OData course catalog. Derived from the live OData v4 $metadata for the PurdueIo.Database.Models.Subject entity type.",
+  "type": "object",
+  "required": ["Id"],
+  "additionalProperties": false,
+  "properties": {
+    "Id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier (Edm.Guid)."
+    },
+    "Name": {
+      "type": ["string", "null"],
+      "description": "Subject name, e.g. Aeronautics & Astronautics."
+    },
+    "Abbreviation": {
+      "type": ["string", "null"],
+      "description": "Subject abbreviation/code, e.g. AAE."
+    }
+  }
+}

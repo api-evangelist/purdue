@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/purdue/main/json-schema/purdue-section-schema.json",
+  "title": "Section",
+  "description": "A scheduled section of a class in the Purdue.io OData course catalog. Derived from the live OData v4 $metadata for the PurdueIo.Database.Models.Section entity type.",
+  "type": "object",
+  "required": ["Id"],
+  "additionalProperties": false,
+  "properties": {
+    "Id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier (Edm.Guid)."
+    },
+    "Crn": {
+      "type": ["string", "null"],
+      "description": "Course Reference Number."
+    },
+    "ClassId": {
+      "type": ["string", "null"],
+      "format": "uuid",
+      "description": "Foreign key to the owning Class."
+    },
+    "Type": {
+      "type": ["string", "null"],
+      "description": "Section type."
+    },
+    "StartDate": {
+      "type": ["string", "null"],
+      "format": "date",
+      "description": "Section start date (Edm.Date)."
+    },
+    "EndDate": {
+      "type": ["string", "null"],
+      "format": "date",
+      "description": "Section end date (Edm.Date)."
+    }
+  }
+}

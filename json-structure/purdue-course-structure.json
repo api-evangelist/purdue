@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/purdue/main/json-structure/purdue-course-structure.json",
+  "name": "Course",
+  "description": "JSON Structure for a Purdue.io course catalog Course object.",
+  "type": "object",
+  "properties": {
+    "Id": { "type": "string", "description": "Unique identifier (GUID)." },
+    "Number": { "type": "string", "description": "Course number." },
+    "SubjectId": { "type": "string", "description": "GUID of the owning subject." },
+    "Title": { "type": "string", "description": "Course title." },
+    "CreditHours": { "type": "double", "description": "Credit hours awarded." },
+    "Description": { "type": "string", "description": "Course catalog description." }
+  },
+  "required": ["Id", "CreditHours"]
+}
