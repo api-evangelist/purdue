@@ -1,0 +1,43 @@
+---
+name: Purdue University
+description: Purdue University public developer/API footprint review for APIs.json cataloging.
+url: https://raw.githubusercontent.com/api-evangelist/purdue/refs/heads/main/review.yml
+created: '2026-06-03'
+modified: '2026-06-03'
+reviews:
+  - date: '2026-06-03'
+    rating: 2
+    summary: >-
+      No single centralized Purdue developer portal was found. Two public,
+      machine-readable APIs were verified live: the community-built Purdue.io OData
+      course-catalog API (api.purdue.io/odata returned real Subjects/entity-set data)
+      and the PURR OAI-PMH research metadata endpoint (Identify verb returned valid
+      OAI-PMH XML). The Purdue Libraries API host resolves but serves only a placeholder
+      page ("Libraries API documentation goes here..."). Official GitHub orgs Purdue and
+      Purdue-io were confirmed via the GitHub API. No fabricated endpoints; all entries
+      reflect probed, observed responses.
+    endpoints:
+      - url: https://api.purdue.io/odata/
+        status: 200
+        note: OData service document listing entity sets (Courses, Subjects, Terms, etc.).
+      - url: https://api.purdue.io/odata/Subjects
+        status: 200
+        note: Returned real course-subject records; API confirmed live.
+      - url: https://purr.purdue.edu/oaipmh?verb=Identify
+        status: 200
+        note: Valid OAI-PMH Identify response for Purdue University Research Repository.
+      - url: https://purr.purdue.edu/kb/finduse/oaipmh
+        status: 200
+        note: PURR knowledge-base page documenting the OAI-PMH endpoint and supported verbs.
+      - url: https://api.lib.purdue.edu/
+        status: 200
+        note: Placeholder only; body reads "Libraries API documentation goes here..." — no real API.
+      - url: https://github.com/Purdue
+        status: 200
+        note: Official Purdue University GitHub org (14 public repos, verified via GitHub API).
+      - url: https://github.com/Purdue-io
+        status: 200
+        note: Purdue.io org hosting the PurdueApi course-catalog codebase.
+      - url: https://www.purdue.edu/
+        status: 200
+        note: Official institution website.
