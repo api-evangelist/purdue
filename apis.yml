@@ -54,11 +54,11 @@ apis:
         url: json-structure/purdue-course-structure.json
       - type: JSONStructure
         url: json-structure/purdue-section-structure.json
-      - type: Example
+      - type: Examples
         url: examples/purdue-listCourses-example.json
-      - type: Example
+      - type: Examples
         url: examples/purdue-listSubjects-example.json
-      - type: Example
+      - type: Examples
         url: examples/purdue-listCampuses-example.json
       - type: Rules
         url: rules/purdue-rules.yml
