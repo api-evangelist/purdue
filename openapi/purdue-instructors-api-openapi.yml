@@ -1,0 +1,417 @@
+openapi: 3.0.3
+info:
+  title: Purdue.io Course Catalog Buildings Instructors API
+  description: 'A community-built, public OData v4 REST API exposing Purdue University''s course catalog data, including Campuses, Buildings, Rooms, Terms, Courses, Classes, Sections, Meetings, Subjects and Instructors. This OpenAPI 3.0 description was converted faithfully from the live OData v4 $metadata (EDMX 4.0) document at https://api.purdue.io/odata/$metadata and verified against live responses. Entities are queryable via standard OData system query options. Note: the live service disables the $top option (limit 0); use $skip with server-driven paging instead.'
+  version: '4.0'
+  contact:
+    name: Purdue.io
+    url: https://github.com/Purdue-io/PurdueApi
+  license:
+    name: MIT
+    url: https://github.com/Purdue-io/PurdueApi/blob/master/LICENSE
+servers:
+- url: https://api.purdue.io/odata
+  description: Purdue.io OData production service
+tags:
+- name: Instructors
+paths:
+  /Instructors:
+    get:
+      tags:
+      - Instructors
+      operationId: listInstructors
+      summary: List instructors
+      parameters:
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/select'
+      - $ref: '#/components/parameters/expand'
+      - $ref: '#/components/parameters/orderby'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/count'
+      responses:
+        '200':
+          description: A collection of instructors.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstructorCollection'
+  /Instructors({Id}):
+    get:
+      tags:
+      - Instructors
+      operationId: getInstructor
+      summary: Get an instructor by Id
+      parameters:
+      - $ref: '#/components/parameters/keyId'
+      - $ref: '#/components/parameters/select'
+      - $ref: '#/components/parameters/expand'
+      responses:
+        '200':
+          description: A single instructor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Instructor'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    Campus:
+      type: object
+      properties:
+        Id:
+          type: string
+          format: uuid
+        Code:
+          type: string
+          nullable: true
+        Name:
+          type: string
+          nullable: true
+        ZipCode:
+          type: string
+          nullable: true
+        Buildings:
+          type: array
+          items:
+            $ref: '#/components/schemas/Building'
+        Classes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Class'
+      required:
+      - Id
+    Section:
+      type: object
+      properties:
+        Id:
+          type: string
+          format: uuid
+        Crn:
+          type: string
+          nullable: true
+        ClassId:
+          type: string
+          format: uuid
+          nullable: true
+        Type:
+          type: string
+          nullable: true
+        StartDate:
+          type: string
+          format: date
+          nullable: true
+        EndDate:
+          type: string
+          format: date
+          nullable: true
+        Class:
+          $ref: '#/components/schemas/Class'
+        Meetings:
+          type: array
+          items:
+            $ref: '#/components/schemas/Meeting'
+      required:
+      - Id
+    Subject:
+      type: object
+      properties:
+        Id:
+          type: string
+          format: uuid
+        Name:
+          type: string
+          nullable: true
+        Abbreviation:
+          type: string
+          nullable: true
+        Courses:
+          type: array
+          items:
+            $ref: '#/components/schemas/Course'
+      required:
+      - Id
+    Class:
+      type: object
+      properties:
+        Id:
+          type: string
+          format: uuid
+        CourseId:
+          type: string
+          format: uuid
+          nullable: true
+        TermId:
+          type: string
+          format: uuid
+          nullable: true
+        CampusId:
+          type: string
+          format: uuid
+          nullable: true
+        Course:
+          $ref: '#/components/schemas/Course'
+        Term:
+          $ref: '#/components/schemas/Term'
+        Campus:
+          $ref: '#/components/schemas/Campus'
+        Sections:
+          type: array
+          items:
+            $ref: '#/components/schemas/Section'
+      required:
+      - Id
+    Building:
+      type: object
+      properties:
+        Id:
+          type: string
+          format: uuid
+        CampusId:
+          type: string
+          format: uuid
+          nullable: true
+        Name:
+          type: string
+          nullable: true
+        ShortCode:
+          type: string
+          nullable: true
+        Campus:
+          $ref: '#/components/schemas/Campus'
+        Rooms:
+          type: array
+          items:
+            $ref: '#/components/schemas/Room'
+      required:
+      - Id
+    Room:
+      type: object
+      properties:
+        Id:
+          type: string
+          format: uuid
+        Number:
+          type: string
+          nullable: true
+        BuildingId:
+          type: string
+          format: uuid
+          nullable: true
+        Building:
+          $ref: '#/components/schemas/Building'
+      required:
+      - Id
+    DaysOfWeek:
+      description: Flags enumeration of meeting days (Edm enum, IsFlags=true, byte underlying type). Values may be combined as a comma-separated string.
+      type: string
+      enum:
+      - None
+      - Monday
+      - Tuesday
+      - Wednesday
+      - Thursday
+      - Friday
+      - Saturday
+      - Sunday
+    Meeting:
+      type: object
+      properties:
+        Id:
+          type: string
+          format: uuid
+        SectionId:
+          type: string
+          format: uuid
+          nullable: true
+        Type:
+          type: string
+          nullable: true
+        StartDate:
+          type: string
+          format: date
+          nullable: true
+        EndDate:
+          type: string
+          format: date
+          nullable: true
+        DaysOfWeek:
+          $ref: '#/components/schemas/DaysOfWeek'
+        StartTime:
+          type: string
+          description: OData Edm.TimeOfDay value (HH:mm:ss.fffffff).
+          nullable: true
+        Duration:
+          type: string
+          description: OData Edm.Duration value (ISO 8601 duration).
+        RoomId:
+          type: string
+          format: uuid
+          nullable: true
+        Section:
+          $ref: '#/components/schemas/Section'
+        Instructors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Instructor'
+        Room:
+          $ref: '#/components/schemas/Room'
+      required:
+      - Id
+      - DaysOfWeek
+      - Duration
+    ODataError:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+    InstructorCollection:
+      type: object
+      properties:
+        '@odata.context':
+          type: string
+        '@odata.count':
+          type: integer
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/Instructor'
+    Course:
+      type: object
+      properties:
+        Id:
+          type: string
+          format: uuid
+        Number:
+          type: string
+          nullable: true
+        SubjectId:
+          type: string
+          format: uuid
+          nullable: true
+        Title:
+          type: string
+          nullable: true
+        CreditHours:
+          type: number
+          format: double
+        Description:
+          type: string
+          nullable: true
+        Subject:
+          $ref: '#/components/schemas/Subject'
+        Classes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Class'
+      required:
+      - Id
+      - CreditHours
+    Instructor:
+      type: object
+      properties:
+        Id:
+          type: string
+          format: uuid
+        Name:
+          type: string
+          nullable: true
+        Email:
+          type: string
+          nullable: true
+        Meetings:
+          type: array
+          items:
+            $ref: '#/components/schemas/Meeting'
+      required:
+      - Id
+    Term:
+      type: object
+      properties:
+        Id:
+          type: string
+          format: uuid
+        Code:
+          type: string
+          nullable: true
+        Name:
+          type: string
+          nullable: true
+        StartDate:
+          type: string
+          format: date
+          nullable: true
+        EndDate:
+          type: string
+          format: date
+          nullable: true
+        Classes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Class'
+      required:
+      - Id
+  parameters:
+    skip:
+      name: $skip
+      in: query
+      required: false
+      description: OData $skip count for server-driven paging.
+      schema:
+        type: integer
+        minimum: 0
+    keyId:
+      name: Id
+      in: path
+      required: true
+      description: The GUID key of the entity.
+      schema:
+        type: string
+        format: uuid
+    orderby:
+      name: $orderby
+      in: query
+      required: false
+      description: OData $orderby expression for sorting the entities returned.
+      schema:
+        type: string
+    expand:
+      name: $expand
+      in: query
+      required: false
+      description: OData $expand comma-separated list of related entities to include.
+      schema:
+        type: string
+    count:
+      name: $count
+      in: query
+      required: false
+      description: When true, requests the total count of matching entities.
+      schema:
+        type: boolean
+    select:
+      name: $select
+      in: query
+      required: false
+      description: OData $select comma-separated list of properties to return.
+      schema:
+        type: string
+    filter:
+      name: $filter
+      in: query
+      required: false
+      description: OData $filter expression for restricting the entities returned.
+      schema:
+        type: string
+  responses:
+    NotFound:
+      description: The requested entity was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ODataError'
