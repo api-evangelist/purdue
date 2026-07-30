@@ -10,9 +10,21 @@ description: >-
   Purdue University Research Repository (PURR) OAI-PMH metadata endpoint. A Purdue
   Libraries API host exists but currently serves only a placeholder page.
 type: Index
+accessModel:
+  pricing: free
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Free
+  confidence: medium
+  source:
+  - plans
+  generated: '2026-07-22'
+  method: derived
 position: Consumer
 access: 3rd-Party
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/purdue.png
 url: https://raw.githubusercontent.com/api-evangelist/purdue/refs/heads/main/apis.yml
 tags:
   - Education
@@ -25,60 +37,404 @@ created: '2026-06-03'
 modified: '2026-06-03'
 specificationVersion: '0.19'
 apis:
-  - aid: purdue:catalog
-    name: Purdue.io Course Catalog API
-    description: >-
-      A community-built, public OData/REST API exposing Purdue's course catalog data,
-      including Campuses, Buildings, Rooms, Terms, Courses, Subjects, Sections and
-      related entities. Started as a Purdue CS senior design project; queryable via
-      standard OData query options. Confirmed live returning real catalog data.
-    humanURL: https://github.com/Purdue-io/PurdueApi
-    baseURL: https://api.purdue.io/odata/
-    tags: [ Courses, Catalog, OData, Education, Course Catalog ]
-    properties:
-      - type: Documentation
-        url: https://github.com/Purdue-io/PurdueApi
-      - type: GitHub
-        url: https://github.com/Purdue-io
-      - type: OpenAPI
-        url: openapi/purdue-catalog.yaml
-      - type: JSONSchema
-        url: json-schema/purdue-course-schema.json
-      - type: JSONSchema
-        url: json-schema/purdue-subject-schema.json
-      - type: JSONSchema
-        url: json-schema/purdue-section-schema.json
-      - type: JSONSchema
-        url: json-schema/purdue-meeting-schema.json
-      - type: JSONStructure
-        url: json-structure/purdue-course-structure.json
-      - type: JSONStructure
-        url: json-structure/purdue-section-structure.json
-      - type: Examples
-        url: examples/purdue-listCourses-example.json
-      - type: Examples
-        url: examples/purdue-listSubjects-example.json
-      - type: Examples
-        url: examples/purdue-listCampuses-example.json
-      - type: Rules
-        url: rules/purdue-rules.yml
-      - type: Vocabulary
-        url: vocabulary/purdue-vocabulary.yml
-      - type: JSONLD
-        url: json-ld/purdue-context.jsonld
-  - aid: purdue:purr-oaipmh
-    name: PURR OAI-PMH Metadata API
-    description: >-
-      The Purdue University Research Repository (PURR) exposes an OAI-PMH endpoint for
-      harvesting research dataset metadata, supporting standard verbs (Identify,
-      ListSets, ListMetadataFormats, ListIdentifiers, ListRecords, GetRecord) with the
-      oai_dc (Dublin Core) metadata prefix. Confirmed live via the Identify verb.
-    humanURL: https://purr.purdue.edu/kb/finduse/oaipmh
-    baseURL: https://purr.purdue.edu/oaipmh
-    tags: [ Research, Repository, OAI-PMH, Metadata, Open Data ]
-    properties:
-      - type: Documentation
-        url: https://purr.purdue.edu/kb/finduse/oaipmh
+- aid: purdue:purr-oaipmh
+  name: PURR OAI-PMH Metadata API
+  description: >-
+    The Purdue University Research Repository (PURR) exposes an OAI-PMH endpoint for harvesting research
+    dataset metadata, supporting standard verbs (Identify, ListSets, ListMetadataFormats, ListIdentifiers,
+    ListRecords, GetRecord) with the oai_dc (Dublin Core) metadata prefix. Confirmed live via the Identify
+    verb.
+  humanURL: https://purr.purdue.edu/kb/finduse/oaipmh
+  baseURL: https://purr.purdue.edu/oaipmh
+  tags:
+  - Research
+  - Repository
+  - OAI-PMH
+  - Metadata
+  - Open Data
+  properties:
+  - type: Documentation
+    url: https://purr.purdue.edu/kb/finduse/oaipmh
+- aid: purdue:purdue-buildings-api
+  name: Purdue University Buildings API
+  description: The Buildings API from Purdue University — 2 operation(s) for buildings.
+  humanURL: https://github.com/Purdue-io/PurdueApi
+  baseURL: https://api.purdue.io/odata/
+  tags:
+  - Buildings
+  properties:
+  - type: OpenAPI
+    url: openapi/purdue-buildings-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/Purdue-io/PurdueApi
+  - type: GitHub
+    url: https://github.com/Purdue-io
+  - type: JSONSchema
+    url: json-schema/purdue-course-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-subject-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-section-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-meeting-schema.json
+  - type: JSONStructure
+    url: json-structure/purdue-course-structure.json
+  - type: JSONStructure
+    url: json-structure/purdue-section-structure.json
+  - type: Examples
+    url: examples/purdue-listCourses-example.json
+  - type: Examples
+    url: examples/purdue-listSubjects-example.json
+  - type: Examples
+    url: examples/purdue-listCampuses-example.json
+  - type: Rules
+    url: rules/purdue-rules.yml
+  - type: Vocabulary
+    url: vocabulary/purdue-vocabulary.yml
+  - type: JSONLD
+    url: json-ld/purdue-context.jsonld
+- aid: purdue:purdue-campuses-api
+  name: Purdue University Campuses API
+  description: The Campuses API from Purdue University — 2 operation(s) for campuses.
+  humanURL: https://github.com/Purdue-io/PurdueApi
+  baseURL: https://api.purdue.io/odata/
+  tags:
+  - Campuses
+  properties:
+  - type: OpenAPI
+    url: openapi/purdue-campuses-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/Purdue-io/PurdueApi
+  - type: GitHub
+    url: https://github.com/Purdue-io
+  - type: JSONSchema
+    url: json-schema/purdue-course-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-subject-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-section-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-meeting-schema.json
+  - type: JSONStructure
+    url: json-structure/purdue-course-structure.json
+  - type: JSONStructure
+    url: json-structure/purdue-section-structure.json
+  - type: Examples
+    url: examples/purdue-listCourses-example.json
+  - type: Examples
+    url: examples/purdue-listSubjects-example.json
+  - type: Examples
+    url: examples/purdue-listCampuses-example.json
+  - type: Rules
+    url: rules/purdue-rules.yml
+  - type: Vocabulary
+    url: vocabulary/purdue-vocabulary.yml
+  - type: JSONLD
+    url: json-ld/purdue-context.jsonld
+- aid: purdue:purdue-classes-api
+  name: Purdue University Classes API
+  description: The Classes API from Purdue University — 2 operation(s) for classes.
+  humanURL: https://github.com/Purdue-io/PurdueApi
+  baseURL: https://api.purdue.io/odata/
+  tags:
+  - Classes
+  properties:
+  - type: OpenAPI
+    url: openapi/purdue-classes-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/Purdue-io/PurdueApi
+  - type: GitHub
+    url: https://github.com/Purdue-io
+  - type: JSONSchema
+    url: json-schema/purdue-course-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-subject-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-section-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-meeting-schema.json
+  - type: JSONStructure
+    url: json-structure/purdue-course-structure.json
+  - type: JSONStructure
+    url: json-structure/purdue-section-structure.json
+  - type: Examples
+    url: examples/purdue-listCourses-example.json
+  - type: Examples
+    url: examples/purdue-listSubjects-example.json
+  - type: Examples
+    url: examples/purdue-listCampuses-example.json
+  - type: Rules
+    url: rules/purdue-rules.yml
+  - type: Vocabulary
+    url: vocabulary/purdue-vocabulary.yml
+  - type: JSONLD
+    url: json-ld/purdue-context.jsonld
+- aid: purdue:purdue-courses-api
+  name: Purdue University Courses API
+  description: The Courses API from Purdue University — 2 operation(s) for courses.
+  humanURL: https://github.com/Purdue-io/PurdueApi
+  baseURL: https://api.purdue.io/odata/
+  tags:
+  - Courses
+  properties:
+  - type: OpenAPI
+    url: openapi/purdue-courses-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/Purdue-io/PurdueApi
+  - type: GitHub
+    url: https://github.com/Purdue-io
+  - type: JSONSchema
+    url: json-schema/purdue-course-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-subject-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-section-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-meeting-schema.json
+  - type: JSONStructure
+    url: json-structure/purdue-course-structure.json
+  - type: JSONStructure
+    url: json-structure/purdue-section-structure.json
+  - type: Examples
+    url: examples/purdue-listCourses-example.json
+  - type: Examples
+    url: examples/purdue-listSubjects-example.json
+  - type: Examples
+    url: examples/purdue-listCampuses-example.json
+  - type: Rules
+    url: rules/purdue-rules.yml
+  - type: Vocabulary
+    url: vocabulary/purdue-vocabulary.yml
+  - type: JSONLD
+    url: json-ld/purdue-context.jsonld
+- aid: purdue:purdue-instructors-api
+  name: Purdue University Instructors API
+  description: The Instructors API from Purdue University — 2 operation(s) for instructors.
+  humanURL: https://github.com/Purdue-io/PurdueApi
+  baseURL: https://api.purdue.io/odata/
+  tags:
+  - Instructors
+  properties:
+  - type: OpenAPI
+    url: openapi/purdue-instructors-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/Purdue-io/PurdueApi
+  - type: GitHub
+    url: https://github.com/Purdue-io
+  - type: JSONSchema
+    url: json-schema/purdue-course-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-subject-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-section-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-meeting-schema.json
+  - type: JSONStructure
+    url: json-structure/purdue-course-structure.json
+  - type: JSONStructure
+    url: json-structure/purdue-section-structure.json
+  - type: Examples
+    url: examples/purdue-listCourses-example.json
+  - type: Examples
+    url: examples/purdue-listSubjects-example.json
+  - type: Examples
+    url: examples/purdue-listCampuses-example.json
+  - type: Rules
+    url: rules/purdue-rules.yml
+  - type: Vocabulary
+    url: vocabulary/purdue-vocabulary.yml
+  - type: JSONLD
+    url: json-ld/purdue-context.jsonld
+- aid: purdue:purdue-meetings-api
+  name: Purdue University Meetings API
+  description: The Meetings API from Purdue University — 2 operation(s) for meetings.
+  humanURL: https://github.com/Purdue-io/PurdueApi
+  baseURL: https://api.purdue.io/odata/
+  tags:
+  - Meetings
+  properties:
+  - type: OpenAPI
+    url: openapi/purdue-meetings-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/Purdue-io/PurdueApi
+  - type: GitHub
+    url: https://github.com/Purdue-io
+  - type: JSONSchema
+    url: json-schema/purdue-course-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-subject-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-section-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-meeting-schema.json
+  - type: JSONStructure
+    url: json-structure/purdue-course-structure.json
+  - type: JSONStructure
+    url: json-structure/purdue-section-structure.json
+  - type: Examples
+    url: examples/purdue-listCourses-example.json
+  - type: Examples
+    url: examples/purdue-listSubjects-example.json
+  - type: Examples
+    url: examples/purdue-listCampuses-example.json
+  - type: Rules
+    url: rules/purdue-rules.yml
+  - type: Vocabulary
+    url: vocabulary/purdue-vocabulary.yml
+  - type: JSONLD
+    url: json-ld/purdue-context.jsonld
+- aid: purdue:purdue-rooms-api
+  name: Purdue University Rooms API
+  description: The Rooms API from Purdue University — 2 operation(s) for rooms.
+  humanURL: https://github.com/Purdue-io/PurdueApi
+  baseURL: https://api.purdue.io/odata/
+  tags:
+  - Rooms
+  properties:
+  - type: OpenAPI
+    url: openapi/purdue-rooms-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/Purdue-io/PurdueApi
+  - type: GitHub
+    url: https://github.com/Purdue-io
+  - type: JSONSchema
+    url: json-schema/purdue-course-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-subject-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-section-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-meeting-schema.json
+  - type: JSONStructure
+    url: json-structure/purdue-course-structure.json
+  - type: JSONStructure
+    url: json-structure/purdue-section-structure.json
+  - type: Examples
+    url: examples/purdue-listCourses-example.json
+  - type: Examples
+    url: examples/purdue-listSubjects-example.json
+  - type: Examples
+    url: examples/purdue-listCampuses-example.json
+  - type: Rules
+    url: rules/purdue-rules.yml
+  - type: Vocabulary
+    url: vocabulary/purdue-vocabulary.yml
+  - type: JSONLD
+    url: json-ld/purdue-context.jsonld
+- aid: purdue:purdue-sections-api
+  name: Purdue University Sections API
+  description: The Sections API from Purdue University — 2 operation(s) for sections.
+  humanURL: https://github.com/Purdue-io/PurdueApi
+  baseURL: https://api.purdue.io/odata/
+  tags:
+  - Sections
+  properties:
+  - type: OpenAPI
+    url: openapi/purdue-sections-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/Purdue-io/PurdueApi
+  - type: GitHub
+    url: https://github.com/Purdue-io
+  - type: JSONSchema
+    url: json-schema/purdue-course-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-subject-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-section-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-meeting-schema.json
+  - type: JSONStructure
+    url: json-structure/purdue-course-structure.json
+  - type: JSONStructure
+    url: json-structure/purdue-section-structure.json
+  - type: Examples
+    url: examples/purdue-listCourses-example.json
+  - type: Examples
+    url: examples/purdue-listSubjects-example.json
+  - type: Examples
+    url: examples/purdue-listCampuses-example.json
+  - type: Rules
+    url: rules/purdue-rules.yml
+  - type: Vocabulary
+    url: vocabulary/purdue-vocabulary.yml
+  - type: JSONLD
+    url: json-ld/purdue-context.jsonld
+- aid: purdue:purdue-subjects-api
+  name: Purdue University Subjects API
+  description: The Subjects API from Purdue University — 2 operation(s) for subjects.
+  humanURL: https://github.com/Purdue-io/PurdueApi
+  baseURL: https://api.purdue.io/odata/
+  tags:
+  - Subjects
+  properties:
+  - type: OpenAPI
+    url: openapi/purdue-subjects-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/Purdue-io/PurdueApi
+  - type: GitHub
+    url: https://github.com/Purdue-io
+  - type: JSONSchema
+    url: json-schema/purdue-course-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-subject-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-section-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-meeting-schema.json
+  - type: JSONStructure
+    url: json-structure/purdue-course-structure.json
+  - type: JSONStructure
+    url: json-structure/purdue-section-structure.json
+  - type: Examples
+    url: examples/purdue-listCourses-example.json
+  - type: Examples
+    url: examples/purdue-listSubjects-example.json
+  - type: Examples
+    url: examples/purdue-listCampuses-example.json
+  - type: Rules
+    url: rules/purdue-rules.yml
+  - type: Vocabulary
+    url: vocabulary/purdue-vocabulary.yml
+  - type: JSONLD
+    url: json-ld/purdue-context.jsonld
+- aid: purdue:purdue-terms-api
+  name: Purdue University Terms API
+  description: The Terms API from Purdue University — 2 operation(s) for terms.
+  humanURL: https://github.com/Purdue-io/PurdueApi
+  baseURL: https://api.purdue.io/odata/
+  tags:
+  - Terms
+  properties:
+  - type: OpenAPI
+    url: openapi/purdue-terms-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/Purdue-io/PurdueApi
+  - type: GitHub
+    url: https://github.com/Purdue-io
+  - type: JSONSchema
+    url: json-schema/purdue-course-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-subject-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-section-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-meeting-schema.json
+  - type: JSONStructure
+    url: json-structure/purdue-course-structure.json
+  - type: JSONStructure
+    url: json-structure/purdue-section-structure.json
+  - type: Examples
+    url: examples/purdue-listCourses-example.json
+  - type: Examples
+    url: examples/purdue-listSubjects-example.json
+  - type: Examples
+    url: examples/purdue-listCampuses-example.json
+  - type: Rules
+    url: rules/purdue-rules.yml
+  - type: Vocabulary
+    url: vocabulary/purdue-vocabulary.yml
+  - type: JSONLD
+    url: json-ld/purdue-context.jsonld
 common:
   - type: AgenticAccess
     url: agentic-access/purdue-agentic-access.yml
