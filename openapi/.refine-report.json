@@ -1,0 +1,32 @@
+{
+  "provider": "purdue",
+  "sources": [
+    "purdue-buildings-api-openapi.yml",
+    "purdue-campuses-api-openapi.yml",
+    "purdue-classes-api-openapi.yml",
+    "purdue-courses-api-openapi.yml",
+    "purdue-instructors-api-openapi.yml",
+    "purdue-meetings-api-openapi.yml",
+    "purdue-rooms-api-openapi.yml",
+    "purdue-sections-api-openapi.yml",
+    "purdue-subjects-api-openapi.yml",
+    "purdue-terms-api-openapi.yml"
+  ],
+  "outputs": [
+    "purdue-buildings-api-openapi.yml",
+    "purdue-campuses-api-openapi.yml",
+    "purdue-classes-api-openapi.yml",
+    "purdue-courses-api-openapi.yml",
+    "purdue-instructors-api-openapi.yml",
+    "purdue-meetings-api-openapi.yml",
+    "purdue-rooms-api-openapi.yml",
+    "purdue-sections-api-openapi.yml",
+    "purdue-subjects-api-openapi.yml",
+    "purdue-terms-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
