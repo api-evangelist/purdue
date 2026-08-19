@@ -1,0 +1,98 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Purdue.io Course Catalog Buildings Courses API",
+    "version": "4.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Courses",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List courses",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.purdue.io/odata/Courses",
+            "params": [
+              {
+                "name": "$filter",
+                "value": "",
+                "type": "query",
+                "description": "OData $filter expression for restricting the entities returned."
+              },
+              {
+                "name": "$select",
+                "value": "",
+                "type": "query",
+                "description": "OData $select comma-separated list of properties to return."
+              },
+              {
+                "name": "$expand",
+                "value": "",
+                "type": "query",
+                "description": "OData $expand comma-separated list of related entities to include."
+              },
+              {
+                "name": "$orderby",
+                "value": "",
+                "type": "query",
+                "description": "OData $orderby expression for sorting the entities returned."
+              },
+              {
+                "name": "$skip",
+                "value": "",
+                "type": "query",
+                "description": "OData $skip count for server-driven paging."
+              },
+              {
+                "name": "$count",
+                "value": "",
+                "type": "query",
+                "description": "When true, requests the total count of matching entities."
+              }
+            ]
+          },
+          "docs": "List courses"
+        },
+        {
+          "info": {
+            "name": "Get a course by Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.purdue.io/odata/Courses(:Id)",
+            "params": [
+              {
+                "name": "Id",
+                "value": "",
+                "type": "path",
+                "description": "The GUID key of the entity."
+              },
+              {
+                "name": "$select",
+                "value": "",
+                "type": "query",
+                "description": "OData $select comma-separated list of properties to return."
+              },
+              {
+                "name": "$expand",
+                "value": "",
+                "type": "query",
+                "description": "OData $expand comma-separated list of related entities to include."
+              }
+            ]
+          },
+          "docs": "Get a course by Id"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

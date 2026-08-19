@@ -1,0 +1,304 @@
+{
+  "item": [
+    {
+      "id": "f764d7f5-b60a-414d-a475-4f2d4cad2069",
+      "name": "Buildings",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bf5933a8-5de0-4cb0-937c-510b4db83b56",
+          "name": "List buildings",
+          "request": {
+            "name": "List buildings",
+            "description": {},
+            "url": {
+              "path": [
+                "Buildings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "$filter",
+                  "value": "<string>",
+                  "description": "OData $filter expression for restricting the entities returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "$select",
+                  "value": "<string>",
+                  "description": "OData $select comma-separated list of properties to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "$expand",
+                  "value": "<string>",
+                  "description": "OData $expand comma-separated list of related entities to include."
+                },
+                {
+                  "disabled": false,
+                  "key": "$orderby",
+                  "value": "<string>",
+                  "description": "OData $orderby expression for sorting the entities returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "$skip",
+                  "value": "<integer>",
+                  "description": "OData $skip count for server-driven paging."
+                },
+                {
+                  "disabled": false,
+                  "key": "$count",
+                  "value": "<boolean>",
+                  "description": "When true, requests the total count of matching entities."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9e899979-0248-480c-b35c-ae8c7e95b0c4",
+              "name": "A collection of buildings.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Buildings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "$filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "$select",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "$expand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "$orderby",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "$skip",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "$count",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"@odata.context\": \"string\",\n  \"@odata.count\": 6551,\n  \"value\": [\n    {\n      \"Id\": \"fd4e525c-cd18-d8fc-5028-9298b3764aea\",\n      \"CampusId\": \"ac807c28-fe49-2373-777a-971ca790b88e\",\n      \"Name\": \"string\",\n      \"ShortCode\": \"string\",\n      \"Campus\": {\n        \"Id\": \"ec8cbc4a-66ae-3c71-9c7f-2697ab500bce\",\n        \"Code\": \"string\",\n        \"Name\": \"string\",\n        \"ZipCode\": \"string\",\n        \"Buildings\": [\n          {\n            \"value\": \"<Circular reference to #/components/schemas/Building detected>\"\n          },\n          {\n            \"value\": \"<Circular reference to #/components/schemas/Building detected>\"\n          }\n        ],\n        \"Classes\": [\n          {\n            \"Id\": \"e4bdf905-2e13-c767-0120-a0addb818768\",\n            \"CourseId\": \"da514d3d-6640-3cf8-f59a-97bc2dc3c382\",\n            \"TermId\": \"9314857a-258f-c0d0-76b2-35aacb3af4e3\",\n            \"CampusId\": \"bcaef087-25b7-a8e1-123c-516082186587\",\n            \"Course\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"Term\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"Campus\": {\n              \"value\": \"<Circular reference to #/components/schemas/Campus detected>\"\n            },\n            \"Sections\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"Id\": \"0312cf98-8492-8058-b265-d86c7267c0ba\",\n            \"CourseId\": \"b5c8cd20-2679-0af8-8a20-06cd6217a7f4\",\n            \"TermId\": \"07811286-6adb-12e1-e8f4-09f9e5dafd31\",\n            \"CampusId\": \"082511c4-8d66-6558-084f-07ef5740833c\",\n            \"Course\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"Term\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"Campus\": {\n              \"value\": \"<Circular reference to #/components/schemas/Campus detected>\"\n            },\n            \"Sections\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      },\n      \"Rooms\": [\n        {\n          \"Id\": \"708fb44c-3322-72bc-b3c1-06bef08ba079\",\n          \"Number\": \"string\",\n          \"BuildingId\": \"df1b4dab-fcac-2408-8aa8-81817bf5987a\",\n          \"Building\": {\n            \"value\": \"<Circular reference to #/components/schemas/Building detected>\"\n          }\n        },\n        {\n          \"Id\": \"2dfc0a0b-c8c9-234a-d122-e5d58bc0f60e\",\n          \"Number\": \"string\",\n          \"BuildingId\": \"4fb0b518-b9cc-c799-810c-df71c2776eab\",\n          \"Building\": {\n            \"value\": \"<Circular reference to #/components/schemas/Building detected>\"\n          }\n        }\n      ]\n    },\n    {\n      \"Id\": \"8463579e-fafc-f170-37c2-d6a47e6e4ddf\",\n      \"CampusId\": \"be00b81f-5e79-7950-5e8c-f76454396ed9\",\n      \"Name\": \"string\",\n      \"ShortCode\": \"string\",\n      \"Campus\": {\n        \"Id\": \"5be4fb16-d3ba-8e2e-e525-232f82b00959\",\n        \"Code\": \"string\",\n        \"Name\": \"string\",\n        \"ZipCode\": \"string\",\n        \"Buildings\": [\n          {\n            \"value\": \"<Circular reference to #/components/schemas/Building detected>\"\n          },\n          {\n            \"value\": \"<Circular reference to #/components/schemas/Building detected>\"\n          }\n        ],\n        \"Classes\": [\n          {\n            \"Id\": \"f3f641f3-ea9a-dede-e8f0-52c19e963787\",\n            \"CourseId\": \"c144124d-5fcf-e260-77cd-a714700d0d81\",\n            \"TermId\": \"e0ca590d-3fb5-2773-5d80-701f9796ee37\",\n            \"CampusId\": \"7d3b0d5d-4970-eaae-a239-78b8c49ae756\",\n            \"Course\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"Term\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"Campus\": {\n              \"value\": \"<Circular reference to #/components/schemas/Campus detected>\"\n            },\n            \"Sections\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"Id\": \"11585b1e-1cf2-8cbb-fe04-b599ff4de4cd\",\n            \"CourseId\": \"0379d0da-7073-9e8a-c9a7-afde98459776\",\n            \"TermId\": \"a409242e-fc0e-0e25-9718-a8e4e6d5d8a0\",\n            \"CampusId\": \"ff78e589-aaa9-41fc-02ef-e5f2c311205a\",\n            \"Course\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"Term\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"Campus\": {\n              \"value\": \"<Circular reference to #/components/schemas/Campus detected>\"\n            },\n            \"Sections\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      },\n      \"Rooms\": [\n        {\n          \"Id\": \"2cd5817d-f46d-9571-52f4-ac7652cd3ef7\",\n          \"Number\": \"string\",\n          \"BuildingId\": \"9d956dfb-4860-6e64-0287-da126e9c35ab\",\n          \"Building\": {\n            \"value\": \"<Circular reference to #/components/schemas/Building detected>\"\n          }\n        },\n        {\n          \"Id\": \"a4bc85b5-6e3d-7490-5c3d-a532356e9cc8\",\n          \"Number\": \"string\",\n          \"BuildingId\": \"c501a782-6053-30b7-ee14-9b85d0a49cb2\",\n          \"Building\": {\n            \"value\": \"<Circular reference to #/components/schemas/Building detected>\"\n          }\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "054ab4be-0bb3-49bc-8d7d-f680f4b4af6d",
+          "name": "Get a building by Id",
+          "request": {
+            "name": "Get a building by Id",
+            "description": {},
+            "url": {
+              "path": [
+                "Buildings({{Id}})"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "$select",
+                  "value": "<string>",
+                  "description": "OData $select comma-separated list of properties to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "$expand",
+                  "value": "<string>",
+                  "description": "OData $expand comma-separated list of related entities to include."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6698e177-e71d-44c1-9f13-29c820c7e1a6",
+              "name": "A single building.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Buildings({{Id}})"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "$select",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "$expand",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Id\": \"ad432dc5-6b9a-ea4e-20bc-471125445144\",\n  \"CampusId\": \"92bd76d6-4cc3-03f0-8c4e-26fc30f2d8fd\",\n  \"Name\": \"string\",\n  \"ShortCode\": \"string\",\n  \"Campus\": {\n    \"Id\": \"4903a615-1530-f52b-2de3-b6e000fa8d36\",\n    \"Code\": \"string\",\n    \"Name\": \"string\",\n    \"ZipCode\": \"string\",\n    \"Buildings\": [\n      {\n        \"Id\": \"ad7138fd-c26c-10fe-e3a3-a4fb431a8d70\",\n        \"CampusId\": \"e611a346-8a87-5d18-d2a5-16f6798648ea\",\n        \"Name\": \"string\",\n        \"ShortCode\": \"string\",\n        \"Campus\": {\n          \"value\": \"<Circular reference to #/components/schemas/Campus detected>\"\n        },\n        \"Rooms\": [\n          {\n            \"Id\": \"43ea6cb5-87c0-2068-fc04-b412bf9127b9\",\n            \"Number\": \"string\",\n            \"BuildingId\": \"3aa43016-88aa-390e-1ed3-bdf0fbfcd41e\",\n            \"Building\": {\n              \"value\": \"<Circular reference to #/components/schemas/Building detected>\"\n            }\n          },\n          {\n            \"Id\": \"eca33e61-e64c-5969-25b9-8b62f2c490b3\",\n            \"Number\": \"string\",\n            \"BuildingId\": \"9b0f94a1-da2d-41d4-d581-55c0be9413ca\",\n            \"Building\": {\n              \"value\": \"<Circular reference to #/components/schemas/Building detected>\"\n            }\n          }\n        ]\n      },\n      {\n        \"Id\": \"eb146c86-1155-bd34-b8f4-9d23ebe43e80\",\n        \"CampusId\": \"fe0b7560-edc3-dcc9-e68f-1081a6c0d112\",\n        \"Name\": \"string\",\n        \"ShortCode\": \"string\",\n        \"Campus\": {\n          \"value\": \"<Circular reference to #/components/schemas/Campus detected>\"\n        },\n        \"Rooms\": [\n          {\n            \"Id\": \"e1409df7-2921-b305-511a-0af3aedd9a2b\",\n            \"Number\": \"string\",\n            \"BuildingId\": \"f8250b50-e10e-1f2d-63b1-1328a6059f12\",\n            \"Building\": {\n              \"value\": \"<Circular reference to #/components/schemas/Building detected>\"\n            }\n          },\n          {\n            \"Id\": \"f6d1e4c1-89cd-4416-471b-1e3062a1b4de\",\n            \"Number\": \"string\",\n            \"BuildingId\": \"d6e8fb5d-4602-0daa-6b92-bc6e982d4a27\",\n            \"Building\": {\n              \"value\": \"<Circular reference to #/components/schemas/Building detected>\"\n            }\n          }\n        ]\n      }\n    ],\n    \"Classes\": [\n      {\n        \"Id\": \"6215df33-e7c9-287f-e11e-04d06f1405ad\",\n        \"CourseId\": \"8437c7a9-f2b7-d26c-c9ce-67f40bce7e98\",\n        \"TermId\": \"6a787f0a-bf38-90fe-1812-16b85c9c61a0\",\n        \"CampusId\": \"94d8f30a-3a49-420a-01a5-1af495bd4e13\",\n        \"Course\": {\n          \"Id\": \"881f1733-6894-e42f-a439-4e70b5d83b51\",\n          \"CreditHours\": 228.82344920172937,\n          \"Number\": \"string\",\n          \"SubjectId\": \"10b55cb3-ae76-a217-e2ea-0b11c5f411eb\",\n          \"Title\": \"string\",\n          \"Description\": \"string\",\n          \"Subject\": {\n            \"Id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"Name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"Abbreviation\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"Courses\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"Classes\": [\n            {\n              \"value\": \"<Circular reference to #/components/schemas/Class detected>\"\n            },\n            {\n              \"value\": \"<Circular reference to #/components/schemas/Class detected>\"\n            }\n          ]\n        },\n        \"Term\": {\n          \"Id\": \"e5c2bbc2-90e2-6112-d2cd-ddc19cc89adf\",\n          \"Code\": \"string\",\n          \"Name\": \"string\",\n          \"StartDate\": \"2024-11-17\",\n          \"EndDate\": \"1989-09-02\",\n          \"Classes\": [\n            {\n              \"value\": \"<Circular reference to #/components/schemas/Class detected>\"\n            },\n            {\n              \"value\": \"<Circular reference to #/components/schemas/Class detected>\"\n            }\n          ]\n        },\n        \"Campus\": {\n          \"value\": \"<Circular reference to #/components/schemas/Campus detected>\"\n        },\n        \"Sections\": [\n          {\n            \"Id\": \"419d104e-e6bd-12f2-73c1-5ae41956c652\",\n            \"Crn\": \"string\",\n            \"ClassId\": \"e202ef2d-7628-c63e-01cf-44c6b80c180e\",\n            \"Type\": \"string\",\n            \"StartDate\": \"1965-01-03\",\n            \"EndDate\": \"2020-12-16\",\n            \"Class\": {\n              \"value\": \"<Circular reference to #/components/schemas/Class detected>\"\n            },\n            \"Meetings\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"Id\": \"e88c1abd-3396-5c38-1cbe-6cd41c9aa806\",\n            \"Crn\": \"string\",\n            \"ClassId\": \"755d1f1d-1830-8a3c-307b-aa147d2f5fb1\",\n            \"Type\": \"string\",\n            \"StartDate\": \"2004-12-14\",\n            \"EndDate\": \"1953-01-24\",\n            \"Class\": {\n              \"value\": \"<Circular reference to #/components/schemas/Class detected>\"\n            },\n            \"Meetings\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      },\n      {\n        \"Id\": \"f4ca8574-60fa-9fca-b096-96ea7c08fd3a\",\n        \"CourseId\": \"5f723760-0001-5d2d-c054-226acf092a36\",\n        \"TermId\": \"5f890745-4255-bd3f-9b80-147aaf4c3dc3\",\n        \"CampusId\": \"2ed7853f-0399-8a33-07f5-719b2cfa6535\",\n        \"Course\": {\n          \"Id\": \"4c376dba-e6f1-3bde-815a-0618f521c287\",\n          \"CreditHours\": 4798.674708937816,\n          \"Number\": \"string\",\n          \"SubjectId\": \"46b11738-d5e4-38c9-e246-cff06dbbf9ec\",\n          \"Title\": \"string\",\n          \"Description\": \"string\",\n          \"Subject\": {\n            \"Id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"Name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"Abbreviation\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"Courses\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"Classes\": [\n            {\n              \"value\": \"<Circular reference to #/components/schemas/Class detected>\"\n            },\n            {\n              \"value\": \"<Circular reference to #/components/schemas/Class detected>\"\n            }\n          ]\n        },\n        \"Term\": {\n          \"Id\": \"a04b7f04-6617-c414-483c-ddc87ea4f75f\",\n          \"Code\": \"string\",\n          \"Name\": \"string\",\n          \"StartDate\": \"1961-10-13\",\n          \"EndDate\": \"2010-01-05\",\n          \"Classes\": [\n            {\n              \"value\": \"<Circular reference to #/components/schemas/Class detected>\"\n            },\n            {\n              \"value\": \"<Circular reference to #/components/schemas/Class detected>\"\n            }\n          ]\n        },\n        \"Campus\": {\n          \"value\": \"<Circular reference to #/components/schemas/Campus detected>\"\n        },\n        \"Sections\": [\n          {\n            \"Id\": \"4a40f708-ebfe-d7f0-2bdd-8cae0c0f9192\",\n            \"Crn\": \"string\",\n            \"ClassId\": \"398de4c8-3ef6-6c96-fbcc-f7b48f6cd2d8\",\n            \"Type\": \"string\",\n            \"StartDate\": \"1994-02-11\",\n            \"EndDate\": \"2005-09-05\",\n            \"Class\": {\n              \"value\": \"<Circular reference to #/components/schemas/Class detected>\"\n            },\n            \"Meetings\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"Id\": \"636eac9d-c27c-1313-3b72-6fb1b8601e10\",\n            \"Crn\": \"string\",\n            \"ClassId\": \"39199863-3c10-0a55-d429-789dfcf3334a\",\n            \"Type\": \"string\",\n            \"StartDate\": \"2003-05-16\",\n            \"EndDate\": \"1957-12-03\",\n            \"Class\": {\n              \"value\": \"<Circular reference to #/components/schemas/Class detected>\"\n            },\n            \"Meetings\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      }\n    ]\n  },\n  \"Rooms\": [\n    {\n      \"Id\": \"e6df1367-099d-a246-1cf2-175476d468b7\",\n      \"Number\": \"string\",\n      \"BuildingId\": \"184852ab-922a-8461-6f7d-e112f7194d50\",\n      \"Building\": {\n        \"Id\": \"ba689b98-db53-51ac-8ee3-93e632621a3f\",\n        \"CampusId\": \"5af2cdfe-0cc7-5def-6592-db325022d015\",\n        \"Name\": \"string\",\n        \"ShortCode\": \"string\",\n        \"Campus\": {\n          \"Id\": \"87cac17c-745a-02b5-b7b9-53ba989a99c3\",\n          \"Code\": \"string\",\n          \"Name\": \"string\",\n          \"ZipCode\": \"string\",\n          \"Buildings\": [\n            {\n              \"value\": \"<Circular reference to #/components/schemas/Building detected>\"\n            },\n            {\n              \"value\": \"<Circular reference to #/components/schemas/Building detected>\"\n            }\n          ],\n          \"Classes\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        \"Rooms\": [\n          {\n            \"value\": \"<Circular reference to #/components/schemas/Room detected>\"\n          },\n          {\n            \"value\": \"<Circular reference to #/components/schemas/Room detected>\"\n          }\n        ]\n      }\n    },\n    {\n      \"Id\": \"b31db344-72dc-731c-8b79-c3ed6d4fdc3c\",\n      \"Number\": \"string\",\n      \"BuildingId\": \"8f812e9f-fef1-997a-7e92-e1176ea18781\",\n      \"Building\": {\n        \"Id\": \"122254ca-8fa4-3b02-e7ec-41cfea31c79d\",\n        \"CampusId\": \"98f41229-9f2a-e23a-7411-de084669e730\",\n        \"Name\": \"string\",\n        \"ShortCode\": \"string\",\n        \"Campus\": {\n          \"Id\": \"d55168b8-1cfe-3578-291c-26535e242a9d\",\n          \"Code\": \"string\",\n          \"Name\": \"string\",\n          \"ZipCode\": \"string\",\n          \"Buildings\": [\n            {\n              \"value\": \"<Circular reference to #/components/schemas/Building detected>\"\n            },\n            {\n              \"value\": \"<Circular reference to #/components/schemas/Building detected>\"\n            }\n          ],\n          \"Classes\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        \"Rooms\": [\n          {\n            \"value\": \"<Circular reference to #/components/schemas/Room detected>\"\n          },\n          {\n            \"value\": \"<Circular reference to #/components/schemas/Room detected>\"\n          }\n        ]\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "551eb5ab-2444-4a37-a355-327f94c85df5",
+              "name": "The requested entity was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Buildings({{Id}})"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "$select",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "$expand",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.purdue.io/odata",
+      "key": "baseUrl"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) The GUID key of the entity.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<uuid>",
+      "key": "Id"
+    }
+  ],
+  "info": {
+    "_postman_id": "aa1ed13d-7c33-49e5-ae06-c1fdfa59bab7",
+    "name": "Purdue.io Course Catalog Buildings API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "A community-built, public OData v4 REST API exposing Purdue University's course catalog data, including Campuses, Buildings, Rooms, Terms, Courses, Classes, Sections, Meetings, Subjects and Instructors. This OpenAPI 3.0 description was converted faithfully from the live OData v4 $metadata (EDMX 4.0) document at https://api.purdue.io/odata/$metadata and verified against live responses. Entities are queryable via standard OData system query options. Note: the live service disables the $top option (limit 0); use $skip with server-driven paging instead.\n\nContact Support:\n Name: Purdue.io",
+      "type": "text/plain"
+    }
+  }
+}

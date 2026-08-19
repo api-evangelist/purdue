@@ -1,0 +1,304 @@
+{
+  "item": [
+    {
+      "id": "1c6ba1d1-fd1e-45d3-b56c-8166a87a640e",
+      "name": "Subjects",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "97d02621-2156-4d19-b20b-ad3ca6995b39",
+          "name": "List subjects",
+          "request": {
+            "name": "List subjects",
+            "description": {},
+            "url": {
+              "path": [
+                "Subjects"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "$filter",
+                  "value": "<string>",
+                  "description": "OData $filter expression for restricting the entities returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "$select",
+                  "value": "<string>",
+                  "description": "OData $select comma-separated list of properties to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "$expand",
+                  "value": "<string>",
+                  "description": "OData $expand comma-separated list of related entities to include."
+                },
+                {
+                  "disabled": false,
+                  "key": "$orderby",
+                  "value": "<string>",
+                  "description": "OData $orderby expression for sorting the entities returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "$skip",
+                  "value": "<integer>",
+                  "description": "OData $skip count for server-driven paging."
+                },
+                {
+                  "disabled": false,
+                  "key": "$count",
+                  "value": "<boolean>",
+                  "description": "When true, requests the total count of matching entities."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "57c7a6e5-a5ac-4db2-b7ca-0b9f4066eb5b",
+              "name": "A collection of subjects.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Subjects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "$filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "$select",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "$expand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "$orderby",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "$skip",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "$count",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"@odata.context\": \"string\",\n  \"@odata.count\": 4101,\n  \"value\": [\n    {\n      \"Id\": \"de00c7fe-5bf8-008c-6412-7b60c5ce06c8\",\n      \"Name\": \"string\",\n      \"Abbreviation\": \"string\",\n      \"Courses\": [\n        {\n          \"Id\": \"68b2f293-c4d3-e216-8372-c369043f995f\",\n          \"CreditHours\": 7314.337361671906,\n          \"Number\": \"string\",\n          \"SubjectId\": \"d42a05cb-6e5c-89de-96de-b59e97a9be86\",\n          \"Title\": \"string\",\n          \"Description\": \"string\",\n          \"Subject\": {\n            \"value\": \"<Circular reference to #/components/schemas/Subject detected>\"\n          },\n          \"Classes\": [\n            {\n              \"Id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"CourseId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"TermId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"CampusId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Course\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Term\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Campus\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Sections\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"Id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"CourseId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"TermId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"CampusId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Course\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Term\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Campus\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Sections\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"Id\": \"c2e970db-a310-63ca-e165-fceb21cb35c4\",\n          \"CreditHours\": 4343.991886976717,\n          \"Number\": \"string\",\n          \"SubjectId\": \"55955f11-faa7-b395-5c2f-446e2a07a2c1\",\n          \"Title\": \"string\",\n          \"Description\": \"string\",\n          \"Subject\": {\n            \"value\": \"<Circular reference to #/components/schemas/Subject detected>\"\n          },\n          \"Classes\": [\n            {\n              \"Id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"CourseId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"TermId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"CampusId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Course\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Term\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Campus\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Sections\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"Id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"CourseId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"TermId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"CampusId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Course\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Term\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Campus\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Sections\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"Id\": \"e50e3d74-5a22-ac4a-1f14-e790f886fd9b\",\n      \"Name\": \"string\",\n      \"Abbreviation\": \"string\",\n      \"Courses\": [\n        {\n          \"Id\": \"acd8662e-4601-d804-adce-fa1fcc64b503\",\n          \"CreditHours\": 3255.2628731338464,\n          \"Number\": \"string\",\n          \"SubjectId\": \"b5b4ee42-b812-c768-98a3-473328d0e61f\",\n          \"Title\": \"string\",\n          \"Description\": \"string\",\n          \"Subject\": {\n            \"value\": \"<Circular reference to #/components/schemas/Subject detected>\"\n          },\n          \"Classes\": [\n            {\n              \"Id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"CourseId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"TermId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"CampusId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Course\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Term\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Campus\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Sections\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"Id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"CourseId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"TermId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"CampusId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Course\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Term\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Campus\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Sections\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"Id\": \"73a24c2f-7835-a646-314f-7da619b6ac53\",\n          \"CreditHours\": 3675.655306894402,\n          \"Number\": \"string\",\n          \"SubjectId\": \"b62e229f-93ba-6309-226b-e3bf486e201f\",\n          \"Title\": \"string\",\n          \"Description\": \"string\",\n          \"Subject\": {\n            \"value\": \"<Circular reference to #/components/schemas/Subject detected>\"\n          },\n          \"Classes\": [\n            {\n              \"Id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"CourseId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"TermId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"CampusId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Course\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Term\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Campus\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Sections\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"Id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"CourseId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"TermId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"CampusId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Course\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Term\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Campus\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Sections\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ba073b77-5c9f-4272-bf7a-5c48ef659e4c",
+          "name": "Get a subject by Id",
+          "request": {
+            "name": "Get a subject by Id",
+            "description": {},
+            "url": {
+              "path": [
+                "Subjects({{Id}})"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "$select",
+                  "value": "<string>",
+                  "description": "OData $select comma-separated list of properties to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "$expand",
+                  "value": "<string>",
+                  "description": "OData $expand comma-separated list of related entities to include."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "692043da-e29c-436d-9afe-0865441982d4",
+              "name": "A single subject.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Subjects({{Id}})"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "$select",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "$expand",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Id\": \"9986805a-767a-853d-77c4-864663e099dd\",\n  \"Name\": \"string\",\n  \"Abbreviation\": \"string\",\n  \"Courses\": [\n    {\n      \"Id\": \"21c12c01-92bf-abd8-865e-288ed788ee46\",\n      \"CreditHours\": 1431.5415931868947,\n      \"Number\": \"string\",\n      \"SubjectId\": \"5d83a4ae-0d32-d939-309c-7b7248aecb3e\",\n      \"Title\": \"string\",\n      \"Description\": \"string\",\n      \"Subject\": {\n        \"Id\": \"207db4d5-dc5f-f4a9-c76b-54c8e3c89d31\",\n        \"Name\": \"string\",\n        \"Abbreviation\": \"string\",\n        \"Courses\": [\n          {\n            \"value\": \"<Circular reference to #/components/schemas/Course detected>\"\n          },\n          {\n            \"value\": \"<Circular reference to #/components/schemas/Course detected>\"\n          }\n        ]\n      },\n      \"Classes\": [\n        {\n          \"Id\": \"a5047f43-5e5b-779f-71ce-46404b4882d9\",\n          \"CourseId\": \"513060bf-084f-9929-f2bb-b2f0d38fc3ea\",\n          \"TermId\": \"769828a8-39f5-b019-a9ed-008fc8ce7114\",\n          \"CampusId\": \"399d502e-d109-5c81-b72c-3a33b6162d89\",\n          \"Course\": {\n            \"value\": \"<Circular reference to #/components/schemas/Course detected>\"\n          },\n          \"Term\": {\n            \"Id\": \"adf02533-3e24-cd2f-121a-85cffe8b9889\",\n            \"Code\": \"string\",\n            \"Name\": \"string\",\n            \"StartDate\": \"1954-09-19\",\n            \"EndDate\": \"1956-12-18\",\n            \"Classes\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"Campus\": {\n            \"Id\": \"3f5ceafb-8afc-c3a5-6967-6e350200b785\",\n            \"Code\": \"string\",\n            \"Name\": \"string\",\n            \"ZipCode\": \"string\",\n            \"Buildings\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"Classes\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"Sections\": [\n            {\n              \"Id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Crn\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"ClassId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"StartDate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"EndDate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Class\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Meetings\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"Id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Crn\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"ClassId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"StartDate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"EndDate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Class\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Meetings\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"Id\": \"058427db-e7ab-96ca-d2f9-e831ab0abdc8\",\n          \"CourseId\": \"648b1ebe-604f-a36f-4e49-88c86b832166\",\n          \"TermId\": \"e7028d29-14cb-7ee5-c6a5-5881e4e3333d\",\n          \"CampusId\": \"d0275392-2c14-4578-048c-1dd5c46ebfec\",\n          \"Course\": {\n            \"value\": \"<Circular reference to #/components/schemas/Course detected>\"\n          },\n          \"Term\": {\n            \"Id\": \"a037a2dd-80ff-9c1d-0098-1d8e23255379\",\n            \"Code\": \"string\",\n            \"Name\": \"string\",\n            \"StartDate\": \"2012-11-25\",\n            \"EndDate\": \"1978-08-14\",\n            \"Classes\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"Campus\": {\n            \"Id\": \"8461a969-56ab-f61b-06eb-b40ecb4d43e3\",\n            \"Code\": \"string\",\n            \"Name\": \"string\",\n            \"ZipCode\": \"string\",\n            \"Buildings\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"Classes\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"Sections\": [\n            {\n              \"Id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Crn\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"ClassId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"StartDate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"EndDate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Class\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Meetings\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"Id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Crn\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"ClassId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"StartDate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"EndDate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Class\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Meetings\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"Id\": \"a0022b4c-28a9-5908-4de2-c492566a89dd\",\n      \"CreditHours\": 6708.73241845715,\n      \"Number\": \"string\",\n      \"SubjectId\": \"a28532ba-6c81-ca08-982c-6f3854d43e25\",\n      \"Title\": \"string\",\n      \"Description\": \"string\",\n      \"Subject\": {\n        \"Id\": \"06a3713b-4acc-6aa1-d9ca-5a4c2585bea5\",\n        \"Name\": \"string\",\n        \"Abbreviation\": \"string\",\n        \"Courses\": [\n          {\n            \"value\": \"<Circular reference to #/components/schemas/Course detected>\"\n          },\n          {\n            \"value\": \"<Circular reference to #/components/schemas/Course detected>\"\n          }\n        ]\n      },\n      \"Classes\": [\n        {\n          \"Id\": \"3877e830-bb03-5a08-6672-925206b4290a\",\n          \"CourseId\": \"9f8bf2e0-63ed-ee35-94e4-3420b97b7c76\",\n          \"TermId\": \"dec87404-e3df-772c-5e6d-5377b0a36270\",\n          \"CampusId\": \"afc19720-4525-14c2-a010-b84afd771c4a\",\n          \"Course\": {\n            \"value\": \"<Circular reference to #/components/schemas/Course detected>\"\n          },\n          \"Term\": {\n            \"Id\": \"d2cd8b1b-b80b-9cb2-5107-a16a5def231d\",\n            \"Code\": \"string\",\n            \"Name\": \"string\",\n            \"StartDate\": \"1994-09-03\",\n            \"EndDate\": \"1997-08-18\",\n            \"Classes\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"Campus\": {\n            \"Id\": \"f32c1431-71d7-2792-7ce3-e4d323bec83a\",\n            \"Code\": \"string\",\n            \"Name\": \"string\",\n            \"ZipCode\": \"string\",\n            \"Buildings\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"Classes\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"Sections\": [\n            {\n              \"Id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Crn\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"ClassId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"StartDate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"EndDate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Class\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Meetings\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"Id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Crn\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"ClassId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"StartDate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"EndDate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Class\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Meetings\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"Id\": \"5c9c2dd4-0624-6c48-2083-5540a7a2a777\",\n          \"CourseId\": \"a96bb642-77f5-8256-d0a8-df519498c81c\",\n          \"TermId\": \"334ccd7a-3569-ffa0-dc6d-ddb69784f6fc\",\n          \"CampusId\": \"1394984b-3857-711e-ea87-39b59ded4856\",\n          \"Course\": {\n            \"value\": \"<Circular reference to #/components/schemas/Course detected>\"\n          },\n          \"Term\": {\n            \"Id\": \"5c1b5fb2-b0a4-6cc6-6d04-f814d22bd72b\",\n            \"Code\": \"string\",\n            \"Name\": \"string\",\n            \"StartDate\": \"1956-06-20\",\n            \"EndDate\": \"2008-06-23\",\n            \"Classes\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"Campus\": {\n            \"Id\": \"99494c68-9579-5ac1-4ce7-fa04e6af7e6a\",\n            \"Code\": \"string\",\n            \"Name\": \"string\",\n            \"ZipCode\": \"string\",\n            \"Buildings\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"Classes\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"Sections\": [\n            {\n              \"Id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Crn\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"ClassId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"StartDate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"EndDate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Class\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Meetings\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"Id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Crn\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"ClassId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"StartDate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"EndDate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Class\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"Meetings\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fe94928e-bdd2-4585-9ac5-fb8617465816",
+              "name": "The requested entity was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Subjects({{Id}})"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "$select",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "$expand",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.purdue.io/odata",
+      "key": "baseUrl"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) The GUID key of the entity.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<uuid>",
+      "key": "Id"
+    }
+  ],
+  "info": {
+    "_postman_id": "152a31fe-1d07-40d9-9f06-fe098f7be623",
+    "name": "Purdue.io Course Catalog Buildings Subjects API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "A community-built, public OData v4 REST API exposing Purdue University's course catalog data, including Campuses, Buildings, Rooms, Terms, Courses, Classes, Sections, Meetings, Subjects and Instructors. This OpenAPI 3.0 description was converted faithfully from the live OData v4 $metadata (EDMX 4.0) document at https://api.purdue.io/odata/$metadata and verified against live responses. Entities are queryable via standard OData system query options. Note: the live service disables the $top option (limit 0); use $skip with server-driven paging instead.\n\nContact Support:\n Name: Purdue.io",
+      "type": "text/plain"
+    }
+  }
+}
