@@ -448,6 +448,9 @@ apis:
   - type: JSONLD
     url: json-ld/purdue-context.jsonld
 common:
+  - type: CapabilityMap
+    url: capabilities/purdue-capability-edges.yml
+    name: Purdue University Business Capability Map
   - type: AgenticAccess
     url: agentic-access/purdue-agentic-access.yml
   - type: DomainSecurity

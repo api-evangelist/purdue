@@ -1,0 +1,43 @@
+slug: purdue
+provider: Purdue University
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Education
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 3
+edges:
+- tag: Courses
+  spec_file: purdue-courses-api-openapi.yml
+  capability_id: BC-4700.40
+  capability_id_l1: BC-4700
+  capability_name: Programme Catalogue Management
+  confidence: 0.78
+  evidence: '"exposing Purdue University''s course catalog data, including ... Courses"; GET /Courses  listCourses  List
+    courses'
+  reason: Exposes the institutional catalogue of courses to consumers, which is programme/course catalogue
+    publication.
+- tag: Meetings
+  spec_file: purdue-meetings-api-openapi.yml
+  capability_id: BC-4720.30
+  capability_id_l1: BC-4720
+  capability_name: Course Scheduling & Timetabling Records
+  confidence: 0.72
+  evidence: 'GET /Meetings  listMeetings  List meetings; schemas: Meeting, Room, DaysOfWeek, Section'
+  reason: Meetings carry day-of-week/room/section data — i.e. course-section timetable and room allocation
+    records exposed for downstream use.
+- tag: Sections
+  spec_file: purdue-sections-api-openapi.yml
+  capability_id: BC-4720.30
+  capability_id_l1: BC-4720
+  capability_name: Course Scheduling & Timetabling Records
+  confidence: 0.7
+  evidence: 'GET /Sections  listSections  List sections; schemas: Section, Meeting, Room, Term, Instructor'
+  reason: Course sections with their meetings, rooms and terms are the authoritative course-section timetable
+    records.
