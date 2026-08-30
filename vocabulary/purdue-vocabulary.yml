@@ -1,0 +1,73 @@
+specification: API Evangelist Vocabulary
+specificationVersion: '0.1'
+provider: Purdue University
+providerId: purdue
+x-method: derived   # manifest authorship vocabulary (build-provenance-manifest.py)
+x-source-url: openapi/purdue-rcac-api-openapi.yml
+generated: '2026-08-30'
+method: derived
+source: >-
+  Derived from the two institution-operated Purdue contracts in this repository -
+  openapi/purdue-rcac-api-openapi.yml (Purdue's own published OpenAPI) and
+  openapi/purdue-hfs-dining-menus-api-openapi.yml (generated from live probes) - plus the
+  OAI-PMH and SAML metadata responses in examples/. Purdue publishes no vocabulary or data
+  dictionary of its own.
+x-operator: institution
+description: >-
+  The nouns Purdue University's own machine-readable surfaces actually use. This is deliberately
+  small: the institution's programmable footprint is research computing, campus dining, research
+  metadata harvesting and identity federation, and nothing else was found.
+terms:
+- term: Group
+  surface: Purdue RCAC API
+  definition: >-
+    A research computing group - the unit that owns allocations, members, departments and fields
+    of science. Path family /groups, /groups/{id}, /groups/members, /groups/departments,
+    /groups/fieldsofscience.
+- term: Course
+  surface: Purdue RCAC API
+  definition: >-
+    A course granted research computing resources, with enrollments and members. Path family
+    /courses, /courses/{id}, /courses/enrollments, /courses/members, /courses/sync. Note this is
+    RCAC's notion of a course, not the registrar's course catalog.
+- term: Contact Report
+  surface: Purdue RCAC API
+  definition: >-
+    A logged interaction between RCAC staff and a research group, with comments, types and
+    follow subscriptions. Path family /contactreports.
+- term: Service
+  surface: Purdue RCAC API
+  definition: >-
+    A discoverable research computing service in the RCAC service finder, with facets, fields and
+    a facet tree. Path family /finder.
+- term: Field of Science
+  surface: Purdue RCAC API
+  definition: A research discipline classification attached to a group.
+- term: Location
+  surface: Purdue HFS Dining Menus API
+  definition: >-
+    A dining court, quick-bite or on-the-go retail outlet, with address, coordinates, phone and
+    imagery. Identified by a short LocationId such as BOWL and addressed in menu paths by Name.
+- term: Meal
+  surface: Purdue HFS Dining Menus API
+  definition: >-
+    A named service period within a published day - Breakfast, Lunch, Dinner - carrying a status
+    of Open or Closed and optional hours.
+- term: Station
+  surface: Purdue HFS Dining Menus API
+  definition: A serving counter within a meal, holding the menu items offered there.
+- term: Allergen
+  surface: Purdue HFS Dining Menus API
+  definition: >-
+    A named allergen flag on a menu item, expressed as a Name/Value pair rather than a list of
+    present allergens.
+- term: Set
+  surface: PURR OAI-PMH
+  definition: >-
+    An OAI-PMH selective-harvesting partition of the Purdue University Research Repository.
+    Observed setSpec publications:dataset, setName Datasets.
+- term: EntityDescriptor
+  surface: Purdue Shibboleth IdP
+  definition: >-
+    The SAML 2.0 metadata document describing Purdue's identity provider, entityID
+    https://idp.purdue.edu/idp/shibboleth, published to InCommon and eduGAIN.
