@@ -321,6 +321,12 @@ apis:
   baseURL: https://events.purdue.edu/api/2/events
   tags:
   - Campus Life
+  - Event
+  - Calendar
+  - Tenant
+  - Localist
+  tags_raw:
+  - Campus Life
   - Events
   - Calendar
   - Tenant
@@ -347,6 +353,12 @@ apis:
   humanURL: https://github.com/Purdue-io/PurdueApi
   baseURL: https://api.purdue.io/odata
   tags:
+  - Course Catalog
+  - OData
+  - Community-Built
+  - Third Party
+  - Unaffiliated
+  tags_raw:
   - Course Catalog
   - OData
   - Community-Built
