@@ -144,96 +144,16 @@ x-coverage:
     status: 0
     note: Does not resolve. No institutional open data portal was found.
 apis:
-- aid: purdue:purdue-rcac-api
-  name: Purdue RCAC API
-  x-operator: institution
-  description: >-
-    The Rosen Center for Advanced Computing publishes its own OpenAPI 3.0.0 description at
-    www.rcac.purdue.edu/api - 206 paths and 452 operations covering research computing groups and
-    their members, departments and fields of science, course allocations and enrollments, staff
-    contact reports, and the RCAC service finder with its facets and facet tree. This is Purdue's
-    own software on Purdue's own host (www.rcac.purdue.edu -> web.rcac.purdue.edu, 128.211.157.46),
-    and it is the single largest institution-authored machine-readable artifact found anywhere in
-    this profile. The contract is public; the endpoints are not - an unauthenticated call returns
-    500 with a Purdue Web Authentication login page, and the declared api_token apiKey header has
-    no documented self-service issuance. Declared version is 0.0.1 with no stability, deprecation
-    or changelog statement.
-  humanURL: https://www.rcac.purdue.edu/
-  baseURL: https://www.rcac.purdue.edu/api
-  tags:
-  - Research Computing
-  - HPC
-  - Allocations
-  - Institution-Operated
-  properties:
-  - type: OpenAPI
-    url: openapi/purdue-rcac-api-openapi.yml
-  - type: OpenAPIOriginal
-    url: openapi/_original/purdue-rcac-api.json
-  - type: APIReference
-    url: https://www.rcac.purdue.edu/api
-  - type: Documentation
-    url: https://www.rcac.purdue.edu/knowledge
-  - type: Support
-    url: https://www.rcac.purdue.edu/help
-  - type: Authentication
-    url: authentication/purdue-authentication.yml
-  - type: Errors
-    url: errors/purdue-errors.yml
-  - type: Lifecycle
-    url: lifecycle/purdue-lifecycle.yml
-  - type: Rules
-    url: rules/purdue-openapi-spectral-rules.yml
-  - type: Vocabulary
-    url: vocabulary/purdue-vocabulary.yml
-- aid: purdue:purdue-hfs-dining-menus-api
-  name: Purdue HFS Dining Menus API
-  x-operator: institution
-  description: >-
-    A public, keyless HTTP API operated by Purdue University Housing and Food Services at
-    api.hfs.purdue.edu, serving dining-court locations, published daily menus by location and
-    date, and per-item nutrition and allergen data. The host is Purdue's own web infrastructure
-    (CNAME wpvwebasp03-01.www.purdue.edu, 128.210.7.106) and the service identifies itself as
-    Purdue.Hfs.Menus.Domain in its own error stack traces, so this is Purdue software on Purdue
-    servers rather than a vendor platform behind a Purdue hostname. HFS publishes no
-    documentation, no OpenAPI, no terms of use and no rate limit; the contract in this repository
-    was written from live probes and is marked generated accordingly.
-  humanURL: https://dining.purdue.edu/
-  baseURL: https://api.hfs.purdue.edu/menus/v2
-  tags:
-  - Campus Life
-  - Dining
-  - Nutrition
-  - Institution-Operated
-  - Keyless
-  properties:
-  - type: OpenAPI
-    url: openapi/purdue-hfs-dining-menus-api-openapi.yml
-  - type: JSONSchema
-    url: json-schema/purdue-hfs-location-schema.json
-  - type: JSONSchema
-    url: json-schema/purdue-hfs-location-menu-schema.json
-  - type: Examples
-    url: examples/purdue-hfs-locations-example.json
-  - type: Examples
-    url: examples/purdue-hfs-location-menu-example.json
-  - type: Errors
-    url: errors/purdue-errors.yml
-  - type: Authentication
-    url: authentication/purdue-authentication.yml
-  - type: Website
-    url: https://www.housing.purdue.edu/
 - aid: purdue:purr-oaipmh
   name: PURR OAI-PMH Metadata API
   x-operator: institution
   description: >-
-    The Purdue University Research Repository exposes an OAI-PMH 2.0 endpoint for harvesting
-    research dataset metadata, supporting the standard verbs (Identify, ListSets,
-    ListMetadataFormats, ListIdentifiers, ListRecords, GetRecord) with the oai_dc Dublin Core
-    prefix. Confirmed live on 2026-08-30 via Identify and ListSets. purr.purdue.edu is on Purdue's
-    own netblock and the Identify response names a purdue.edu administrator, so the endpoint is
-    institution-operated even though PURR runs on HUBzero - which itself originated at Purdue.
-    Purdue mints DataCite DOIs for this repository as a direct DataCite member.
+    The Purdue University Research Repository exposes an OAI-PMH 2.0 endpoint for harvesting research
+    dataset metadata, supporting the standard verbs (Identify, ListSets, ListMetadataFormats, ListIdentifiers,
+    ListRecords, GetRecord) with the oai_dc Dublin Core prefix. Confirmed live on 2026-08-30 via Identify
+    and ListSets. purr.purdue.edu is on Purdue's own netblock and the Identify response names a purdue.edu
+    administrator, so the endpoint is institution-operated even though PURR runs on HUBzero - which itself
+    originated at Purdue. Purdue mints DataCite DOIs for this repository as a direct DataCite member.
   humanURL: https://purr.purdue.edu/kb/finduse/oaipmh
   baseURL: https://purr.purdue.edu/oaipmh
   tags:
@@ -255,14 +175,13 @@ apis:
   name: Purdue Shibboleth Identity Provider
   x-operator: institution
   description: >-
-    Purdue operates its own Shibboleth identity provider, entityID
-    https://idp.purdue.edu/idp/shibboleth, with SAML 2.0 SSO endpoints under sso.purdue.edu. The
-    IdP is registered in InCommon and therefore reachable through eduGAIN; its metadata is served
-    publicly and unauthenticated from Purdue's own host and signed from the InCommon metadata
-    query service, where the entity carries OrganizationName "Purdue University Main Campus". This
-    is the most defensible institution-operated machine-readable surface Purdue publishes - it is
-    institution-run by definition, it is a standard the education regime names, and it is almost
-    never catalogued.
+    Purdue operates its own Shibboleth identity provider, entityID https://idp.purdue.edu/idp/shibboleth,
+    with SAML 2.0 SSO endpoints under sso.purdue.edu. The IdP is registered in InCommon and therefore
+    reachable through eduGAIN; its metadata is served publicly and unauthenticated from Purdue's own host
+    and signed from the InCommon metadata query service, where the entity carries OrganizationName "Purdue
+    University Main Campus". This is the most defensible institution-operated machine-readable surface
+    Purdue publishes - it is institution-run by definition, it is a standard the education regime names,
+    and it is almost never catalogued.
   humanURL: https://incommon.org/federation/
   baseURL: https://sso.purdue.edu/idp
   tags:
@@ -287,13 +206,12 @@ apis:
   name: Purdue e-Pubs OAI-PMH (bepress Digital Commons tenant)
   x-operator: tenant
   description: >-
-    Purdue e-Pubs is the university's institutional repository for scholarly output, reachable at
-    docs.lib.purdue.edu with a working OAI-PMH 2.0 endpoint. The content, the collections and the
-    scholarship are Purdue's; the platform is not. docs.lib.purdue.edu is a CNAME to
-    dlpurdue.bepress.com and the Identify response names dc-support@elsevier.com as the
-    repository administrator, so this is a bepress Digital Commons tenancy under a Purdue
-    hostname. Recorded as a relationship. No bepress contract is stored under this institution -
-    that contract belongs in bepress's own profile, not Purdue's.
+    Purdue e-Pubs is the university's institutional repository for scholarly output, reachable at docs.lib.purdue.edu
+    with a working OAI-PMH 2.0 endpoint. The content, the collections and the scholarship are Purdue's;
+    the platform is not. docs.lib.purdue.edu is a CNAME to dlpurdue.bepress.com and the Identify response
+    names dc-support@elsevier.com as the repository administrator, so this is a bepress Digital Commons
+    tenancy under a Purdue hostname. Recorded as a relationship. No bepress contract is stored under this
+    institution - that contract belongs in bepress's own profile, not Purdue's.
   humanURL: https://docs.lib.purdue.edu/
   baseURL: https://docs.lib.purdue.edu/do/oai/
   tags:
@@ -311,12 +229,12 @@ apis:
   name: Purdue Events Calendar API (Localist tenant)
   x-operator: tenant
   description: >-
-    Purdue's public events calendar at events.purdue.edu serves a live JSON events API on the
-    Localist v2 contract. The events are Purdue's; the API is Localist's. events.purdue.edu is a
-    CNAME chain to purdue.enterprise.localist.com and the responses carry the vendor's own
-    x-slzr-platform header set to "purdue" - a textbook institution-branded tenancy. Recorded as
-    a relationship; Localist's generic contract is not stored under this institution. Note that
-    calendar.purdue.edu is a separate Purdue-hosted page and does not serve this API.
+    Purdue's public events calendar at events.purdue.edu serves a live JSON events API on the Localist
+    v2 contract. The events are Purdue's; the API is Localist's. events.purdue.edu is a CNAME chain to
+    purdue.enterprise.localist.com and the responses carry the vendor's own x-slzr-platform header set
+    to "purdue" - a textbook institution-branded tenancy. Recorded as a relationship; Localist's generic
+    contract is not stored under this institution. Note that calendar.purdue.edu is a separate Purdue-hosted
+    page and does not serve this API.
   humanURL: https://events.purdue.edu/
   baseURL: https://events.purdue.edu/api/2/events
   tags:
@@ -338,18 +256,16 @@ apis:
   name: Purdue.io Course Catalog API (community-built, third-party)
   x-operator: tenant
   description: >-
-    Purdue.io is an OData v4 API over Purdue's course catalog, started in 2015 as a Computer
-    Science senior design project and still maintained by its community. It is genuinely useful
-    and genuinely about Purdue, but it is not Purdue's engineering and by every check it is not
-    Purdue's operation - api.purdue.io resolves to 167.71.242.113 on DigitalOcean rather than
-    Purdue's 128.210/128.211 netblocks, purdue.io is privately registered through Porkbun to
-    "Private by Design, LLC" in North Carolina rather than to the university, the code is
-    MIT-licensed under the independent Purdue-io GitHub organization, and no institutional
-    endorsement was found. The June 2026 profile of this repository recorded this single contract
-    as ten separate Purdue APIs, one per tag, and credited Purdue with every schema, collection,
-    example, rule and vocabulary derived from it; all of that has been removed and the
-    relationship kept as this one entry. Purdue's own registrar catalog is a separate,
-    non-programmable surface at catalog.purdue.edu.
+    Purdue.io is an OData v4 API over Purdue's course catalog, started in 2015 as a Computer Science senior
+    design project and still maintained by its community. It is genuinely useful and genuinely about Purdue,
+    but it is not Purdue's engineering and by every check it is not Purdue's operation - api.purdue.io
+    resolves to 167.71.242.113 on DigitalOcean rather than Purdue's 128.210/128.211 netblocks, purdue.io
+    is privately registered through Porkbun to "Private by Design, LLC" in North Carolina rather than
+    to the university, the code is MIT-licensed under the independent Purdue-io GitHub organization, and
+    no institutional endorsement was found. The June 2026 profile of this repository recorded this single
+    contract as ten separate Purdue APIs, one per tag, and credited Purdue with every schema, collection,
+    example, rule and vocabulary derived from it; all of that has been removed and the relationship kept
+    as this one entry. Purdue's own registrar catalog is a separate, non-programmable surface at catalog.purdue.edu.
   humanURL: https://github.com/Purdue-io/PurdueApi
   baseURL: https://api.purdue.io/odata
   tags:
@@ -371,6 +287,1260 @@ apis:
     url: https://github.com/Purdue-io
   - type: Website
     url: https://purdue.io/
+- aid: purdue:purdue-allocations-api
+  name: Purdue University Allocations API
+  description: The Allocations API from Purdue University — 3 operation(s) for allocations.
+  humanURL: https://www.rcac.purdue.edu/
+  baseURL: https://www.rcac.purdue.edu/api
+  tags:
+  - Allocations
+  properties:
+  - type: OpenAPI
+    url: openapi/purdue-allocations-api-openapi.yml
+  - type: OpenAPIOriginal
+    url: openapi/_original/purdue-rcac-api.json
+  - type: APIReference
+    url: https://www.rcac.purdue.edu/api
+  - type: Documentation
+    url: https://www.rcac.purdue.edu/knowledge
+  - type: Support
+    url: https://www.rcac.purdue.edu/help
+  - type: Authentication
+    url: authentication/purdue-authentication.yml
+  - type: Errors
+    url: errors/purdue-errors.yml
+  - type: Lifecycle
+    url: lifecycle/purdue-lifecycle.yml
+  - type: Rules
+    url: rules/purdue-openapi-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/purdue-vocabulary.yml
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-menu-schema.json
+  - type: Examples
+    url: examples/purdue-hfs-locations-example.json
+  - type: Examples
+    url: examples/purdue-hfs-location-menu-example.json
+  - type: Website
+    url: https://www.housing.purdue.edu/
+- aid: purdue:purdue-contactreports-api
+  name: Purdue University Contactreports API
+  description: The Contactreports API from Purdue University — 11 operation(s) for contactreports.
+  humanURL: https://www.rcac.purdue.edu/
+  baseURL: https://www.rcac.purdue.edu/api
+  tags:
+  - Contactreports
+  properties:
+  - type: OpenAPI
+    url: openapi/purdue-contactreports-api-openapi.yml
+  - type: OpenAPIOriginal
+    url: openapi/_original/purdue-rcac-api.json
+  - type: APIReference
+    url: https://www.rcac.purdue.edu/api
+  - type: Documentation
+    url: https://www.rcac.purdue.edu/knowledge
+  - type: Support
+    url: https://www.rcac.purdue.edu/help
+  - type: Authentication
+    url: authentication/purdue-authentication.yml
+  - type: Errors
+    url: errors/purdue-errors.yml
+  - type: Lifecycle
+    url: lifecycle/purdue-lifecycle.yml
+  - type: Rules
+    url: rules/purdue-openapi-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/purdue-vocabulary.yml
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-menu-schema.json
+  - type: Examples
+    url: examples/purdue-hfs-locations-example.json
+  - type: Examples
+    url: examples/purdue-hfs-location-menu-example.json
+  - type: Website
+    url: https://www.housing.purdue.edu/
+- aid: purdue:purdue-courses-api
+  name: Purdue University Courses API
+  description: The Courses API from Purdue University — 7 operation(s) for courses.
+  humanURL: https://www.rcac.purdue.edu/
+  baseURL: https://www.rcac.purdue.edu/api
+  tags:
+  - Courses
+  properties:
+  - type: OpenAPI
+    url: openapi/purdue-courses-api-openapi.yml
+  - type: OpenAPIOriginal
+    url: openapi/_original/purdue-rcac-api.json
+  - type: APIReference
+    url: https://www.rcac.purdue.edu/api
+  - type: Documentation
+    url: https://www.rcac.purdue.edu/knowledge
+  - type: Support
+    url: https://www.rcac.purdue.edu/help
+  - type: Authentication
+    url: authentication/purdue-authentication.yml
+  - type: Errors
+    url: errors/purdue-errors.yml
+  - type: Lifecycle
+    url: lifecycle/purdue-lifecycle.yml
+  - type: Rules
+    url: rules/purdue-openapi-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/purdue-vocabulary.yml
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-menu-schema.json
+  - type: Examples
+    url: examples/purdue-hfs-locations-example.json
+  - type: Examples
+    url: examples/purdue-hfs-location-menu-example.json
+  - type: Website
+    url: https://www.housing.purdue.edu/
+- aid: purdue:purdue-finder-api
+  name: Purdue University Finder API
+  description: The Finder API from Purdue University — 10 operation(s) for finder.
+  humanURL: https://www.rcac.purdue.edu/
+  baseURL: https://www.rcac.purdue.edu/api
+  tags:
+  - Finder
+  properties:
+  - type: OpenAPI
+    url: openapi/purdue-finder-api-openapi.yml
+  - type: OpenAPIOriginal
+    url: openapi/_original/purdue-rcac-api.json
+  - type: APIReference
+    url: https://www.rcac.purdue.edu/api
+  - type: Documentation
+    url: https://www.rcac.purdue.edu/knowledge
+  - type: Support
+    url: https://www.rcac.purdue.edu/help
+  - type: Authentication
+    url: authentication/purdue-authentication.yml
+  - type: Errors
+    url: errors/purdue-errors.yml
+  - type: Lifecycle
+    url: lifecycle/purdue-lifecycle.yml
+  - type: Rules
+    url: rules/purdue-openapi-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/purdue-vocabulary.yml
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-menu-schema.json
+  - type: Examples
+    url: examples/purdue-hfs-locations-example.json
+  - type: Examples
+    url: examples/purdue-hfs-location-menu-example.json
+  - type: Website
+    url: https://www.housing.purdue.edu/
+- aid: purdue:purdue-groups-api
+  name: Purdue University Groups API
+  description: The Groups API from Purdue University — 14 operation(s) for groups.
+  humanURL: https://www.rcac.purdue.edu/
+  baseURL: https://www.rcac.purdue.edu/api
+  tags:
+  - Groups
+  properties:
+  - type: OpenAPI
+    url: openapi/purdue-groups-api-openapi.yml
+  - type: OpenAPIOriginal
+    url: openapi/_original/purdue-rcac-api.json
+  - type: APIReference
+    url: https://www.rcac.purdue.edu/api
+  - type: Documentation
+    url: https://www.rcac.purdue.edu/knowledge
+  - type: Support
+    url: https://www.rcac.purdue.edu/help
+  - type: Authentication
+    url: authentication/purdue-authentication.yml
+  - type: Errors
+    url: errors/purdue-errors.yml
+  - type: Lifecycle
+    url: lifecycle/purdue-lifecycle.yml
+  - type: Rules
+    url: rules/purdue-openapi-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/purdue-vocabulary.yml
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-menu-schema.json
+  - type: Examples
+    url: examples/purdue-hfs-locations-example.json
+  - type: Examples
+    url: examples/purdue-hfs-location-menu-example.json
+  - type: Website
+    url: https://www.housing.purdue.edu/
+- aid: purdue:purdue-history-api
+  name: Purdue University History API
+  description: The History API from Purdue University — 2 operation(s) for history.
+  humanURL: https://www.rcac.purdue.edu/
+  baseURL: https://www.rcac.purdue.edu/api
+  tags:
+  - History
+  properties:
+  - type: OpenAPI
+    url: openapi/purdue-history-api-openapi.yml
+  - type: OpenAPIOriginal
+    url: openapi/_original/purdue-rcac-api.json
+  - type: APIReference
+    url: https://www.rcac.purdue.edu/api
+  - type: Documentation
+    url: https://www.rcac.purdue.edu/knowledge
+  - type: Support
+    url: https://www.rcac.purdue.edu/help
+  - type: Authentication
+    url: authentication/purdue-authentication.yml
+  - type: Errors
+    url: errors/purdue-errors.yml
+  - type: Lifecycle
+    url: lifecycle/purdue-lifecycle.yml
+  - type: Rules
+    url: rules/purdue-openapi-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/purdue-vocabulary.yml
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-menu-schema.json
+  - type: Examples
+    url: examples/purdue-hfs-locations-example.json
+  - type: Examples
+    url: examples/purdue-hfs-location-menu-example.json
+  - type: Website
+    url: https://www.housing.purdue.edu/
+- aid: purdue:purdue-impact-api
+  name: Purdue University Impact API
+  description: The Impact API from Purdue University — 6 operation(s) for impact.
+  humanURL: https://www.rcac.purdue.edu/
+  baseURL: https://www.rcac.purdue.edu/api
+  tags:
+  - Impact
+  properties:
+  - type: OpenAPI
+    url: openapi/purdue-impact-api-openapi.yml
+  - type: OpenAPIOriginal
+    url: openapi/_original/purdue-rcac-api.json
+  - type: APIReference
+    url: https://www.rcac.purdue.edu/api
+  - type: Documentation
+    url: https://www.rcac.purdue.edu/knowledge
+  - type: Support
+    url: https://www.rcac.purdue.edu/help
+  - type: Authentication
+    url: authentication/purdue-authentication.yml
+  - type: Errors
+    url: errors/purdue-errors.yml
+  - type: Lifecycle
+    url: lifecycle/purdue-lifecycle.yml
+  - type: Rules
+    url: rules/purdue-openapi-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/purdue-vocabulary.yml
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-menu-schema.json
+  - type: Examples
+    url: examples/purdue-hfs-locations-example.json
+  - type: Examples
+    url: examples/purdue-hfs-location-menu-example.json
+  - type: Website
+    url: https://www.housing.purdue.edu/
+- aid: purdue:purdue-issues-api
+  name: Purdue University Issues API
+  description: The Issues API from Purdue University — 6 operation(s) for issues.
+  humanURL: https://www.rcac.purdue.edu/
+  baseURL: https://www.rcac.purdue.edu/api
+  tags:
+  - Issues
+  properties:
+  - type: OpenAPI
+    url: openapi/purdue-issues-api-openapi.yml
+  - type: OpenAPIOriginal
+    url: openapi/_original/purdue-rcac-api.json
+  - type: APIReference
+    url: https://www.rcac.purdue.edu/api
+  - type: Documentation
+    url: https://www.rcac.purdue.edu/knowledge
+  - type: Support
+    url: https://www.rcac.purdue.edu/help
+  - type: Authentication
+    url: authentication/purdue-authentication.yml
+  - type: Errors
+    url: errors/purdue-errors.yml
+  - type: Lifecycle
+    url: lifecycle/purdue-lifecycle.yml
+  - type: Rules
+    url: rules/purdue-openapi-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/purdue-vocabulary.yml
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-menu-schema.json
+  - type: Examples
+    url: examples/purdue-hfs-locations-example.json
+  - type: Examples
+    url: examples/purdue-hfs-location-menu-example.json
+  - type: Website
+    url: https://www.housing.purdue.edu/
+- aid: purdue:purdue-items-api
+  name: Purdue University Items API
+  description: Nutrition and allergen detail for a single menu item.
+  humanURL: https://www.rcac.purdue.edu/
+  baseURL: https://www.rcac.purdue.edu/api
+  tags:
+  - Items
+  properties:
+  - type: OpenAPI
+    url: openapi/purdue-items-api-openapi.yml
+  - type: OpenAPIOriginal
+    url: openapi/_original/purdue-rcac-api.json
+  - type: APIReference
+    url: https://www.rcac.purdue.edu/api
+  - type: Documentation
+    url: https://www.rcac.purdue.edu/knowledge
+  - type: Support
+    url: https://www.rcac.purdue.edu/help
+  - type: Authentication
+    url: authentication/purdue-authentication.yml
+  - type: Errors
+    url: errors/purdue-errors.yml
+  - type: Lifecycle
+    url: lifecycle/purdue-lifecycle.yml
+  - type: Rules
+    url: rules/purdue-openapi-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/purdue-vocabulary.yml
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-menu-schema.json
+  - type: Examples
+    url: examples/purdue-hfs-locations-example.json
+  - type: Examples
+    url: examples/purdue-hfs-location-menu-example.json
+  - type: Website
+    url: https://www.housing.purdue.edu/
+- aid: purdue:purdue-knowledge-api
+  name: Purdue University Knowledge API
+  description: The Knowledge API from Purdue University — 7 operation(s) for knowledge.
+  humanURL: https://www.rcac.purdue.edu/
+  baseURL: https://www.rcac.purdue.edu/api
+  tags:
+  - Knowledge
+  properties:
+  - type: OpenAPI
+    url: openapi/purdue-knowledge-api-openapi.yml
+  - type: OpenAPIOriginal
+    url: openapi/_original/purdue-rcac-api.json
+  - type: APIReference
+    url: https://www.rcac.purdue.edu/api
+  - type: Documentation
+    url: https://www.rcac.purdue.edu/knowledge
+  - type: Support
+    url: https://www.rcac.purdue.edu/help
+  - type: Authentication
+    url: authentication/purdue-authentication.yml
+  - type: Errors
+    url: errors/purdue-errors.yml
+  - type: Lifecycle
+    url: lifecycle/purdue-lifecycle.yml
+  - type: Rules
+    url: rules/purdue-openapi-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/purdue-vocabulary.yml
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-menu-schema.json
+  - type: Examples
+    url: examples/purdue-hfs-locations-example.json
+  - type: Examples
+    url: examples/purdue-hfs-location-menu-example.json
+  - type: Website
+    url: https://www.housing.purdue.edu/
+- aid: purdue:purdue-listeners-api
+  name: Purdue University Listeners API
+  description: The Listeners API from Purdue University — 2 operation(s) for listeners.
+  humanURL: https://www.rcac.purdue.edu/
+  baseURL: https://www.rcac.purdue.edu/api
+  tags:
+  - Listeners
+  properties:
+  - type: OpenAPI
+    url: openapi/purdue-listeners-api-openapi.yml
+  - type: OpenAPIOriginal
+    url: openapi/_original/purdue-rcac-api.json
+  - type: APIReference
+    url: https://www.rcac.purdue.edu/api
+  - type: Documentation
+    url: https://www.rcac.purdue.edu/knowledge
+  - type: Support
+    url: https://www.rcac.purdue.edu/help
+  - type: Authentication
+    url: authentication/purdue-authentication.yml
+  - type: Errors
+    url: errors/purdue-errors.yml
+  - type: Lifecycle
+    url: lifecycle/purdue-lifecycle.yml
+  - type: Rules
+    url: rules/purdue-openapi-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/purdue-vocabulary.yml
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-menu-schema.json
+  - type: Examples
+    url: examples/purdue-hfs-locations-example.json
+  - type: Examples
+    url: examples/purdue-hfs-location-menu-example.json
+  - type: Website
+    url: https://www.housing.purdue.edu/
+- aid: purdue:purdue-locations-api
+  name: Purdue University Locations API
+  description: Dining courts, quick-bite and on-the-go retail locations.
+  humanURL: https://www.rcac.purdue.edu/
+  baseURL: https://www.rcac.purdue.edu/api
+  tags:
+  - Locations
+  properties:
+  - type: OpenAPI
+    url: openapi/purdue-locations-api-openapi.yml
+  - type: OpenAPIOriginal
+    url: openapi/_original/purdue-rcac-api.json
+  - type: APIReference
+    url: https://www.rcac.purdue.edu/api
+  - type: Documentation
+    url: https://www.rcac.purdue.edu/knowledge
+  - type: Support
+    url: https://www.rcac.purdue.edu/help
+  - type: Authentication
+    url: authentication/purdue-authentication.yml
+  - type: Errors
+    url: errors/purdue-errors.yml
+  - type: Lifecycle
+    url: lifecycle/purdue-lifecycle.yml
+  - type: Rules
+    url: rules/purdue-openapi-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/purdue-vocabulary.yml
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-menu-schema.json
+  - type: Examples
+    url: examples/purdue-hfs-locations-example.json
+  - type: Examples
+    url: examples/purdue-hfs-location-menu-example.json
+  - type: Website
+    url: https://www.housing.purdue.edu/
+- aid: purdue:purdue-logs-api
+  name: Purdue University Logs API
+  description: The Logs API from Purdue University — 2 operation(s) for logs.
+  humanURL: https://www.rcac.purdue.edu/
+  baseURL: https://www.rcac.purdue.edu/api
+  tags:
+  - Logs
+  properties:
+  - type: OpenAPI
+    url: openapi/purdue-logs-api-openapi.yml
+  - type: OpenAPIOriginal
+    url: openapi/_original/purdue-rcac-api.json
+  - type: APIReference
+    url: https://www.rcac.purdue.edu/api
+  - type: Documentation
+    url: https://www.rcac.purdue.edu/knowledge
+  - type: Support
+    url: https://www.rcac.purdue.edu/help
+  - type: Authentication
+    url: authentication/purdue-authentication.yml
+  - type: Errors
+    url: errors/purdue-errors.yml
+  - type: Lifecycle
+    url: lifecycle/purdue-lifecycle.yml
+  - type: Rules
+    url: rules/purdue-openapi-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/purdue-vocabulary.yml
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-menu-schema.json
+  - type: Examples
+    url: examples/purdue-hfs-locations-example.json
+  - type: Examples
+    url: examples/purdue-hfs-location-menu-example.json
+  - type: Website
+    url: https://www.housing.purdue.edu/
+- aid: purdue:purdue-mail-api
+  name: Purdue University Mail API
+  description: The Mail API from Purdue University — 1 operation(s) for mail.
+  humanURL: https://www.rcac.purdue.edu/
+  baseURL: https://www.rcac.purdue.edu/api
+  tags:
+  - Mail
+  properties:
+  - type: OpenAPI
+    url: openapi/purdue-mail-api-openapi.yml
+  - type: OpenAPIOriginal
+    url: openapi/_original/purdue-rcac-api.json
+  - type: APIReference
+    url: https://www.rcac.purdue.edu/api
+  - type: Documentation
+    url: https://www.rcac.purdue.edu/knowledge
+  - type: Support
+    url: https://www.rcac.purdue.edu/help
+  - type: Authentication
+    url: authentication/purdue-authentication.yml
+  - type: Errors
+    url: errors/purdue-errors.yml
+  - type: Lifecycle
+    url: lifecycle/purdue-lifecycle.yml
+  - type: Rules
+    url: rules/purdue-openapi-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/purdue-vocabulary.yml
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-menu-schema.json
+  - type: Examples
+    url: examples/purdue-hfs-locations-example.json
+  - type: Examples
+    url: examples/purdue-hfs-location-menu-example.json
+  - type: Website
+    url: https://www.housing.purdue.edu/
+- aid: purdue:purdue-mailer-api
+  name: Purdue University Mailer API
+  description: The Mailer API from Purdue University — 2 operation(s) for mailer.
+  humanURL: https://www.rcac.purdue.edu/
+  baseURL: https://www.rcac.purdue.edu/api
+  tags:
+  - Mailer
+  properties:
+  - type: OpenAPI
+    url: openapi/purdue-mailer-api-openapi.yml
+  - type: OpenAPIOriginal
+    url: openapi/_original/purdue-rcac-api.json
+  - type: APIReference
+    url: https://www.rcac.purdue.edu/api
+  - type: Documentation
+    url: https://www.rcac.purdue.edu/knowledge
+  - type: Support
+    url: https://www.rcac.purdue.edu/help
+  - type: Authentication
+    url: authentication/purdue-authentication.yml
+  - type: Errors
+    url: errors/purdue-errors.yml
+  - type: Lifecycle
+    url: lifecycle/purdue-lifecycle.yml
+  - type: Rules
+    url: rules/purdue-openapi-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/purdue-vocabulary.yml
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-menu-schema.json
+  - type: Examples
+    url: examples/purdue-hfs-locations-example.json
+  - type: Examples
+    url: examples/purdue-hfs-location-menu-example.json
+  - type: Website
+    url: https://www.housing.purdue.edu/
+- aid: purdue:purdue-media-api
+  name: Purdue University Media API
+  description: The Media API from Purdue University — 11 operation(s) for media.
+  humanURL: https://www.rcac.purdue.edu/
+  baseURL: https://www.rcac.purdue.edu/api
+  tags:
+  - Media
+  properties:
+  - type: OpenAPI
+    url: openapi/purdue-media-api-openapi.yml
+  - type: OpenAPIOriginal
+    url: openapi/_original/purdue-rcac-api.json
+  - type: APIReference
+    url: https://www.rcac.purdue.edu/api
+  - type: Documentation
+    url: https://www.rcac.purdue.edu/knowledge
+  - type: Support
+    url: https://www.rcac.purdue.edu/help
+  - type: Authentication
+    url: authentication/purdue-authentication.yml
+  - type: Errors
+    url: errors/purdue-errors.yml
+  - type: Lifecycle
+    url: lifecycle/purdue-lifecycle.yml
+  - type: Rules
+    url: rules/purdue-openapi-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/purdue-vocabulary.yml
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-menu-schema.json
+  - type: Examples
+    url: examples/purdue-hfs-locations-example.json
+  - type: Examples
+    url: examples/purdue-hfs-location-menu-example.json
+  - type: Website
+    url: https://www.housing.purdue.edu/
+- aid: purdue:purdue-menus-api
+  name: Purdue University Menus API
+  description: The Menus API from Purdue University — 6 operation(s) for menus.
+  humanURL: https://www.rcac.purdue.edu/
+  baseURL: https://www.rcac.purdue.edu/api
+  tags:
+  - Menus
+  properties:
+  - type: OpenAPI
+    url: openapi/purdue-menus-api-openapi.yml
+  - type: OpenAPIOriginal
+    url: openapi/_original/purdue-rcac-api.json
+  - type: APIReference
+    url: https://www.rcac.purdue.edu/api
+  - type: Documentation
+    url: https://www.rcac.purdue.edu/knowledge
+  - type: Support
+    url: https://www.rcac.purdue.edu/help
+  - type: Authentication
+    url: authentication/purdue-authentication.yml
+  - type: Errors
+    url: errors/purdue-errors.yml
+  - type: Lifecycle
+    url: lifecycle/purdue-lifecycle.yml
+  - type: Rules
+    url: rules/purdue-openapi-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/purdue-vocabulary.yml
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-menu-schema.json
+  - type: Examples
+    url: examples/purdue-hfs-locations-example.json
+  - type: Examples
+    url: examples/purdue-hfs-location-menu-example.json
+  - type: Website
+    url: https://www.housing.purdue.edu/
+- aid: purdue:purdue-messages-api
+  name: Purdue University Messages API
+  description: The Messages API from Purdue University — 4 operation(s) for messages.
+  humanURL: https://www.rcac.purdue.edu/
+  baseURL: https://www.rcac.purdue.edu/api
+  tags:
+  - Messages
+  properties:
+  - type: OpenAPI
+    url: openapi/purdue-messages-api-openapi.yml
+  - type: OpenAPIOriginal
+    url: openapi/_original/purdue-rcac-api.json
+  - type: APIReference
+    url: https://www.rcac.purdue.edu/api
+  - type: Documentation
+    url: https://www.rcac.purdue.edu/knowledge
+  - type: Support
+    url: https://www.rcac.purdue.edu/help
+  - type: Authentication
+    url: authentication/purdue-authentication.yml
+  - type: Errors
+    url: errors/purdue-errors.yml
+  - type: Lifecycle
+    url: lifecycle/purdue-lifecycle.yml
+  - type: Rules
+    url: rules/purdue-openapi-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/purdue-vocabulary.yml
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-menu-schema.json
+  - type: Examples
+    url: examples/purdue-hfs-locations-example.json
+  - type: Examples
+    url: examples/purdue-hfs-location-menu-example.json
+  - type: Website
+    url: https://www.housing.purdue.edu/
+- aid: purdue:purdue-news-api
+  name: Purdue University News API
+  description: The News API from Purdue University — 12 operation(s) for news.
+  humanURL: https://www.rcac.purdue.edu/
+  baseURL: https://www.rcac.purdue.edu/api
+  tags:
+  - News
+  properties:
+  - type: OpenAPI
+    url: openapi/purdue-news-api-openapi.yml
+  - type: OpenAPIOriginal
+    url: openapi/_original/purdue-rcac-api.json
+  - type: APIReference
+    url: https://www.rcac.purdue.edu/api
+  - type: Documentation
+    url: https://www.rcac.purdue.edu/knowledge
+  - type: Support
+    url: https://www.rcac.purdue.edu/help
+  - type: Authentication
+    url: authentication/purdue-authentication.yml
+  - type: Errors
+    url: errors/purdue-errors.yml
+  - type: Lifecycle
+    url: lifecycle/purdue-lifecycle.yml
+  - type: Rules
+    url: rules/purdue-openapi-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/purdue-vocabulary.yml
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-menu-schema.json
+  - type: Examples
+    url: examples/purdue-hfs-locations-example.json
+  - type: Examples
+    url: examples/purdue-hfs-location-menu-example.json
+  - type: Website
+    url: https://www.housing.purdue.edu/
+- aid: purdue:purdue-orders-api
+  name: Purdue University Orders API
+  description: The Orders API from Purdue University — 15 operation(s) for orders.
+  humanURL: https://www.rcac.purdue.edu/
+  baseURL: https://www.rcac.purdue.edu/api
+  tags:
+  - Orders
+  properties:
+  - type: OpenAPI
+    url: openapi/purdue-orders-api-openapi.yml
+  - type: OpenAPIOriginal
+    url: openapi/_original/purdue-rcac-api.json
+  - type: APIReference
+    url: https://www.rcac.purdue.edu/api
+  - type: Documentation
+    url: https://www.rcac.purdue.edu/knowledge
+  - type: Support
+    url: https://www.rcac.purdue.edu/help
+  - type: Authentication
+    url: authentication/purdue-authentication.yml
+  - type: Errors
+    url: errors/purdue-errors.yml
+  - type: Lifecycle
+    url: lifecycle/purdue-lifecycle.yml
+  - type: Rules
+    url: rules/purdue-openapi-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/purdue-vocabulary.yml
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-menu-schema.json
+  - type: Examples
+    url: examples/purdue-hfs-locations-example.json
+  - type: Examples
+    url: examples/purdue-hfs-location-menu-example.json
+  - type: Website
+    url: https://www.housing.purdue.edu/
+- aid: purdue:purdue-pages-api
+  name: Purdue University Pages API
+  description: The Pages API from Purdue University — 2 operation(s) for pages.
+  humanURL: https://www.rcac.purdue.edu/
+  baseURL: https://www.rcac.purdue.edu/api
+  tags:
+  - Pages
+  properties:
+  - type: OpenAPI
+    url: openapi/purdue-pages-api-openapi.yml
+  - type: OpenAPIOriginal
+    url: openapi/_original/purdue-rcac-api.json
+  - type: APIReference
+    url: https://www.rcac.purdue.edu/api
+  - type: Documentation
+    url: https://www.rcac.purdue.edu/knowledge
+  - type: Support
+    url: https://www.rcac.purdue.edu/help
+  - type: Authentication
+    url: authentication/purdue-authentication.yml
+  - type: Errors
+    url: errors/purdue-errors.yml
+  - type: Lifecycle
+    url: lifecycle/purdue-lifecycle.yml
+  - type: Rules
+    url: rules/purdue-openapi-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/purdue-vocabulary.yml
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-menu-schema.json
+  - type: Examples
+    url: examples/purdue-hfs-locations-example.json
+  - type: Examples
+    url: examples/purdue-hfs-location-menu-example.json
+  - type: Website
+    url: https://www.housing.purdue.edu/
+- aid: purdue:purdue-publications-api
+  name: Purdue University Publications API
+  description: The Publications API from Purdue University — 4 operation(s) for publications.
+  humanURL: https://www.rcac.purdue.edu/
+  baseURL: https://www.rcac.purdue.edu/api
+  tags:
+  - Publications
+  properties:
+  - type: OpenAPI
+    url: openapi/purdue-publications-api-openapi.yml
+  - type: OpenAPIOriginal
+    url: openapi/_original/purdue-rcac-api.json
+  - type: APIReference
+    url: https://www.rcac.purdue.edu/api
+  - type: Documentation
+    url: https://www.rcac.purdue.edu/knowledge
+  - type: Support
+    url: https://www.rcac.purdue.edu/help
+  - type: Authentication
+    url: authentication/purdue-authentication.yml
+  - type: Errors
+    url: errors/purdue-errors.yml
+  - type: Lifecycle
+    url: lifecycle/purdue-lifecycle.yml
+  - type: Rules
+    url: rules/purdue-openapi-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/purdue-vocabulary.yml
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-menu-schema.json
+  - type: Examples
+    url: examples/purdue-hfs-locations-example.json
+  - type: Examples
+    url: examples/purdue-hfs-location-menu-example.json
+  - type: Website
+    url: https://www.housing.purdue.edu/
+- aid: purdue:purdue-queues-api
+  name: Purdue University Queues API
+  description: The Queues API from Purdue University — 22 operation(s) for queues.
+  humanURL: https://www.rcac.purdue.edu/
+  baseURL: https://www.rcac.purdue.edu/api
+  tags:
+  - Queues
+  properties:
+  - type: OpenAPI
+    url: openapi/purdue-queues-api-openapi.yml
+  - type: OpenAPIOriginal
+    url: openapi/_original/purdue-rcac-api.json
+  - type: APIReference
+    url: https://www.rcac.purdue.edu/api
+  - type: Documentation
+    url: https://www.rcac.purdue.edu/knowledge
+  - type: Support
+    url: https://www.rcac.purdue.edu/help
+  - type: Authentication
+    url: authentication/purdue-authentication.yml
+  - type: Errors
+    url: errors/purdue-errors.yml
+  - type: Lifecycle
+    url: lifecycle/purdue-lifecycle.yml
+  - type: Rules
+    url: rules/purdue-openapi-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/purdue-vocabulary.yml
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-menu-schema.json
+  - type: Examples
+    url: examples/purdue-hfs-locations-example.json
+  - type: Examples
+    url: examples/purdue-hfs-location-menu-example.json
+  - type: Website
+    url: https://www.housing.purdue.edu/
+- aid: purdue:purdue-rcac-api-api
+  name: Purdue University RCAC API
+  description: The RCAC API API from Purdue University — 1 operation(s) for rcac api.
+  humanURL: https://www.rcac.purdue.edu/
+  baseURL: https://www.rcac.purdue.edu/api
+  tags:
+  - RCAC API
+  properties:
+  - type: OpenAPI
+    url: openapi/purdue-rcac-api-api-openapi.yml
+  - type: OpenAPIOriginal
+    url: openapi/_original/purdue-rcac-api.json
+  - type: APIReference
+    url: https://www.rcac.purdue.edu/api
+  - type: Documentation
+    url: https://www.rcac.purdue.edu/knowledge
+  - type: Support
+    url: https://www.rcac.purdue.edu/help
+  - type: Authentication
+    url: authentication/purdue-authentication.yml
+  - type: Errors
+    url: errors/purdue-errors.yml
+  - type: Lifecycle
+    url: lifecycle/purdue-lifecycle.yml
+  - type: Rules
+    url: rules/purdue-openapi-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/purdue-vocabulary.yml
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-menu-schema.json
+  - type: Examples
+    url: examples/purdue-hfs-locations-example.json
+  - type: Examples
+    url: examples/purdue-hfs-location-menu-example.json
+  - type: Website
+    url: https://www.housing.purdue.edu/
+- aid: purdue:purdue-resources-api
+  name: Purdue University Resources API
+  description: The Resources API from Purdue University — 11 operation(s) for resources.
+  humanURL: https://www.rcac.purdue.edu/
+  baseURL: https://www.rcac.purdue.edu/api
+  tags:
+  - Resources
+  properties:
+  - type: OpenAPI
+    url: openapi/purdue-resources-api-openapi.yml
+  - type: OpenAPIOriginal
+    url: openapi/_original/purdue-rcac-api.json
+  - type: APIReference
+    url: https://www.rcac.purdue.edu/api
+  - type: Documentation
+    url: https://www.rcac.purdue.edu/knowledge
+  - type: Support
+    url: https://www.rcac.purdue.edu/help
+  - type: Authentication
+    url: authentication/purdue-authentication.yml
+  - type: Errors
+    url: errors/purdue-errors.yml
+  - type: Lifecycle
+    url: lifecycle/purdue-lifecycle.yml
+  - type: Rules
+    url: rules/purdue-openapi-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/purdue-vocabulary.yml
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-menu-schema.json
+  - type: Examples
+    url: examples/purdue-hfs-locations-example.json
+  - type: Examples
+    url: examples/purdue-hfs-location-menu-example.json
+  - type: Website
+    url: https://www.housing.purdue.edu/
+- aid: purdue:purdue-search-api
+  name: Purdue University Search API
+  description: The Search API from Purdue University — 1 operation(s) for search.
+  humanURL: https://www.rcac.purdue.edu/
+  baseURL: https://www.rcac.purdue.edu/api
+  tags:
+  - Search
+  properties:
+  - type: OpenAPI
+    url: openapi/purdue-search-api-openapi.yml
+  - type: OpenAPIOriginal
+    url: openapi/_original/purdue-rcac-api.json
+  - type: APIReference
+    url: https://www.rcac.purdue.edu/api
+  - type: Documentation
+    url: https://www.rcac.purdue.edu/knowledge
+  - type: Support
+    url: https://www.rcac.purdue.edu/help
+  - type: Authentication
+    url: authentication/purdue-authentication.yml
+  - type: Errors
+    url: errors/purdue-errors.yml
+  - type: Lifecycle
+    url: lifecycle/purdue-lifecycle.yml
+  - type: Rules
+    url: rules/purdue-openapi-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/purdue-vocabulary.yml
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-menu-schema.json
+  - type: Examples
+    url: examples/purdue-hfs-locations-example.json
+  - type: Examples
+    url: examples/purdue-hfs-location-menu-example.json
+  - type: Website
+    url: https://www.housing.purdue.edu/
+- aid: purdue:purdue-software-api
+  name: Purdue University Software API
+  description: The Software API from Purdue University — 4 operation(s) for software.
+  humanURL: https://www.rcac.purdue.edu/
+  baseURL: https://www.rcac.purdue.edu/api
+  tags:
+  - Software
+  properties:
+  - type: OpenAPI
+    url: openapi/purdue-software-api-openapi.yml
+  - type: OpenAPIOriginal
+    url: openapi/_original/purdue-rcac-api.json
+  - type: APIReference
+    url: https://www.rcac.purdue.edu/api
+  - type: Documentation
+    url: https://www.rcac.purdue.edu/knowledge
+  - type: Support
+    url: https://www.rcac.purdue.edu/help
+  - type: Authentication
+    url: authentication/purdue-authentication.yml
+  - type: Errors
+    url: errors/purdue-errors.yml
+  - type: Lifecycle
+    url: lifecycle/purdue-lifecycle.yml
+  - type: Rules
+    url: rules/purdue-openapi-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/purdue-vocabulary.yml
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-menu-schema.json
+  - type: Examples
+    url: examples/purdue-hfs-locations-example.json
+  - type: Examples
+    url: examples/purdue-hfs-location-menu-example.json
+  - type: Website
+    url: https://www.housing.purdue.edu/
+- aid: purdue:purdue-storage-api
+  name: Purdue University Storage API
+  description: The Storage API from Purdue University — 16 operation(s) for storage.
+  humanURL: https://www.rcac.purdue.edu/
+  baseURL: https://www.rcac.purdue.edu/api
+  tags:
+  - Storage
+  properties:
+  - type: OpenAPI
+    url: openapi/purdue-storage-api-openapi.yml
+  - type: OpenAPIOriginal
+    url: openapi/_original/purdue-rcac-api.json
+  - type: APIReference
+    url: https://www.rcac.purdue.edu/api
+  - type: Documentation
+    url: https://www.rcac.purdue.edu/knowledge
+  - type: Support
+    url: https://www.rcac.purdue.edu/help
+  - type: Authentication
+    url: authentication/purdue-authentication.yml
+  - type: Errors
+    url: errors/purdue-errors.yml
+  - type: Lifecycle
+    url: lifecycle/purdue-lifecycle.yml
+  - type: Rules
+    url: rules/purdue-openapi-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/purdue-vocabulary.yml
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-menu-schema.json
+  - type: Examples
+    url: examples/purdue-hfs-locations-example.json
+  - type: Examples
+    url: examples/purdue-hfs-location-menu-example.json
+  - type: Website
+    url: https://www.housing.purdue.edu/
+- aid: purdue:purdue-tags-api
+  name: Purdue University Tags API
+  description: The Tags API from Purdue University — 2 operation(s) for tags.
+  humanURL: https://www.rcac.purdue.edu/
+  baseURL: https://www.rcac.purdue.edu/api
+  tags:
+  - Tags
+  properties:
+  - type: OpenAPI
+    url: openapi/purdue-tags-api-openapi.yml
+  - type: OpenAPIOriginal
+    url: openapi/_original/purdue-rcac-api.json
+  - type: APIReference
+    url: https://www.rcac.purdue.edu/api
+  - type: Documentation
+    url: https://www.rcac.purdue.edu/knowledge
+  - type: Support
+    url: https://www.rcac.purdue.edu/help
+  - type: Authentication
+    url: authentication/purdue-authentication.yml
+  - type: Errors
+    url: errors/purdue-errors.yml
+  - type: Lifecycle
+    url: lifecycle/purdue-lifecycle.yml
+  - type: Rules
+    url: rules/purdue-openapi-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/purdue-vocabulary.yml
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-menu-schema.json
+  - type: Examples
+    url: examples/purdue-hfs-locations-example.json
+  - type: Examples
+    url: examples/purdue-hfs-location-menu-example.json
+  - type: Website
+    url: https://www.housing.purdue.edu/
+- aid: purdue:purdue-themes-api
+  name: Purdue University Themes API
+  description: The Themes API from Purdue University — 2 operation(s) for themes.
+  humanURL: https://www.rcac.purdue.edu/
+  baseURL: https://www.rcac.purdue.edu/api
+  tags:
+  - Themes
+  properties:
+  - type: OpenAPI
+    url: openapi/purdue-themes-api-openapi.yml
+  - type: OpenAPIOriginal
+    url: openapi/_original/purdue-rcac-api.json
+  - type: APIReference
+    url: https://www.rcac.purdue.edu/api
+  - type: Documentation
+    url: https://www.rcac.purdue.edu/knowledge
+  - type: Support
+    url: https://www.rcac.purdue.edu/help
+  - type: Authentication
+    url: authentication/purdue-authentication.yml
+  - type: Errors
+    url: errors/purdue-errors.yml
+  - type: Lifecycle
+    url: lifecycle/purdue-lifecycle.yml
+  - type: Rules
+    url: rules/purdue-openapi-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/purdue-vocabulary.yml
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-menu-schema.json
+  - type: Examples
+    url: examples/purdue-hfs-locations-example.json
+  - type: Examples
+    url: examples/purdue-hfs-location-menu-example.json
+  - type: Website
+    url: https://www.housing.purdue.edu/
+- aid: purdue:purdue-unixgroups-api
+  name: Purdue University Unixgroups API
+  description: The Unixgroups API from Purdue University — 4 operation(s) for unixgroups.
+  humanURL: https://www.rcac.purdue.edu/
+  baseURL: https://www.rcac.purdue.edu/api
+  tags:
+  - Unixgroups
+  properties:
+  - type: OpenAPI
+    url: openapi/purdue-unixgroups-api-openapi.yml
+  - type: OpenAPIOriginal
+    url: openapi/_original/purdue-rcac-api.json
+  - type: APIReference
+    url: https://www.rcac.purdue.edu/api
+  - type: Documentation
+    url: https://www.rcac.purdue.edu/knowledge
+  - type: Support
+    url: https://www.rcac.purdue.edu/help
+  - type: Authentication
+    url: authentication/purdue-authentication.yml
+  - type: Errors
+    url: errors/purdue-errors.yml
+  - type: Lifecycle
+    url: lifecycle/purdue-lifecycle.yml
+  - type: Rules
+    url: rules/purdue-openapi-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/purdue-vocabulary.yml
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-menu-schema.json
+  - type: Examples
+    url: examples/purdue-hfs-locations-example.json
+  - type: Examples
+    url: examples/purdue-hfs-location-menu-example.json
+  - type: Website
+    url: https://www.housing.purdue.edu/
+- aid: purdue:purdue-users-api
+  name: Purdue University Users API
+  description: The Users API from Purdue University — 15 operation(s) for users.
+  humanURL: https://www.rcac.purdue.edu/
+  baseURL: https://www.rcac.purdue.edu/api
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/purdue-users-api-openapi.yml
+  - type: OpenAPIOriginal
+    url: openapi/_original/purdue-rcac-api.json
+  - type: APIReference
+    url: https://www.rcac.purdue.edu/api
+  - type: Documentation
+    url: https://www.rcac.purdue.edu/knowledge
+  - type: Support
+    url: https://www.rcac.purdue.edu/help
+  - type: Authentication
+    url: authentication/purdue-authentication.yml
+  - type: Errors
+    url: errors/purdue-errors.yml
+  - type: Lifecycle
+    url: lifecycle/purdue-lifecycle.yml
+  - type: Rules
+    url: rules/purdue-openapi-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/purdue-vocabulary.yml
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-menu-schema.json
+  - type: Examples
+    url: examples/purdue-hfs-locations-example.json
+  - type: Examples
+    url: examples/purdue-hfs-location-menu-example.json
+  - type: Website
+    url: https://www.housing.purdue.edu/
+- aid: purdue:purdue-widgets-api
+  name: Purdue University Widgets API
+  description: The Widgets API from Purdue University — 2 operation(s) for widgets.
+  humanURL: https://www.rcac.purdue.edu/
+  baseURL: https://www.rcac.purdue.edu/api
+  tags:
+  - Widgets
+  properties:
+  - type: OpenAPI
+    url: openapi/purdue-widgets-api-openapi.yml
+  - type: OpenAPIOriginal
+    url: openapi/_original/purdue-rcac-api.json
+  - type: APIReference
+    url: https://www.rcac.purdue.edu/api
+  - type: Documentation
+    url: https://www.rcac.purdue.edu/knowledge
+  - type: Support
+    url: https://www.rcac.purdue.edu/help
+  - type: Authentication
+    url: authentication/purdue-authentication.yml
+  - type: Errors
+    url: errors/purdue-errors.yml
+  - type: Lifecycle
+    url: lifecycle/purdue-lifecycle.yml
+  - type: Rules
+    url: rules/purdue-openapi-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/purdue-vocabulary.yml
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-schema.json
+  - type: JSONSchema
+    url: json-schema/purdue-hfs-location-menu-schema.json
+  - type: Examples
+    url: examples/purdue-hfs-locations-example.json
+  - type: Examples
+    url: examples/purdue-hfs-location-menu-example.json
+  - type: Website
+    url: https://www.housing.purdue.edu/
 common:
   - type: Website
     url: https://www.purdue.edu/
