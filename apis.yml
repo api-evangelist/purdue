@@ -218,6 +218,12 @@ apis:
   - Research Repository
   - OAI-PMH
   - Institutional Repository
+  - Tenants
+  - bepress Digital Commons
+  tags_raw:
+  - Research Repository
+  - OAI-PMH
+  - Institutional Repository
   - Tenant
   - bepress Digital Commons
   properties:
@@ -241,7 +247,7 @@ apis:
   - Campus Life
   - Event
   - Calendar
-  - Tenant
+  - Tenants
   - Localist
   tags_raw:
   - Campus Life
@@ -445,6 +451,8 @@ apis:
   humanURL: https://www.rcac.purdue.edu/
   baseURL: https://www.rcac.purdue.edu/api
   tags:
+  - Group
+  tags_raw:
   - Groups
   properties:
   - type: OpenAPI
@@ -597,6 +605,8 @@ apis:
   humanURL: https://www.rcac.purdue.edu/
   baseURL: https://www.rcac.purdue.edu/api
   tags:
+  - Item
+  tags_raw:
   - Items
   properties:
   - type: OpenAPI
@@ -711,6 +721,8 @@ apis:
   humanURL: https://www.rcac.purdue.edu/
   baseURL: https://www.rcac.purdue.edu/api
   tags:
+  - Location
+  tags_raw:
   - Locations
   properties:
   - type: OpenAPI
@@ -939,6 +951,8 @@ apis:
   humanURL: https://www.rcac.purdue.edu/
   baseURL: https://www.rcac.purdue.edu/api
   tags:
+  - Message
+  tags_raw:
   - Messages
   properties:
   - type: OpenAPI
@@ -1015,6 +1029,8 @@ apis:
   humanURL: https://www.rcac.purdue.edu/
   baseURL: https://www.rcac.purdue.edu/api
   tags:
+  - Order
+  tags_raw:
   - Orders
   properties:
   - type: OpenAPI
@@ -1471,6 +1487,8 @@ apis:
   humanURL: https://www.rcac.purdue.edu/
   baseURL: https://www.rcac.purdue.edu/api
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
