@@ -1,0 +1,675 @@
+openapi: 3.2.0
+info:
+  title: RCAC Issues API
+  version: 0.0.1
+servers:
+- url: https://www.rcac.purdue.edu/api
+  description: Production server
+tags:
+- name: Issues
+paths:
+  /issues/comments:
+    get:
+      description: Display a listing of issues comments
+      parameters:
+      - in: query
+        name: issueid
+        description: ID of issue
+        required: false
+        schema:
+          type: integer
+          default: 0
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: limit
+        description: Number of result per page.
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: datetimecreated
+          enum:
+          - id
+          - issueid
+          - userid
+          - notice
+          - datetimecreated
+          - datetimeremoved
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: asc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Issues
+      summary: Get issues comments
+      x-summary-source: derived
+      operationId: getIssuesComments
+      x-operation-id-source: derived
+    post:
+      description: Create a issue comment
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+          content:
+            application/json:
+              example:
+                id: 1
+                issueid: 3
+                userid: 1234
+                comment: Updated the config settings.
+                stemmedcomment: uupdate tthe cconfig ssettings
+                datetimecreated: '2021-10-25T20:24:30.000000Z'
+                resolution: 1
+                formatteddate: October 25, 2021 4:24pm
+                formattedcomment: <p>Updated the config settings.</p>
+                username: John Doe
+                api: https://example.org/api/issues/comments/1
+        '401':
+          description: Unauthorized
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                comment:
+                  description: The comment being made
+                  type: string
+                  default: null
+                issueid:
+                  description: ID of the issue
+                  type: integer
+                  default: null
+                resolution:
+                  description: IS this the official resolution to the issue?
+                  type: integer
+                  default: null
+              required:
+              - comment
+              - issueid
+      tags:
+      - Issues
+      summary: Create issues comments
+      x-summary-source: derived
+      operationId: postIssuesComments
+      x-operation-id-source: derived
+  /issues/comments/{id}:
+    get:
+      description: Retrieve an issue comment
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry creation
+          content:
+            application/json:
+              example:
+                id: 1
+                issueid: 3
+                userid: 1234
+                comment: Updated the config settings.
+                stemmedcomment: uupdate tthe cconfig ssettings
+                datetimecreated: '2021-10-25T20:24:30.000000Z'
+                resolution: 1
+                formatteddate: October 25, 2021 4:24pm
+                formattedcomment: <p>Updated the config settings.</p>
+                username: John Doe
+                api: https://example.org/api/issues/comments/1
+        '404':
+          description: Record not found
+      tags:
+      - Issues
+      summary: Get issues comments by id
+      x-summary-source: derived
+      operationId: getIssuesCommentsById
+      x-operation-id-source: derived
+    put:
+      description: Update an issue comment
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: Successful entry modification
+          content:
+            application/json:
+              example:
+                id: 1
+                issueid: 3
+                userid: 1234
+                comment: Updated the config settings.
+                stemmedcomment: uupdate tthe cconfig ssettings
+                datetimecreated: '2021-10-25T20:24:30.000000Z'
+                resolution: 1
+                formatteddate: October 25, 2021 4:24pm
+                formattedcomment: <p>Updated the config settings.</p>
+                username: John Doe
+                api: https://example.org/api/issues/comments/1
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                comment:
+                  description: The comment being made
+                  type: string
+                  default: null
+                issueid:
+                  description: ID of the issue
+                  type: integer
+                  default: null
+                resolution:
+                  description: IS this the official resolution to the issue?
+                  type: integer
+                  default: null
+              required: []
+      tags:
+      - Issues
+      summary: Replace issues comments by id
+      x-summary-source: derived
+      operationId: putIssuesCommentsById
+      x-operation-id-source: derived
+    delete:
+      description: Delete an issue comment
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Issues
+      summary: Delete issues comments by id
+      x-summary-source: derived
+      operationId: deleteIssuesCommentsById
+      x-operation-id-source: derived
+  /issues:
+    get:
+      description: Display a listing of issues
+      parameters:
+      - in: query
+        name: limit
+        description: Number of result per page.
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: datetimecreated
+          enum:
+          - id
+          - issuetodoid
+          - userid
+          - datetimecreated
+          - datetimeremoved
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: asc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Issues
+      summary: Get issues
+      x-summary-source: derived
+      operationId: getIssues
+      x-operation-id-source: derived
+    post:
+      description: Create a new issue
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+          content:
+            application/json:
+              example:
+                id: 1
+                issueid: 3
+                userid: 1234
+                report: An LDAP misconfiguration on these systems was causing centralservices to get overloaded and slow down responding to queries that resulted in sluggishness with Data Depot
+                stemmedreport: 'AAn lldap mmisconfigur oon tthese ssystem wwa ccaus ccentralservic tto gget ooverload aand sslow ddown rrespond tto qqueri tthat rresult iin ssluggish wwith ddata ddepot '
+                datetimecreated: '2021-10-25T20:24:30.000000Z'
+                resolution: 1
+                formatteddate: October 25, 2021 4:24pm
+                formattedreport: <p>An LDAP misconfiguration on these systems was causing centralservices to get overloaded and slow down responding to queries that resulted in sluggishness with Data Depot</p>
+                username: John Doe
+                comments: []
+                resources: []
+                age: 10707683
+                api: https://example.org/issues/1
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                report:
+                  description: Report text
+                  type: string
+                  default: null
+                datetimecreated:
+                  description: Timestamp (YYYY-MM-DD or YYYY-MM-DD hh:mm:ss) of the issue
+                  type: string
+                  default: null
+                userid:
+                  description: ID of the user creating the entry
+                  type: integer
+                  default: null
+                issuetodo:
+                  description: Is this a To-Do item?
+                  type: integer
+                  default: null
+              required:
+              - report
+              - datetimecreated
+      tags:
+      - Issues
+      summary: Create issues
+      x-summary-source: derived
+      operationId: postIssues
+      x-operation-id-source: derived
+  /issues/{id}:
+    get:
+      description: Retrieve an issue
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry creation
+          content:
+            application/json:
+              example:
+                id: 1
+                issueid: 3
+                userid: 1234
+                report: An LDAP misconfiguration on these systems was causing centralservices to get overloaded and slow down responding to queries that resulted in sluggishness with Data Depot
+                stemmedreport: 'AAn lldap mmisconfigur oon tthese ssystem wwa ccaus ccentralservic tto gget ooverload aand sslow ddown rrespond tto qqueri tthat rresult iin ssluggish wwith ddata ddepot '
+                datetimecreated: '2021-10-25T20:24:30.000000Z'
+                resolution: 1
+                formatteddate: October 25, 2021 4:24pm
+                formattedreport: <p>An LDAP misconfiguration on these systems was causing centralservices to get overloaded and slow down responding to queries that resulted in sluggishness with Data Depot</p>
+                username: John Doe
+                comments: []
+                resources: []
+                age: 10707683
+                api: https://example.org/issues/1
+        '404':
+          description: Record not found
+      tags:
+      - Issues
+      summary: Get issues by id
+      x-summary-source: derived
+      operationId: getIssuesById
+      x-operation-id-source: derived
+    put:
+      description: Update an issue
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: Successful entry modification
+          content:
+            application/json:
+              example:
+                id: 1
+                issueid: 3
+                userid: 1234
+                report: An LDAP misconfiguration on these systems was causing centralservices to get overloaded and slow down responding to queries that resulted in sluggishness with Data Depot
+                stemmedreport: 'AAn lldap mmisconfigur oon tthese ssystem wwa ccaus ccentralservic tto gget ooverload aand sslow ddown rrespond tto qqueri tthat rresult iin ssluggish wwith ddata ddepot '
+                datetimecreated: '2021-10-25T20:24:30.000000Z'
+                resolution: 1
+                formatteddate: October 25, 2021 4:24pm
+                formattedreport: <p>An LDAP misconfiguration on these systems was causing centralservices to get overloaded and slow down responding to queries that resulted in sluggishness with Data Depot</p>
+                username: John Doe
+                comments: []
+                resources: []
+                age: 10707683
+                api: https://example.org/issues/1
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                report:
+                  description: Report text
+                  type: string
+                  default: null
+                datetimecreated:
+                  description: Timestamp (YYYY-MM-DD or YYYY-MM-DD hh:mm:ss) of the issue
+                  type: string
+                  default: null
+                issuetodo:
+                  description: Is this a To-Do item?
+                  type: integer
+                  default: null
+              required: []
+      tags:
+      - Issues
+      summary: Replace issues by id
+      x-summary-source: derived
+      operationId: putIssuesById
+      x-operation-id-source: derived
+    delete:
+      description: Delete an issue
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Issues
+      summary: Delete issues by id
+      x-summary-source: derived
+      operationId: deleteIssuesById
+      x-operation-id-source: derived
+  /issues/todos:
+    get:
+      description: Display a listing of to-dos
+      parameters:
+      - in: query
+        name: limit
+        description: Number of result per page.
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: datetimecreated
+          enum:
+          - id
+          - name
+          - userid
+          - datetimecreated
+          - datetimeremoved
+          - recurringtimeperiodid
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: asc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Issues
+      summary: Get issues todos
+      x-summary-source: derived
+      operationId: getIssuesTodos
+      x-operation-id-source: derived
+    post:
+      description: Create a new to-do
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+          content:
+            application/json:
+              example:
+                id: 1
+                userid: 1234
+                name: Check for emails for SSL certs expiring
+                description: ''
+                recurringtimeperiodid: 1
+                datetimecreated: '2021-10-25T20:24:30.000000Z'
+                datetimeremoved: null
+                api: https://example.org/api/issues/todos/1
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  description: Name of the To-Do item
+                  type: string
+                  default: null
+                description:
+                  description: Description of the To-Do item
+                  type: string
+                  default: null
+                recurringtimeperiodid:
+                  description: Recurring timeperiod ID
+                  type: integer
+                  default: null
+                userid:
+                  description: User ID
+                  type: integer
+                  default: null
+              required:
+              - name
+              - description
+      tags:
+      - Issues
+      summary: Create issues todos
+      x-summary-source: derived
+      operationId: postIssuesTodos
+      x-operation-id-source: derived
+  /issues/todos/{id}:
+    get:
+      description: Retrieve a to-do
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry creation
+          content:
+            application/json:
+              example:
+                id: 1
+                userid: 1234
+                name: Check for emails for SSL certs expiring
+                description: ''
+                recurringtimeperiodid: 1
+                datetimecreated: '2021-10-25T20:24:30.000000Z'
+                datetimeremoved: null
+                api: https://example.org/api/issues/todos/1
+        '404':
+          description: Record not found
+      tags:
+      - Issues
+      summary: Get issues todos by id
+      x-summary-source: derived
+      operationId: getIssuesTodosById
+      x-operation-id-source: derived
+    put:
+      description: Update a to-do
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: Successful entry modification
+          content:
+            application/json:
+              example:
+                id: 1
+                userid: 1234
+                name: Check for emails for SSL certs expiring
+                description: ''
+                recurringtimeperiodid: 1
+                datetimecreated: '2021-10-25T20:24:30.000000Z'
+                datetimeremoved: null
+                api: https://example.org/api/issues/todos/1
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  description: Name of the To-Do item
+                  type: string
+                  default: null
+                description:
+                  description: Description of the To-Do item
+                  type: string
+                  default: null
+                recurringtimeperiodid:
+                  description: Recurring timeperiod ID
+                  type: integer
+                  default: null
+              required: []
+      tags:
+      - Issues
+      summary: Replace issues todos by id
+      x-summary-source: derived
+      operationId: putIssuesTodosById
+      x-operation-id-source: derived
+    delete:
+      description: Delete a to-do
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Issues
+      summary: Delete issues todos by id
+      x-summary-source: derived
+      operationId: deleteIssuesTodosById
+      x-operation-id-source: derived
+components:
+  securitySchemes:
+    api_token:
+      type: apiKey
+      name: api_token
+      in: header

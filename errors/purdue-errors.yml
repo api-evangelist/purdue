@@ -1,0 +1,56 @@
+specification: API Evangelist Error Profile
+specificationVersion: '0.1'
+provider: Purdue University
+providerId: purdue
+x-method: generated   # manifest authorship vocabulary (build-provenance-manifest.py)
+x-source-url: https://api.hfs.purdue.edu/menus/v2/
+generated: '2026-08-30'
+method: probed
+source: Live negative probes on 2026-08-30 against the institution-operated surfaces in this profile.
+x-operator: institution
+description: >-
+  Purdue publishes no error reference for any of its APIs. Everything below is an observed
+  response to a deliberate negative probe, recorded so a consumer knows what failure actually
+  looks like rather than what a document claims.
+observations:
+- surface: Purdue HFS Dining Menus API
+  request: GET https://api.hfs.purdue.edu/menus/v2/locations/NOSUCH/2026-08-30
+  status: 500
+  content_type: application/json
+  body_shape:
+    Message: An error has occurred.
+    ExceptionMessage: Sequence contains no matching element
+    ExceptionType: System.InvalidOperationException
+    StackTrace: present
+  finding: >-
+    An unknown location name produces an unhandled ASP.NET Web API exception, not a 404, and the
+    response leaks an internal stack trace naming Purdue.Hfs.Menus.Domain.Operations. That leak is
+    also the evidence that this service is Purdue's own software rather than a vendor platform.
+- surface: Purdue HFS Dining Menus API
+  request: GET https://api.hfs.purdue.edu/menus/v2/locations/Earhart
+  status: 404
+  finding: Omitting the date segment returns 404 with a framework HTML body.
+- surface: Purdue HFS Dining Menus API
+  request: GET https://api.hfs.purdue.edu/menus/v2/items
+  status: 405
+  finding: >-
+    The collection form of /items is method-not-allowed, which is how the /items/{id} path was
+    confirmed to exist without any documentation.
+- surface: Purdue HFS Dining Menus API
+  request: GET https://api.hfs.purdue.edu/
+  status: 403
+  finding: The API root is forbidden; there is no service index or discovery document.
+- surface: Purdue RCAC API
+  request: GET https://www.rcac.purdue.edu/api/groups (no api_token header)
+  status: 500
+  content_type: text/html
+  finding: >-
+    Returns a "Purdue Web Authentication" HTML login page under a 500, where RFC-correct behavior
+    is 401 with a WWW-Authenticate header and a machine-readable body.
+- surface: Purdue Libraries API host
+  request: GET https://api.lib.purdue.edu/
+  status: 200
+  finding: >-
+    A soft-200. The body is the literal string "Libraries API documentation goes here..." inside a
+    page titled "API Documentation - Purdue University Libraries". Status 200, zero API. Recorded
+    here so it is never counted as a live surface.

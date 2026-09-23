@@ -1,0 +1,503 @@
+openapi: 3.2.0
+info:
+  title: RCAC Unixgroups API
+  version: 0.0.1
+servers:
+- url: https://www.rcac.purdue.edu/api
+  description: Production server
+tags:
+- name: Unixgroups
+paths:
+  /unixgroups/members:
+    get:
+      description: Display a listing of entries
+      parameters:
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: unixgroupid
+        description: Unix Group ID
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: userid
+        description: User ID
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: limit
+        description: Number of result per page.
+        type: integer
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: order
+        description: Field to sort results by.
+        type: string
+        required: false
+        schema:
+          type: string
+          default: datetimecreated
+          enum:
+          - id
+          - motd
+          - datetimecreated
+          - datetimeremoved
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        type: string
+        required: false
+        default: desc
+        schema:
+          type: string
+          default: asc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Unixgroups
+      summary: Get unixgroups members
+      x-summary-source: derived
+      operationId: getUnixgroupsMembers
+      x-operation-id-source: derived
+    post:
+      description: Create a new entry
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+          content:
+            application/json:
+              example:
+                id: 2
+                unixgroupid: 1
+                userid: 1234
+                datetimecreated: '2021-02-03T18:36:02.000000Z'
+                datetimeremoved: null
+                notice: 0
+                username: janedoe
+                name: Jane Doe
+                api: https://example.org/api/unixgroups/members/39372
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                unixgroupid:
+                  description: Unix group ID
+                  type: integer
+                  default: null
+                userid:
+                  description: User ID or username
+                  type: integer
+                  default: null
+                notice:
+                  description: Notice state
+                  type: integer
+                  default: null
+              required:
+              - unixgroupid
+              - userid
+      tags:
+      - Unixgroups
+      summary: Create unixgroups members
+      x-summary-source: derived
+      operationId: postUnixgroupsMembers
+      x-operation-id-source: derived
+  /unixgroups/members/{id}:
+    get:
+      description: Retrieve an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+          content:
+            application/json:
+              example:
+                id: 2
+                unixgroupid: 1
+                userid: 1234
+                datetimecreated: '2021-02-03T18:36:02.000000Z'
+                datetimeremoved: null
+                notice: 0
+                username: janedoe
+                name: Jane Doe
+                api: https://example.org/api/unixgroups/members/39372
+        '404':
+          description: Record not found
+      tags:
+      - Unixgroups
+      summary: Get unixgroups members by id
+      x-summary-source: derived
+      operationId: getUnixgroupsMembersById
+      x-operation-id-source: derived
+    put:
+      description: Update an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: Successful entry modification
+          content:
+            application/json:
+              example:
+                id: 2
+                unixgroupid: 1
+                userid: 1234
+                datetimecreated: '2021-02-03T18:36:02.000000Z'
+                datetimeremoved: null
+                notice: 0
+                username: janedoe
+                name: Jane Doe
+                api: https://example.org/api/unixgroups/members/39372
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                notice:
+                  description: Notice state
+                  type: integer
+                  default: null
+              required: []
+      tags:
+      - Unixgroups
+      summary: Replace unixgroups members by id
+      x-summary-source: derived
+      operationId: putUnixgroupsMembersById
+      x-operation-id-source: derived
+    delete:
+      description: Delete an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Unixgroups
+      summary: Delete unixgroups members by id
+      x-summary-source: derived
+      operationId: deleteUnixgroupsMembersById
+      x-operation-id-source: derived
+  /unixgroups:
+    get:
+      description: Display a listing of entries
+      parameters:
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: groupid
+        description: Group ID
+        required: false
+        schema:
+          type: integer
+          default: 0
+      - in: query
+        name: limit
+        description: Number of result per page.
+        type: integer
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: order
+        description: Field to sort results by.
+        type: string
+        required: false
+        schema:
+          type: string
+          default: datetimecreated
+          enum:
+          - id
+          - motd
+          - datetimecreated
+          - datetimeremoved
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        type: string
+        required: false
+        default: desc
+        schema:
+          type: string
+          default: asc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Unixgroups
+      summary: Get unixgroups
+      x-summary-source: derived
+      operationId: getUnixgroups
+      x-operation-id-source: derived
+    post:
+      description: Create a new entry
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+          content:
+            application/json:
+              example:
+                id: 1
+                groupid: 1
+                unixgid: 27395
+                shortname: rcs20130
+                longname: jdoes
+                datetimecreated: '2021-02-03T15:46:34.000000Z'
+                datetimeremoved: null
+                api: https://example.org/api/unixgroups/4039
+                members:
+                - id: 1
+                  unixgroupid: 1
+                  userid: 1235
+                  datetimecreated: '2021-02-03T18:35:43.000000Z'
+                  datetimeremoved: null
+                  notice: 0
+                  username: jimmyd
+                  name: Jimmy Doe
+                  api: https://example.org/api/unixgroups/members/39371
+                - id: 2
+                  unixgroupid: 1
+                  userid: 1234
+                  datetimecreated: '2021-02-03T18:36:02.000000Z'
+                  datetimeremoved: null
+                  notice: 0
+                  username: janedoe
+                  name: Jane Doe
+                  api: https://example.org/api/unixgroups/members/39372
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                groupid:
+                  description: Group ID
+                  type: integer
+                  default: null
+                longname:
+                  description: Long name
+                  type: string
+                  default: null
+                shortname:
+                  description: Short name
+                  type: string
+                  default: null
+                unixgid:
+                  description: Unix group system ID
+                  type: integer
+                  default: null
+              required:
+              - groupid
+              - longname
+      tags:
+      - Unixgroups
+      summary: Create unixgroups
+      x-summary-source: derived
+      operationId: postUnixgroups
+      x-operation-id-source: derived
+  /unixgroups/{id}:
+    get:
+      description: Retrieve an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+          content:
+            application/json:
+              example:
+                id: 1
+                groupid: 1
+                unixgid: 27395
+                shortname: rcs20130
+                longname: jdoes
+                datetimecreated: '2021-02-03T15:46:34.000000Z'
+                datetimeremoved: null
+                api: https://example.org/api/unixgroups/4039
+                members:
+                - id: 1
+                  unixgroupid: 1
+                  userid: 1235
+                  datetimecreated: '2021-02-03T18:35:43.000000Z'
+                  datetimeremoved: null
+                  notice: 0
+                  username: jimmyd
+                  name: Jimmy Doe
+                  api: https://example.org/api/unixgroups/members/39371
+                - id: 2
+                  unixgroupid: 1
+                  userid: 1234
+                  datetimecreated: '2021-02-03T18:36:02.000000Z'
+                  datetimeremoved: null
+                  notice: 0
+                  username: janedoe
+                  name: Jane Doe
+                  api: https://example.org/api/unixgroups/members/39372
+        '404':
+          description: Record not found
+      tags:
+      - Unixgroups
+      summary: Get unixgroups by id
+      x-summary-source: derived
+      operationId: getUnixgroupsById
+      x-operation-id-source: derived
+    put:
+      description: Update an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: Successful entry modification
+          content:
+            application/json:
+              example:
+                id: 1
+                groupid: 1
+                unixgid: 27395
+                shortname: rcs20130
+                longname: jdoes
+                datetimecreated: '2021-02-03T15:46:34.000000Z'
+                datetimeremoved: null
+                api: https://example.org/api/unixgroups/4039
+                members:
+                - id: 1
+                  unixgroupid: 1
+                  userid: 1235
+                  datetimecreated: '2021-02-03T18:35:43.000000Z'
+                  datetimeremoved: null
+                  notice: 0
+                  username: jimmyd
+                  name: Jimmy Doe
+                  api: https://example.org/api/unixgroups/members/39371
+                - id: 2
+                  unixgroupid: 1
+                  userid: 1234
+                  datetimecreated: '2021-02-03T18:36:02.000000Z'
+                  datetimeremoved: null
+                  notice: 0
+                  username: janedoe
+                  name: Jane Doe
+                  api: https://example.org/api/unixgroups/members/39372
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                longname:
+                  description: Long name
+                  type: string
+                  default: null
+                shortname:
+                  description: Short name
+                  type: string
+                  default: null
+                unixgid:
+                  description: Unix group system ID
+                  type: integer
+                  default: null
+              required: []
+      tags:
+      - Unixgroups
+      summary: Replace unixgroups by id
+      x-summary-source: derived
+      operationId: putUnixgroupsById
+      x-operation-id-source: derived
+    delete:
+      description: Delete an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Unixgroups
+      summary: Delete unixgroups by id
+      x-summary-source: derived
+      operationId: deleteUnixgroupsById
+      x-operation-id-source: derived
+components:
+  securitySchemes:
+    api_token:
+      type: apiKey
+      name: api_token
+      in: header

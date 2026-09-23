@@ -1,0 +1,1688 @@
+openapi: 3.2.0
+info:
+  title: RCAC Storage API
+  version: 0.0.1
+servers:
+- url: https://www.rcac.purdue.edu/api
+  description: Production server
+tags:
+- name: Storage
+paths:
+  /storage/directories:
+    get:
+      description: Display a listing of the resource.
+      parameters:
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: resourceid
+        description: ID of the resource to filter by.
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: storageresourceid
+        description: ID of the storage resource to filter by.
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: groupid
+        description: ID of the group to filter by.
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: parentstoragedirid
+        description: ID of the parent directory to filter by.
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: state
+        description: State of entries to retrieve.
+        required: false
+        schema:
+          type: string
+          default: active
+          enum:
+          - '*'
+          - active
+          - inactive
+      - in: query
+        name: quota
+        description: Filter by if a quota is set on the directory
+        required: false
+        schema:
+          type: string
+          default: null
+          enum:
+          - 'true'
+          - 'false'
+      - in: query
+        name: limit
+        description: Number of result per page.
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: path
+          enum:
+          - id
+          - resourceid
+          - groupid
+          - parentstoragedirid
+          - name
+          - path
+          - datetimecreated
+          - datetimeremoved
+          - bytes
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: asc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Storage
+      summary: Get storage directories
+      x-summary-source: derived
+      operationId: getStorageDirectories
+      x-operation-id-source: derived
+    post:
+      description: Create an entry
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+        '401':
+          description: Unauthorized
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  description: Directory name
+                  type: string
+                  default: null
+                resourceid:
+                  description: Resource id
+                  type: integer
+                  default: null
+                groupid:
+                  description: Group id
+                  type: integer
+                  default: null
+                bytes:
+                  description: Byes
+                  type: string
+                  default: null
+                parentstorageid:
+                  description: Parent directory ID
+                  type: integer
+                  default: 0
+                owneruserid:
+                  description: Owner user ID
+                  type: integer
+                  default: null
+                unixgroupid:
+                  description: Unix Group ID
+                  type: integer
+                  default: null
+                ownerread:
+                  description: Owner read permission
+                  type: integer
+                  default: null
+                groupread:
+                  description: Group read permission
+                  type: integer
+                  default: null
+                groupwrite:
+                  description: Group write permission
+                  type: integer
+                  default: null
+                publicread:
+                  description: Public read permission
+                  type: integer
+                  default: null
+                publicwrite:
+                  description: Public write permission
+                  type: integer
+                  default: null
+                autouser:
+                  description: Auto user
+                  type: integer
+                  default: null
+                files:
+                  description: Files
+                  type: integer
+                  default: null
+                autouserunixgroupid:
+                  description: Auto user Unix Group ID
+                  type: integer
+                  default: null
+                storageresourceid:
+                  description: Storage Resource ID
+                  type: integer
+                  default: null
+              required:
+              - name
+              - resourceid
+              - groupid
+              - bytes
+              - unixgroupid
+      tags:
+      - Storage
+      summary: Create storage directories
+      x-summary-source: derived
+      operationId: postStorageDirectories
+      x-operation-id-source: derived
+  /storage/directories/{id}:
+    get:
+      description: Read a resource
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+        '404':
+          description: Record not found
+      tags:
+      - Storage
+      summary: Get storage directories by id
+      x-summary-source: derived
+      operationId: getStorageDirectoriesById
+      x-operation-id-source: derived
+    put:
+      description: Update a resource
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: false
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: Successful entry modification
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  description: Directory name
+                  type: string
+                  default: null
+                resourceid:
+                  description: Resource id
+                  type: integer
+                  default: null
+                groupid:
+                  description: Group id
+                  type: integer
+                  default: null
+                bytes:
+                  description: Bytes
+                  type: string
+                  default: null
+                parentstorageid:
+                  description: Parent directory ID
+                  type: integer
+                  default: 0
+                owneruserid:
+                  description: Owner user ID
+                  type: integer
+                  default: null
+                unixgroupid:
+                  description: Unix Group ID
+                  type: integer
+                  default: null
+                ownerread:
+                  description: Owner read permission
+                  type: integer
+                  default: null
+                groupread:
+                  description: Group read permission
+                  type: integer
+                  default: null
+                groupwrite:
+                  description: Group write permission
+                  type: integer
+                  default: null
+                publicread:
+                  description: Public read permission
+                  type: integer
+                  default: null
+                publicwrite:
+                  description: Public write permission
+                  type: integer
+                  default: null
+                autouser:
+                  description: Auto user
+                  type: integer
+                  default: null
+                files:
+                  description: Files
+                  type: integer
+                  default: null
+                autouserunixgroupid:
+                  description: Auto user Unix Group ID
+                  type: integer
+                  default: null
+                storageresourceid:
+                  description: Storage Resource ID
+                  type: integer
+                  default: null
+              required: []
+      tags:
+      - Storage
+      summary: Replace storage directories by id
+      x-summary-source: derived
+      operationId: putStorageDirectoriesById
+      x-operation-id-source: derived
+    delete:
+      description: Delete a storage directory
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Storage
+      summary: Delete storage directories by id
+      x-summary-source: derived
+      operationId: deleteStorageDirectoriesById
+      x-operation-id-source: derived
+  /storage/loans:
+    get:
+      description: Display a listing of entries
+      parameters:
+      - in: query
+        name: resourceid
+        description: Resource ID to filter by
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: groupid
+        description: Group ID to filter by
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: lendergroupid
+        description: Lender group ID to filter by
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: limit
+        description: Number of result to return.
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 0
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: datetimestart
+          enum:
+          - id
+          - resourceid
+          - groupid
+          - datetimestart
+          - datetimestop
+          - bytes
+          - lendergroupid
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: desc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Storage
+      summary: Get storage loans
+      x-summary-source: derived
+      operationId: getStorageLoans
+      x-operation-id-source: derived
+    post:
+      description: Create an entry
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+        '401':
+          description: Unauthorized
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                resourceid:
+                  description: Resource ID
+                  type: integer
+                  default: null
+                groupid:
+                  description: Group id
+                  type: integer
+                  default: null
+                lendergroupid:
+                  description: Lender Group id
+                  type: integer
+                  default: null
+                datetimestart:
+                  description: Start date
+                  type: string
+                  default: null
+                datetimestop:
+                  description: Stop date
+                  type: string
+                  default: null
+              required:
+              - resourceid
+              - groupid
+              - datetimestart
+      tags:
+      - Storage
+      summary: Create storage loans
+      x-summary-source: derived
+      operationId: postStorageLoans
+      x-operation-id-source: derived
+  /storage/loans/{id}:
+    get:
+      description: Read an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+        '404':
+          description: Record not found
+      tags:
+      - Storage
+      summary: Get storage loans by id
+      x-summary-source: derived
+      operationId: getStorageLoansById
+      x-operation-id-source: derived
+    put:
+      description: Update an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: Successful entry modification
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                resourceid:
+                  description: Resource ID
+                  type: integer
+                  default: null
+                groupid:
+                  description: Group id
+                  type: integer
+                  default: null
+                lendergroupid:
+                  description: Lender Group id
+                  type: integer
+                  default: null
+                datetimestart:
+                  description: Start date
+                  type: string
+                  default: null
+                datetimestop:
+                  description: Stop date
+                  type: string
+                  default: null
+              required: []
+      tags:
+      - Storage
+      summary: Replace storage loans by id
+      x-summary-source: derived
+      operationId: putStorageLoansById
+      x-operation-id-source: derived
+    delete:
+      description: Delete an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Storage
+      summary: Delete storage loans by id
+      x-summary-source: derived
+      operationId: deleteStorageLoansById
+      x-operation-id-source: derived
+  /storage/notifications/types:
+    get:
+      description: Display a listing of notification types.
+      parameters:
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: limit
+        description: Number of result to return.
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: name
+          enum:
+          - id
+          - name
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: asc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Storage
+      summary: Get storage notifications types
+      x-summary-source: derived
+      operationId: getStorageNotificationsTypes
+      x-operation-id-source: derived
+    post:
+      description: Create a notification type.
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+        '401':
+          description: Unauthorized
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  description: The name of the notification type
+                  type: string
+                  default: null
+                defaulttimeperiodid:
+                  description: ID of the default time period for notifications of this type
+                  type: integer
+                  default: 0
+                valuetype:
+                  description: ID of the default time period for notifications of this type
+                  type: integer
+                  default: null
+              required:
+              - name
+              - valuetype
+      tags:
+      - Storage
+      summary: Create storage notifications types
+      x-summary-source: derived
+      operationId: postStorageNotificationsTypes
+      x-operation-id-source: derived
+  /storage/notifications/types/{id}:
+    get:
+      description: Read a notification type.
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+        '404':
+          description: Record not found
+      tags:
+      - Storage
+      summary: Get storage notifications types by id
+      x-summary-source: derived
+      operationId: getStorageNotificationsTypesById
+      x-operation-id-source: derived
+    put:
+      description: Update a notification type.
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: Successful entry modification
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  description: The name of the notification type
+                  type: string
+                  default: null
+                defaulttimeperiodid:
+                  description: ID of the default time period for notifications of this type
+                  type: integer
+                  default: null
+                valuetype:
+                  description: ID of the default time period for notifications of this type
+                  type: integer
+                  default: null
+              required: []
+      tags:
+      - Storage
+      summary: Replace storage notifications types by id
+      x-summary-source: derived
+      operationId: putStorageNotificationsTypesById
+      x-operation-id-source: derived
+    delete:
+      description: Delete a notification type.
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Storage
+      summary: Delete storage notifications types by id
+      x-summary-source: derived
+      operationId: deleteStorageNotificationsTypesById
+      x-operation-id-source: derived
+  /storage/notifications:
+    get:
+      description: Display a listing of notifications.
+      parameters:
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: enabled
+        description: Enabled state of the notifications
+        required: false
+        schema:
+          type: string
+          default: '-1'
+          enum:
+          - '-1'
+          - '0'
+          - '1'
+      - in: query
+        name: storagedirquotanotificationtypeid
+        description: ID of the notification type to filter by.
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: storagedirid
+        description: ID of the storage directory to filter by.
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: userid
+        description: ID of the user to filter by.
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: timeperiodid
+        description: ID of the timeperiod to filter by
+        required: false
+        schema:
+          type: integer
+          default: '-1'
+      - in: query
+        name: limit
+        description: Number of result to return.
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 0
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: datetimestart
+          enum:
+          - id
+          - storagedirid
+          - userid
+          - datetimecreated
+          - datetimeremoved
+          - enabled
+          - notice
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: desc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Storage
+      summary: Get storage notifications
+      x-summary-source: derived
+      operationId: getStorageNotifications
+      x-operation-id-source: derived
+    post:
+      description: Create a notification.
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+        '401':
+          description: Unauthorized
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                storagedirid:
+                  description: Storage directory ID
+                  type: integer
+                  default: null
+                userid:
+                  description: User ID
+                  type: integer
+                  default: null
+                storagedirquotanotificationtypeid:
+                  description: Storage quota notification type ID
+                  type: integer
+                  default: null
+                value:
+                  description: Notification threshold
+                  type: integer
+                  default: null
+                timeperiodid:
+                  description: Time period ID
+                  type: integer
+                  default: null
+                periods:
+                  description: Periods
+                  type: integer
+                  default: null
+                notice:
+                  description: Notice state
+                  type: integer
+                  default: null
+                enabled:
+                  description: Enabled state
+                  type: integer
+                  default: 1
+                datetimelastnotify:
+                  description: Last notified timestamp
+                  type: string
+                  default: null
+              required:
+              - storagedirid
+              - userid
+              - storagedirquotanotificationtypeid
+              - value
+      tags:
+      - Storage
+      summary: Create storage notifications
+      x-summary-source: derived
+      operationId: postStorageNotifications
+      x-operation-id-source: derived
+  /storage/notifications/{id}:
+    get:
+      description: Read a notification.
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+        '404':
+          description: Record not found
+      tags:
+      - Storage
+      summary: Get storage notifications by id
+      x-summary-source: derived
+      operationId: getStorageNotificationsById
+      x-operation-id-source: derived
+    put:
+      description: Update a notification.
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: Successful entry modification
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                userid:
+                  description: User ID
+                  type: integer
+                  default: null
+                storagedirquotanotificationtypeid:
+                  description: Storage quota notification type ID
+                  type: integer
+                  default: null
+                value:
+                  description: Notification threshold
+                  type: integer
+                  default: null
+                timeperiodid:
+                  description: Time period ID
+                  type: integer
+                  default: null
+                periods:
+                  description: Periods
+                  type: integer
+                  default: null
+                notice:
+                  description: Notice state
+                  type: integer
+                  default: null
+                enabled:
+                  description: Enabled state
+                  type: integer
+                  default: 1
+                datetimelastnotify:
+                  description: Last notified timestamp
+                  type: string
+                  default: null
+                nextreport:
+                  description: When the next report should be
+                  type: string
+                  default: null
+              required: []
+      tags:
+      - Storage
+      summary: Replace storage notifications by id
+      x-summary-source: derived
+      operationId: putStorageNotificationsById
+      x-operation-id-source: derived
+    delete:
+      description: Delete a notification.
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Storage
+      summary: Delete storage notifications by id
+      x-summary-source: derived
+      operationId: deleteStorageNotificationsById
+      x-operation-id-source: derived
+  /storage/purchases:
+    get:
+      description: Display a listing of entries
+      parameters:
+      - in: query
+        name: resourceid
+        description: A Resource ID to filter by.
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: groupid
+        description: A Group ID to filter by.
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: sellergroupid
+        description: A selling Group ID to filter by.
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: limit
+        description: Number of result to return.
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: datetimestart
+          enum:
+          - id
+          - resourceid
+          - groupid
+          - datetimestart
+          - datetimestop
+          - bytes
+          - sellergroupid
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                order_dir:
+                  description: Direction to sort results by.
+                  type: string
+                  default: desc
+              required: []
+      tags:
+      - Storage
+      summary: Get storage purchases
+      x-summary-source: derived
+      operationId: getStoragePurchases
+      x-operation-id-source: derived
+    post:
+      description: Create an entry
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+        '401':
+          description: Unauthorized
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                resourceid:
+                  description: Resource ID
+                  type: integer
+                  default: null
+                groupid:
+                  description: ID of group making the purchase
+                  type: integer
+                  default: null
+                sellergroupid:
+                  description: ID of seller group
+                  type: integer
+                  default: null
+                datetimestart:
+                  description: Timestamp for when the purchase starts
+                  type: string
+                  default: null
+                datetimestop:
+                  description: Timestamp for when the purchase stops
+                  type: string
+                  default: null
+                bytes:
+                  description: Amount of space in bytes being purchases
+                  type: integer
+                  default: null
+                comment:
+                  description: Comments/notes
+                  type: string
+                  default: null
+              required:
+              - resourceid
+              - groupid
+              - sellergroupid
+              - datetimestart
+              - bytes
+      tags:
+      - Storage
+      summary: Create storage purchases
+      x-summary-source: derived
+      operationId: postStoragePurchases
+      x-operation-id-source: derived
+  /storage/purchases/{id}:
+    get:
+      description: Read an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+        '404':
+          description: Record not found
+      tags:
+      - Storage
+      summary: Get storage purchases by id
+      x-summary-source: derived
+      operationId: getStoragePurchasesById
+      x-operation-id-source: derived
+    put:
+      description: Update an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: Successful entry modification
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                resourceid:
+                  description: Resource ID
+                  type: integer
+                  default: null
+                groupid:
+                  description: ID of group making the purchase
+                  type: integer
+                  default: null
+                sellergroupid:
+                  description: ID of seller group
+                  type: integer
+                  default: null
+                datetimestart:
+                  description: Timestamp for when the purchase starts
+                  type: string
+                  default: Now
+                datetimestop:
+                  description: Timestamp for when the purchase stops
+                  type: string
+                  default: null
+                bytes:
+                  description: Amount of space in bytes being purchases
+                  type: integer
+                  default: null
+                comment:
+                  description: Comments/notes
+                  type: string
+                  default: null
+              required: []
+      tags:
+      - Storage
+      summary: Replace storage purchases by id
+      x-summary-source: derived
+      operationId: putStoragePurchasesById
+      x-operation-id-source: derived
+    delete:
+      description: Delete an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Storage
+      summary: Delete storage purchases by id
+      x-summary-source: derived
+      operationId: deleteStoragePurchasesById
+      x-operation-id-source: derived
+  /storage/quotas/{username?}:
+    get:
+      description: Display a listing of quotas for a user.
+      parameters:
+      - in: path
+        name: username
+        description: User username to retrieve data for
+        required: false
+        schema:
+          type: string
+          default: Current user's username
+      responses:
+        '200':
+          description: Successful entry list
+      tags:
+      - Storage
+      summary: Get storage quotas by username?
+      x-summary-source: derived
+      operationId: getStorageQuotasByUsername?
+      x-operation-id-source: derived
+  /storage:
+    get:
+      description: Display a listing of storage resources.
+      parameters:
+      - in: query
+        name: state
+        description: Record state.
+        required: false
+        schema:
+          type: string
+          default: active
+          enum:
+          - active
+          - inactive
+          - all
+      - in: query
+        name: parentresourceid
+        description: Parent resource ID
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: groupmanaged
+        description: Storage can be managed by group managers
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: autouserdir
+        description: Auto create user directories
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: getquotatypeid
+        description: Quota message type ID
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: createtypeid
+        description: Create message type ID
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: limit
+        description: Number of result to return.
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: datetimecreated
+          enum:
+          - id
+          - name
+          - path
+          - datetimecreated
+          - datetimeremoved
+          - parentresourceid
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: asc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Storage
+      summary: Get storage
+      x-summary-source: derived
+      operationId: getStorage
+      x-operation-id-source: derived
+    post:
+      description: Create a storage resource
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+        '401':
+          description: Unauthorized
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  description: The name of the storage resource
+                  type: string
+                  default: null
+                path:
+                  description: The storage resource base path
+                  type: string
+                  default: null
+                parentresourceid:
+                  description: The parent resource's ID
+                  type: integer
+                  default: null
+                import:
+                  description: Import
+                  type: boolean
+                  default: null
+                importhostname:
+                  description: Import hostname
+                  type: string
+                  default: null
+                autouserdir:
+                  description: Auto create user directory
+                  type: boolean
+                  default: null
+                defaultquotaspace:
+                  description: Default quota space in bytes
+                  type: integer
+                  default: null
+                defaultquotafile:
+                  description: Default number of files
+                  type: integer
+                  default: null
+                getquotatypeid:
+                  description: Get Quota message type ID
+                  type: integer
+                  default: null
+                createtypeid:
+                  description: Create Quota message type ID
+                  type: integer
+                  default: null
+                groupmanaged:
+                  description: Groups can manage directory structure and permissions
+                  type: integer
+                  default: null
+              required:
+              - name
+              - path
+      tags:
+      - Storage
+      summary: Create storage
+      x-summary-source: derived
+      operationId: postStorage
+      x-operation-id-source: derived
+  /storage/{id}:
+    get:
+      description: Read a storage resource
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+        '404':
+          description: Record not found
+      tags:
+      - Storage
+      summary: Get storage by id
+      x-summary-source: derived
+      operationId: getStorageById
+      x-operation-id-source: derived
+    put:
+      description: Update a storage resource
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: Successful entry modification
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  description: The name of the storage resource
+                  type: string
+                  default: null
+                path:
+                  description: The storage resource base path
+                  type: string
+                  default: null
+                parentresourceid:
+                  description: The parent resource's ID
+                  type: integer
+                  default: null
+                import:
+                  description: Import
+                  type: boolean
+                  default: null
+                importhostname:
+                  description: Import hostname
+                  type: string
+                  default: null
+                autouserdir:
+                  description: Auto create user directory
+                  type: boolean
+                  default: null
+                defaultquotaspace:
+                  description: Default quota space in bytes
+                  type: integer
+                  default: null
+                defaultquotafile:
+                  description: Default number of files
+                  type: integer
+                  default: null
+                getquotatypeid:
+                  description: Get Quota message type ID
+                  type: integer
+                  default: null
+                createtypeid:
+                  description: Create Quota message type ID
+                  type: integer
+                  default: null
+                groupmanaged:
+                  description: Groups can manage directory structure and permissions
+                  type: integer
+                  default: null
+              required: []
+      tags:
+      - Storage
+      summary: Replace storage by id
+      x-summary-source: derived
+      operationId: putStorageById
+      x-operation-id-source: derived
+    delete:
+      description: Delete a storage resource
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Storage
+      summary: Delete storage by id
+      x-summary-source: derived
+      operationId: deleteStorageById
+      x-operation-id-source: derived
+  /storage/usage:
+    get:
+      description: Display a listing of entries
+      parameters:
+      - in: query
+        name: storagedirid
+        description: Storage directory ID
+        required: false
+        schema:
+          type: integer
+      tags:
+      - Storage
+      summary: Get storage usage
+      x-summary-source: derived
+      operationId: getStorageUsage
+      x-operation-id-source: derived
+    post:
+      description: Create an entry
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+        '401':
+          description: Unauthorized
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                storagedirid:
+                  description: Storage directory ID
+                  type: integer
+                  default: null
+                quota:
+                  description: Quota value
+                  type: integer
+                  default: null
+                space:
+                  description: Space value
+                  type: integer
+                  default: null
+                filequota:
+                  description: File quota value
+                  type: integer
+                  default: null
+                files:
+                  description: Files value
+                  type: integer
+                  default: null
+              required:
+              - storagedirid
+              - quota
+      tags:
+      - Storage
+      summary: Create storage usage
+      x-summary-source: derived
+      operationId: postStorageUsage
+      x-operation-id-source: derived
+  /storage/usage/{id}:
+    get:
+      description: Read an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+        '404':
+          description: Record not found
+      tags:
+      - Storage
+      summary: Get storage usage by id
+      x-summary-source: derived
+      operationId: getStorageUsageById
+      x-operation-id-source: derived
+    put:
+      description: Update an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: Successful entry modification
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                storagedirid:
+                  description: Storage directory ID
+                  type: integer
+                  default: null
+                quota:
+                  description: Quota value
+                  type: integer
+                  default: null
+                space:
+                  description: Space value
+                  type: integer
+                  default: null
+                filequota:
+                  description: File quota value
+                  type: integer
+                  default: null
+                files:
+                  description: Files value
+                  type: integer
+                  default: null
+              required: []
+      tags:
+      - Storage
+      summary: Replace storage usage by id
+      x-summary-source: derived
+      operationId: putStorageUsageById
+      x-operation-id-source: derived
+    delete:
+      description: Delete an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Storage
+      summary: Delete storage usage by id
+      x-summary-source: derived
+      operationId: deleteStorageUsageById
+      x-operation-id-source: derived
+  /storage/usage/batch/{resource}/{dir}:
+    post:
+      description: Process a batch list of usage
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+        '401':
+          description: Unauthorized
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                file:
+                  description: Storage directory ID
+                  type: integer
+                  default: null
+              required:
+              - file
+      tags:
+      - Storage
+      summary: Create storage usage batch by resource by dir
+      x-summary-source: derived
+      operationId: postStorageUsageBatchByResourceByDir
+      x-operation-id-source: derived
+components:
+  securitySchemes:
+    api_token:
+      type: apiKey
+      name: api_token
+      in: header

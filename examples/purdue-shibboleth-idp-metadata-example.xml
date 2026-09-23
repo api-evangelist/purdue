@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!--
+  provenance: generated=2026-08-30 method=probed
+  x-method: searched
+  x-source-url: https://sso.purdue.edu/idp/shibboleth
+  source: https://sso.purdue.edu/idp/shibboleth
+  Verbatim SAML 2.0 IdP metadata served by Purdue's own Shibboleth identity provider.
+  The same entity is served signed from the InCommon metadata query service at
+  https://mdq.incommon.org/entities/https%3A%2F%2Fidp.purdue.edu%2Fidp%2Fshibboleth
+  entityID https://idp.purdue.edu/idp/shibboleth - OrganizationName 'Purdue University Main Campus'.
+  x-operator: institution
+-->
+<EntityDescriptor xmlns="urn:oasis:names:tc:SAML:2.0:metadata" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:shibmd="urn:mace:shibboleth:metadata:1.0" xmlns:mdui="urn:oasis:names:tc:SAML:metadata:ui" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" entityID="https://idp.purdue.edu/idp/shibboleth">
+	<IDPSSODescriptor protocolSupportEnumeration="urn:mace:shibboleth:1.0 urn:oasis:names:tc:SAML:1.1:protocol urn:oasis:names:tc:SAML:2.0:protocol">
+		<Extensions>
+			<shibmd:Scope regexp="false">purdue.edu</shibmd:Scope>
+		</Extensions>
+		<KeyDescriptor>
+			<ds:KeyInfo>
+				<ds:X509Data>
+					<ds:X509Certificate>
+MIICvTCCAkSgAwIBAgIUcyhlKDGwTb2aAYwv2reNBICXBfMwCgYIKoZIzj0EAwMw
+gZUxCzAJBgNVBAYTAlVTMRAwDgYDVQQIDAdJbmRpYW5hMRcwFQYDVQQHDA5XZXN0
+IExhZmF5ZXR0ZTEaMBgGA1UECgwRUHVyZHVlIFVuaXZlcnNpdHkxJjAkBgNVBAsM
+HVB1cmR1ZSBJbmZvcm1hdGlvbiBUZWNobm9sb2d5MRcwFQYDVQQDDA5zc28ucHVy
+ZHVlLmVkdTAeFw0yMzA1MjUyMTIwMDhaFw0zMzA1MjIyMTIwMDhaMIGVMQswCQYD
+VQQGEwJVUzEQMA4GA1UECAwHSW5kaWFuYTEXMBUGA1UEBwwOV2VzdCBMYWZheWV0
+dGUxGjAYBgNVBAoMEVB1cmR1ZSBVbml2ZXJzaXR5MSYwJAYDVQQLDB1QdXJkdWUg
+SW5mb3JtYXRpb24gVGVjaG5vbG9neTEXMBUGA1UEAwwOc3NvLnB1cmR1ZS5lZHUw
+djAQBgcqhkjOPQIBBgUrgQQAIgNiAATF471WCIQRAzWIM0TrbrcxjKD8KDm50hOC
+XUTaq+U0qejlvMHfml8JhiHqobk7gPPbhT1EpBbxfTL3Lu+jWsvej+5UjleTGiyh
+o7jRd0A8TWv4EoltZyTHloal7CKxytijUzBRMB0GA1UdDgQWBBQwefB/wtlr82V3
+p+sW8AKRXMG+kTAfBgNVHSMEGDAWgBQwefB/wtlr82V3p+sW8AKRXMG+kTAPBgNV
+HRMBAf8EBTADAQH/MAoGCCqGSM49BAMDA2cAMGQCMBEE98yKRcGMeGqCfa5sfRRI
+c+ePKj8skjWh7mkuBgos4lSHKw7uT1slYa86LHEB8wIwCFQz9slmf5yVuvUNrPo7
+J9w9wY4M1xxkpkZdNFwyXLxNkKwfebDOvunOYeJ1CnR5
+					</ds:X509Certificate>
+				</ds:X509Data>
+			</ds:KeyInfo>
+		</KeyDescriptor>
+		<NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:transient</NameIDFormat>
+		<SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest" Location="https://sso.purdue.edu/idp/profile/Shibboleth/SSO"/>
+		<SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://sso.purdue.edu/idp/profile/SAML2/POST/SSO"/>
+		<SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://sso.purdue.edu/idp/profile/SAML2/Redirect/SSO"/>
+	</IDPSSODescriptor>
+</EntityDescriptor>

@@ -1,0 +1,213 @@
+openapi: 3.2.0
+info:
+  title: RCAC Mailer API
+  version: 0.0.1
+servers:
+- url: https://www.rcac.purdue.edu/api
+  description: Production server
+tags:
+- name: Mailer
+paths:
+  /mailer/{id}:
+    get:
+      description: Retrieve an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+          content:
+            application/json:
+              example:
+                id: 2
+                subject: Scratch Filesystem Purge Policy Violation
+                body: Don't violate our policies!
+                template: 0
+                alert: info
+                created_at: '2022-05-24 12:31:01'
+                updated_at: null
+                deleted_at: null
+                sent_at: '2022-05-24 12:31:01'
+                sent_by: 1234
+                api: https://example.org/api/mailer/2
+        '404':
+          description: Record not found
+      tags:
+      - Mailer
+      summary: Get mailer by id
+      x-summary-source: derived
+      operationId: getMailerById
+      x-operation-id-source: derived
+    put:
+      description: Update an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: Successful entry modification
+          content:
+            application/json:
+              example:
+                id: 2
+                subject: Scratch Filesystem Purge Policy Violation
+                body: Don't violate our policies!
+                template: 0
+                alert: info
+                created_at: '2022-05-24 12:31:01'
+                updated_at: null
+                deleted_at: null
+                sent_at: '2022-05-24 12:31:01'
+                sent_by: 1234
+                api: https://example.org/api/mailer/2
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  description: Short label for templates
+                  type: string
+                  default: null
+                subject:
+                  description: Message subject
+                  type: string
+                  default: null
+                body:
+                  description: Message contents, formatted using MarkDown
+                  type: string
+                  default: null
+                template:
+                  description: If the message is a template or not
+                  type: integer
+                  default: 0
+                alert:
+                  description: An alert level to use for styling HTML portions of emails
+                  type: string
+                  default: null
+              required: []
+      tags:
+      - Mailer
+      summary: Replace mailer by id
+      x-summary-source: derived
+      operationId: putMailerById
+      x-operation-id-source: derived
+    delete:
+      description: Delete an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Mailer
+      summary: Delete mailer by id
+      x-summary-source: derived
+      operationId: deleteMailerById
+      x-operation-id-source: derived
+  /mailer/send:
+    post:
+      description: Post a message
+      parameters: []
+      responses:
+        '200':
+          description: Successful entry read
+          content:
+            application/json:
+              example:
+                id: 2
+                subject: Scratch Filesystem Purge Policy Violation
+                body: Don't violate our policies!
+                template: 0
+                alert: info
+                created_at: '2022-05-24 12:31:01'
+                updated_at: null
+                deleted_at: null
+                sent_at: '2022-05-24 12:31:01'
+                sent_by: 1234
+                api: https://example.org/api/mailer/2
+        '404':
+          description: Record not found
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                subject:
+                  description: Message subject
+                  type: string
+                  default: null
+                body:
+                  description: Message body
+                  type: string
+                  default: null
+                user:
+                  description: A comma-separated list of user IDs, usernames, or email addresses
+                  type: string
+                  default: null
+                group:
+                  description: A comma-separated list of group IDs to email all users in those groups
+                  type: string
+                  default: null
+                role:
+                  description: A comma-separated list of role IDs to email all users in those roles
+                  type: string
+                  default: null
+                fromemail:
+                  description: An email address the message is from. Defaults to global site setting.
+                  type: string
+                  default: null
+                fromname:
+                  description: A name the message is from. Defaults to global site setting.
+                  type: string
+                  default: null
+                cc:
+                  description: A comma-separated list of user IDs or email addresses
+                  type: string
+                  default: null
+                bcc:
+                  description: A comma-separated list of user IDs or email addresses
+                  type: string
+                  default: null
+                alert:
+                  description: An alert level to use for styling HTML portions of emails
+                  type: string
+                  default: null
+              required:
+              - subject
+              - body
+              - user
+      tags:
+      - Mailer
+      summary: Create mailer send
+      x-summary-source: derived
+      operationId: postMailerSend
+      x-operation-id-source: derived
+components:
+  securitySchemes:
+    api_token:
+      type: apiKey
+      name: api_token
+      in: header

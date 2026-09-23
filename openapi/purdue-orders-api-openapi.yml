@@ -1,0 +1,1494 @@
+openapi: 3.2.0
+info:
+  title: RCAC Orders API
+  version: 0.0.1
+servers:
+- url: https://www.rcac.purdue.edu/api
+  description: Production server
+tags:
+- name: Orders
+paths:
+  /orders/accounts:
+    get:
+      description: Display a listing of entries
+      parameters:
+      - in: query
+        name: category
+        description: Orders that have products int he specified category.
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: start
+        description: Orders created on or after this datetime.
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2021-01-30T08:30:00Z'
+      - in: query
+        name: end
+        description: Orders created before this datetime.
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2021-01-30T08:30:00Z'
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: limit
+        description: Number of result per page.
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: datetimecreated
+          enum:
+          - id
+          - datetimecreated
+          - datetimeremoved
+          - amount
+          - datetimeapproved
+          - datetimedenied
+          - datetimepaid
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: desc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Orders
+      summary: Get orders accounts
+      x-summary-source: derived
+      operationId: getOrdersAccounts
+      x-operation-id-source: derived
+    post:
+      description: Create a new entry
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+        '401':
+          description: Unauthorized
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                orderid:
+                  description: Order ID
+                  type: integer
+                  default: null
+                amount:
+                  description: Amount, formatted or not
+                  type: string
+                  default: null
+                purchasefund:
+                  description: Purchase fund
+                  type: string
+                  default: null
+                purchasecostcenter:
+                  description: Purchase cost center
+                  type: string
+                  default: null
+                purchaseorder:
+                  description: Purchase order
+                  type: string
+                  default: null
+                purchaseio:
+                  description: Purchase IO
+                  type: string
+                  default: null
+                purchasewbse:
+                  description: Purchase WBSE
+                  type: string
+                  default: null
+                budgetjustification:
+                  description: Budget justification
+                  type: string
+                  default: null
+                approveruserid:
+                  description: Approver user ID
+                  type: integer
+                  default: null
+              required:
+              - orderid
+              - amount
+      tags:
+      - Orders
+      summary: Create orders accounts
+      x-summary-source: derived
+      operationId: postOrdersAccounts
+      x-operation-id-source: derived
+  /orders/accounts/{id}:
+    get:
+      description: Retrieve an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+        '404':
+          description: Record not found
+      tags:
+      - Orders
+      summary: Get orders accounts by id
+      x-summary-source: derived
+      operationId: getOrdersAccountsById
+      x-operation-id-source: derived
+    put:
+      description: Update an entry
+      parameters: []
+      responses:
+        '202':
+          description: Successful entry modification
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                amount:
+                  description: Amount, formatted or not
+                  type: string
+                  default: null
+                purchasefund:
+                  description: Purchase fund
+                  type: string
+                  default: null
+                purchasecostcenter:
+                  description: Purchase cost center
+                  type: string
+                  default: null
+                purchaseorder:
+                  description: Purchase order
+                  type: string
+                  default: null
+                purchaseio:
+                  description: Purchase IO
+                  type: string
+                  default: null
+                purchasewbse:
+                  description: Purchase WBSE
+                  type: string
+                  default: null
+                budgetjustification:
+                  description: Budget justification
+                  type: string
+                  default: null
+                approveruserid:
+                  description: Approver user ID
+                  type: integer
+                  default: null
+                approved:
+                  description: Has the payment been approved?
+                  type: boolean
+                  default: null
+                paid:
+                  description: Has the payment been paid?
+                  type: boolean
+                  default: null
+                denied:
+                  description: Has the payment been denied?
+                  type: boolean
+                  default: null
+                reset:
+                  description: Reset paid/denied status?
+                  type: boolean
+                  default: null
+                datetimepaymentdoc:
+                  description: Timestamp for the payment doc
+                  type: string
+                  default: null
+                paymentdocid:
+                  description: Payment doc ID
+                  type: boolean
+                  default: null
+                notice:
+                  description: Notice state
+                  type: integer
+                  default: null
+                deniedreason:
+                  description: Denied reason
+                  type: string
+                  default: null
+              required: []
+      tags:
+      - Orders
+      summary: Replace orders accounts by id
+      x-summary-source: derived
+      operationId: putOrdersAccountsById
+      x-operation-id-source: derived
+    delete:
+      description: Delete an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Orders
+      summary: Delete orders accounts by id
+      x-summary-source: derived
+      operationId: deleteOrdersAccountsById
+      x-operation-id-source: derived
+  /orders/approvers:
+    get:
+      description: Display a listing of entries
+      parameters:
+      - in: query
+        name: departmentid
+        description: Department ID.
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: userid
+        description: Approver user ID.
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: limit
+        description: Number of result per page.
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: datetimecreated
+          enum:
+          - id
+          - datetimecreated
+          - datetimeremoved
+          - amount
+          - datetimeapproved
+          - datetimedenied
+          - datetimepaid
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: desc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Orders
+      summary: Get orders approvers
+      x-summary-source: derived
+      operationId: getOrdersApprovers
+      x-operation-id-source: derived
+    post:
+      description: Create a new entry
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+        '401':
+          description: Unauthorized
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                departmentid:
+                  description: Department ID
+                  type: integer
+                  default: null
+                userid:
+                  description: Approver user ID
+                  type: integer
+                  default: null
+              required:
+              - departmentid
+              - userid
+      tags:
+      - Orders
+      summary: Create orders approvers
+      x-summary-source: derived
+      operationId: postOrdersApprovers
+      x-operation-id-source: derived
+  /orders/approvers/{id}:
+    get:
+      description: Retrieve an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+        '404':
+          description: Record not found
+      tags:
+      - Orders
+      summary: Get orders approvers by id
+      x-summary-source: derived
+      operationId: getOrdersApproversById
+      x-operation-id-source: derived
+    put:
+      description: Update an entry
+      parameters: []
+      responses:
+        '202':
+          description: Successful entry modification
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                departmentid:
+                  description: Department ID
+                  type: integer
+                  default: null
+                userid:
+                  description: Approver user ID
+                  type: integer
+                  default: null
+              required:
+              - departmentid
+              - userid
+      tags:
+      - Orders
+      summary: Replace orders approvers by id
+      x-summary-source: derived
+      operationId: putOrdersApproversById
+      x-operation-id-source: derived
+    delete:
+      description: Delete an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Orders
+      summary: Delete orders approvers by id
+      x-summary-source: derived
+      operationId: deleteOrdersApproversById
+      x-operation-id-source: derived
+  /orders/cart:
+    get:
+      description: Display a listing of entries
+      parameters: []
+      tags:
+      - Orders
+      summary: Get orders cart
+      x-summary-source: derived
+      operationId: getOrdersCart
+      x-operation-id-source: derived
+    post:
+      description: Create a new entry
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+        '401':
+          description: Unauthorized
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                quantity:
+                  description: Quantity
+                  type: integer
+                  default: null
+                price:
+                  description: Price
+                  type: integer
+                  default: null
+              required:
+              - quantity
+              - price
+      tags:
+      - Orders
+      summary: Create orders cart
+      x-summary-source: derived
+      operationId: postOrdersCart
+      x-operation-id-source: derived
+  /orders/cart/{id}:
+    get:
+      description: Retrieve an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+        '404':
+          description: Record not found
+      tags:
+      - Orders
+      summary: Get orders cart by id
+      x-summary-source: derived
+      operationId: getOrdersCartById
+      x-operation-id-source: derived
+    put:
+      description: Update an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: Successful entry modification
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                quantity:
+                  description: Quantity
+                  type: integer
+                  default: null
+                price:
+                  description: Price
+                  type: integer
+                  default: null
+              required:
+              - quantity
+      tags:
+      - Orders
+      summary: Replace orders cart by id
+      x-summary-source: derived
+      operationId: putOrdersCartById
+      x-operation-id-source: derived
+    delete:
+      description: Delete an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Orders
+      summary: Delete orders cart by id
+      x-summary-source: derived
+      operationId: deleteOrdersCartById
+      x-operation-id-source: derived
+  /orders/categories:
+    get:
+      description: Display a listing of entries
+      parameters:
+      - in: query
+        name: state
+        description: Order category state.
+        required: false
+        schema:
+          type: string
+          default: published
+          enum:
+          - all
+          - published
+          - trashed
+      - in: query
+        name: parent
+        description: Parent category ID.
+        required: false
+        schema:
+          type: integer
+          default: 0
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                search:
+                  description: A word or phrase to search for.
+                  type: string
+                  default: null
+                limit:
+                  description: Number of result per page.
+                  type: integer
+                  default: 20
+                page:
+                  description: Number of where to start returning results.
+                  type: integer
+                  default: 1
+                order:
+                  description: Field to sort results by.
+                  type: string
+                  default: id
+                order_dir:
+                  description: Direction to sort results by.
+                  type: string
+                  default: asc
+              required: []
+      tags:
+      - Orders
+      summary: Get orders categories
+      x-summary-source: derived
+      operationId: getOrdersCategories
+      x-operation-id-source: derived
+    post:
+      description: Create a new entry
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+        '401':
+          description: Unauthorized
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  description: Category name.
+                  type: string
+                  default: null
+                description:
+                  description: Longer description of the category
+                  type: string
+                  default: null
+                sequence:
+                  description: Category order
+                  type: integer
+                  default: null
+                parentordercategoryid:
+                  description: Parent category ID
+                  type: integer
+                  default: 1
+              required:
+              - name
+      tags:
+      - Orders
+      summary: Create orders categories
+      x-summary-source: derived
+      operationId: postOrdersCategories
+      x-operation-id-source: derived
+  /orders/categories/{id}:
+    get:
+      description: Retrieve an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+        '404':
+          description: Record not found
+      tags:
+      - Orders
+      summary: Get orders categories by id
+      x-summary-source: derived
+      operationId: getOrdersCategoriesById
+      x-operation-id-source: derived
+    put:
+      description: Update an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: Successful entry modification
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  description: Category name.
+                  type: string
+                  default: null
+                description:
+                  description: Longer description of the category
+                  type: string
+                  default: null
+                sequence:
+                  description: Category order
+                  type: integer
+                  default: null
+                parentordercategoryid:
+                  description: Parent category ID
+                  type: integer
+                  default: null
+              required: []
+      tags:
+      - Orders
+      summary: Replace orders categories by id
+      x-summary-source: derived
+      operationId: putOrdersCategoriesById
+      x-operation-id-source: derived
+    delete:
+      description: Delete an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Orders
+      summary: Delete orders categories by id
+      x-summary-source: derived
+      operationId: deleteOrdersCategoriesById
+      x-operation-id-source: derived
+  /orders/items:
+    get:
+      description: Display a listing of entries
+      parameters:
+      - in: query
+        name: state
+        description: Order state.
+        required: false
+        schema:
+          type: string
+          default: datetimecreated
+          enum:
+          - active [pending_payment, pending_boassignment, pending_collection, pending_approval, pending_fulfillment]
+          - canceled
+          - complete
+      - in: query
+        name: category
+        description: Orders that have products int he specified category.
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: start
+        description: Orders created on or after this datetime.
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2021-01-30T08:30:00Z'
+      - in: query
+        name: end
+        description: Orders created before this datetime.
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2021-01-30T08:30:00Z'
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: limit
+        description: Number of result per page.
+        type: integer
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: datetimecreated
+          enum:
+          - id
+          - datetimecreated
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: asc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Orders
+      summary: Get orders items
+      x-summary-source: derived
+      operationId: getOrdersItems
+      x-operation-id-source: derived
+    post:
+      description: Create a new entry
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+        '401':
+          description: Unauthorized
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                orderid:
+                  description: Order ID
+                  type: integer
+                  default: null
+                orderproductid:
+                  description: Order product ID
+                  type: integer
+                  default: null
+                quantity:
+                  description: Quantity
+                  type: integer
+                  default: null
+                price:
+                  description: Price
+                  type: integer
+                  default: null
+                origunitprice:
+                  description: Original unit price
+                  type: integer
+                  default: null
+                origorderitemid:
+                  description: Original order item ID (recurring order)
+                  type: integer
+                  default: null
+                timeperiodcount:
+                  description: Original order timeperiod count (recurring order)
+                  type: integer
+                  default: null
+              required:
+              - orderid
+              - orderproductid
+              - quantity
+              - price
+              - origunitprice
+      tags:
+      - Orders
+      summary: Create orders items
+      x-summary-source: derived
+      operationId: postOrdersItems
+      x-operation-id-source: derived
+  /orders/items/{id}:
+    get:
+      description: Retrieve an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+        '404':
+          description: Record not found
+      tags:
+      - Orders
+      summary: Get orders items by id
+      x-summary-source: derived
+      operationId: getOrdersItemsById
+      x-operation-id-source: derived
+    put:
+      description: Update an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: false
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: Successful entry modification
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                quantity:
+                  description: Quantity
+                  type: integer
+                  default: null
+                price:
+                  description: Price
+                  type: integer
+                  default: null
+                datetimecreated:
+                  description: Date time created (restricted to managers)
+                  type: string
+                  default: null
+                datetimefulfilled:
+                  description: Date time fulfilled
+                  type: string
+                  default: null
+                timeperiodcount:
+                  description: Original order timeperiod count (recurring order)
+                  type: integer
+                  default: null
+              required: []
+      tags:
+      - Orders
+      summary: Replace orders items by id
+      x-summary-source: derived
+      operationId: putOrdersItemsById
+      x-operation-id-source: derived
+    delete:
+      description: Delete an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Orders
+      summary: Delete orders items by id
+      x-summary-source: derived
+      operationId: deleteOrdersItemsById
+      x-operation-id-source: derived
+  /orders/sequence/{id}:
+    get:
+      description: Get recurring item sequence
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+        '404':
+          description: Record not found
+      tags:
+      - Orders
+      summary: Get orders sequence by id
+      x-summary-source: derived
+      operationId: getOrdersSequenceById
+      x-operation-id-source: derived
+  /orders:
+    get:
+      description: Display a listing of entries
+      parameters:
+      - in: query
+        name: state
+        description: Order state.
+        required: false
+        schema:
+          type: string
+          default: active
+          enum:
+          - active [pending_payment, pending_boassignment, pending_collection, pending_approval, pending_fulfillment]
+          - caceled
+          - complete
+      - in: query
+        name: category
+        description: Orders that have products in the specified category.
+        type: integer
+        required: false
+        schema:
+          type: integer
+          default: 0
+      - in: query
+        name: start
+        description: Orders created on or after this datetime.
+        required: false
+        schema:
+          type: string
+          format: date (YYYY-MM-DD HH:mm:ss)
+      - in: query
+        name: end
+        description: Orders created before this datetime.
+        required: false
+        schema:
+          type: string
+          format: date (YYYY-MM-DD HH:mm:ss)
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: limit
+        description: Number of result per page.
+        type: integer
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: created_at
+          enum:
+          - id
+          - created_at
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: asc
+          enum:
+          - asc
+          - desc
+      responses:
+        current_page: 1
+        data: []
+        first_page_url: https://yourhost/api/orders?page=1
+        from: 1
+        last_page: 2
+        last_page_url: https://yourhost/api/orders?page=2
+        next_page_url: https://yourhost/api/orders?page=2
+        path: https://yourhost/api/widgets
+        per_page: 3
+        prev_page_url: null
+        to: 3
+        total: 5
+      tags:
+      - Orders
+      summary: Get orders
+      x-summary-source: derived
+      operationId: getOrders
+      x-operation-id-source: derived
+    post:
+      description: Create a new entry
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+        '401':
+          description: Unauthorized
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                userid:
+                  description: User ID
+                  type: integer
+                  default: null
+                groupid:
+                  description: Group ID
+                  type: integer
+                  default: null
+                usernotes:
+                  description: User notes
+                  type: string
+                  default: null
+                staffnotes:
+                  description: Staff notes
+                  type: string
+                  default: null
+                notices:
+                  description: Notice state
+                  type: integer
+                  default: null
+              required:
+              - userid
+      tags:
+      - Orders
+      summary: Create orders
+      x-summary-source: derived
+      operationId: postOrders
+      x-operation-id-source: derived
+  /orders/{id}:
+    get:
+      description: Retrieve an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+        '404':
+          description: Record not found
+      tags:
+      - Orders
+      summary: Get orders by id
+      x-summary-source: derived
+      operationId: getOrdersById
+      x-operation-id-source: derived
+    put:
+      description: Update an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: Successful entry modification
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                userid:
+                  description: User ID
+                  type: integer
+                  default: null
+                groupid:
+                  description: Group ID
+                  type: integer
+                  default: null
+                usernotes:
+                  description: User notes
+                  type: string
+                  default: null
+                staffnotes:
+                  description: Staff notes
+                  type: string
+                  default: null
+                notices:
+                  description: Notice state
+                  type: integer
+                  default: null
+              required: []
+      tags:
+      - Orders
+      summary: Replace orders by id
+      x-summary-source: derived
+      operationId: putOrdersById
+      x-operation-id-source: derived
+    delete:
+      description: Delete an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Orders
+      summary: Delete orders by id
+      x-summary-source: derived
+      operationId: deleteOrdersById
+      x-operation-id-source: derived
+  /orders/products:
+    get:
+      description: Display a listing of entries
+      parameters:
+      - in: query
+        name: state
+        description: Order category state.
+        required: false
+        schema:
+          type: string
+          default: published
+          enum:
+          - all
+          - published
+          - trashed
+      - in: query
+        name: parent
+        description: Parent category ID.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: limit
+        description: Number of result per page.
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: created_at
+          enum:
+          - id
+          - created_at
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        type: string
+        required: false
+        default: asc
+        schema:
+          type: string
+          default: asc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Orders
+      summary: Get orders products
+      x-summary-source: derived
+      operationId: getOrdersProducts
+      x-operation-id-source: derived
+    post:
+      description: Create a new entry
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+        '401':
+          description: Unauthorized
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  description: Product name.
+                  type: string
+                  default: null
+                description:
+                  description: Longer description of the category
+                  type: string
+                  default: null
+                mou:
+                  description: Memorandum of Undertsanding
+                  type: string
+                  default: null
+                unit:
+                  description: Product unit
+                  type: string
+                  default: null
+                unitprice:
+                  description: Price per unit
+                  type: integer
+                  default: 0
+                sequence:
+                  description: Product order
+                  type: integer
+                  default: null
+                ordercategoryid:
+                  description: Category ID
+                  type: integer
+                  default: null
+                recurringtimeperiodid:
+                  description: Recurring time period ID
+                  type: integer
+                  default: 0
+                restricteddata:
+                  description: Restricted data
+                  type: integer
+                  default: 0
+                resourceid:
+                  description: Resource ID
+                  type: integer
+                  default: 0
+                terms:
+                  description: Terms
+                  type: string
+                  default: null
+              required:
+              - name
+              - ordercategoryid
+      tags:
+      - Orders
+      summary: Create orders products
+      x-summary-source: derived
+      operationId: postOrdersProducts
+      x-operation-id-source: derived
+  /orders/products/{id}:
+    get:
+      description: Retrieve an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+        '404':
+          description: Record not found
+      tags:
+      - Orders
+      summary: Get orders products by id
+      x-summary-source: derived
+      operationId: getOrdersProductsById
+      x-operation-id-source: derived
+    put:
+      description: Update an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: Successful entry modification
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  description: Product name.
+                  type: string
+                  default: null
+                description:
+                  description: Longer description of the category
+                  type: string
+                  default: null
+                mou:
+                  description: Memorandum of Undertsanding
+                  type: string
+                  default: null
+                unit:
+                  description: Product unit
+                  type: string
+                  default: null
+                unitprice:
+                  description: Price per unit
+                  type: integer
+                  default: 0
+                sequence:
+                  description: Product order
+                  type: integer
+                  default: null
+                ordercategoryid:
+                  description: Category ID
+                  type: integer
+                  default: null
+                recurringtimeperiodid:
+                  description: Recurring time period ID
+                  type: integer
+                  default: 0
+                restricteddata:
+                  description: Restricted data
+                  type: integer
+                  default: 0
+                resourceid:
+                  description: Resource ID
+                  type: integer
+                  default: 0
+                terms:
+                  description: Terms
+                  type: string
+                  default: null
+              required: []
+      tags:
+      - Orders
+      summary: Replace orders products by id
+      x-summary-source: derived
+      operationId: putOrdersProductsById
+      x-operation-id-source: derived
+    delete:
+      description: Delete an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Orders
+      summary: Delete orders products by id
+      x-summary-source: derived
+      operationId: deleteOrdersProductsById
+      x-operation-id-source: derived
+components:
+  securitySchemes:
+    api_token:
+      type: apiKey
+      name: api_token
+      in: header

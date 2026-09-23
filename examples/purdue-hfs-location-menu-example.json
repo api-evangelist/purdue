@@ -1,0 +1,169 @@
+{
+  "_provenance": {
+    "generated": "2026-08-30",
+    "method": "probed",
+    "source": "https://api.hfs.purdue.edu/menus/v2/locations/Earhart/2026-08-30",
+    "note": "Verbatim live response, truncated to one meal / one station / two items for size."
+  },
+  "response": {
+    "Location": "Earhart",
+    "Date": "8/30/2026",
+    "IsPublished": true,
+    "Notes": "A dining court supervisor can provide allergen information for menu offerings not posted in the app.",
+    "Meals": [
+      {
+        "ID": "5463adc9-703b-4ad2-9e0d-44260e153ea9",
+        "Name": "Breakfast",
+        "Order": 0,
+        "Status": "Closed",
+        "Type": "Breakfast",
+        "Hours": null,
+        "Notes": null,
+        "Stations": []
+      },
+      {
+        "ID": "a4ce3c4b-e487-4722-ae17-b09528d1c7e7",
+        "Name": "Lunch",
+        "Order": 1,
+        "Status": "Open",
+        "Type": "Lunch",
+        "Hours": {
+          "StartTime": "11:00:00",
+          "EndTime": "14:00:00"
+        },
+        "Notes": null,
+        "Stations": [
+          {
+            "Name": "Granite Grill",
+            "Items": [
+              {
+                "ID": "9f2ef8e3-0d9c-4fc3-aa1d-949b3af47633",
+                "Name": "Breaded Pork Tenderloin",
+                "IsVegetarian": false,
+                "NutritionReady": true,
+                "Allergens": [
+                  {
+                    "Name": "Coconut",
+                    "Value": false
+                  },
+                  {
+                    "Name": "Eggs",
+                    "Value": false
+                  },
+                  {
+                    "Name": "Fish",
+                    "Value": false
+                  },
+                  {
+                    "Name": "Gluten",
+                    "Value": true
+                  },
+                  {
+                    "Name": "Milk",
+                    "Value": true
+                  },
+                  {
+                    "Name": "Peanuts",
+                    "Value": false
+                  },
+                  {
+                    "Name": "Sesame",
+                    "Value": false
+                  },
+                  {
+                    "Name": "Shellfish",
+                    "Value": false
+                  },
+                  {
+                    "Name": "Soy",
+                    "Value": true
+                  },
+                  {
+                    "Name": "Tree Nuts",
+                    "Value": false
+                  },
+                  {
+                    "Name": "Vegetarian",
+                    "Value": false
+                  },
+                  {
+                    "Name": "Vegan",
+                    "Value": false
+                  },
+                  {
+                    "Name": "Wheat",
+                    "Value": true
+                  }
+                ]
+              },
+              {
+                "ID": "cc614b40-c72a-4679-83e0-296c780f969d",
+                "Name": "Creamy Coleslaw",
+                "IsVegetarian": true,
+                "NutritionReady": true,
+                "Allergens": [
+                  {
+                    "Name": "Coconut",
+                    "Value": false
+                  },
+                  {
+                    "Name": "Eggs",
+                    "Value": true
+                  },
+                  {
+                    "Name": "Fish",
+                    "Value": false
+                  },
+                  {
+                    "Name": "Gluten",
+                    "Value": false
+                  },
+                  {
+                    "Name": "Milk",
+                    "Value": false
+                  },
+                  {
+                    "Name": "Peanuts",
+                    "Value": false
+                  },
+                  {
+                    "Name": "Sesame",
+                    "Value": false
+                  },
+                  {
+                    "Name": "Shellfish",
+                    "Value": false
+                  },
+                  {
+                    "Name": "Soy",
+                    "Value": true
+                  },
+                  {
+                    "Name": "Tree Nuts",
+                    "Value": false
+                  },
+                  {
+                    "Name": "Vegetarian",
+                    "Value": true
+                  },
+                  {
+                    "Name": "Vegan",
+                    "Value": false
+                  },
+                  {
+                    "Name": "Wheat",
+                    "Value": false
+                  }
+                ]
+              }
+            ],
+            "IconUrl": null,
+            "ForegroundColor": null,
+            "BackgroundColor": null,
+            "Notes": null
+          }
+        ]
+      }
+    ]
+  }
+}

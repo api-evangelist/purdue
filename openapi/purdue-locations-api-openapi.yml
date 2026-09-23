@@ -1,0 +1,104 @@
+openapi: 3.2.0
+info:
+  title: Purdue Housing and Food Services Dining Menus Locations API
+  summary: Keyless read API for Purdue dining court locations, daily menus and item nutrition.
+  description: A public, keyless HTTP API operated by Purdue University Housing and Food Services (HFS) at api.hfs.purdue.edu, serving the dining-court locations, published daily menus and per-item nutrition and allergen data used by Purdue's own dining apps and by student-built campus apps.
+  version: v2
+  contact:
+    name: Purdue University Housing and Food Services
+    url: https://www.housing.purdue.edu/
+  x-unofficial-description: true
+servers:
+- url: https://api.hfs.purdue.edu/menus/v2
+  description: Production - observed live, keyless, 2026-08-30
+tags:
+- name: Locations
+  description: Dining courts, quick-bite and on-the-go retail locations.
+paths:
+  /locations:
+    get:
+      tags:
+      - Locations
+      operationId: listLocations
+      summary: List dining locations
+      description: Returns every dining location HFS publishes, with address, coordinates, phone, image references and the location types in use. Observed 200 with a 35,766-byte JSON body.
+      responses:
+        '200':
+          description: A locations document.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationsResponse'
+components:
+  schemas:
+    Location:
+      type: object
+      properties:
+        LocationId:
+          type: string
+        Name:
+          type: string
+        FormalName:
+          type: string
+        Address:
+          $ref: '#/components/schemas/Address'
+        PhoneNumber:
+          type: string
+        Latitude:
+          type: number
+        Longitude:
+          type: number
+        Images:
+          type: array
+          items:
+            type: string
+            format: uuid
+        ImageUrls:
+          type: array
+          items:
+            type: string
+            format: uri
+        LogoUrl:
+          type: string
+          format: uri
+        DarkModeLogoUrl:
+          type: string
+          format: uri
+    Address:
+      type: object
+      properties:
+        Street:
+          type: string
+        City:
+          type: string
+        State:
+          type: string
+        ZipCode:
+          type: string
+        Country:
+          type: string
+        CountryCode:
+          type: string
+    LocationsResponse:
+      type: object
+      description: Observed shape of GET /locations.
+      properties:
+        Types:
+          type: array
+          items:
+            type: string
+          examples:
+          - - Dining Courts
+            - Quick Bites
+            - On-the-GO!
+        Location:
+          type: array
+          items:
+            $ref: '#/components/schemas/Location'
+x-method: generated
+x-source-url: https://api.hfs.purdue.edu/menus/v2/locations
+x-provenance:
+  generated: '2026-08-30'
+  method: generated
+  source: Hand-written by API Evangelist from live, keyless HTTP probes of https://api.hfs.purdue.edu/menus/v2/ on 2026-08-30. Purdue University Housing and Food Services publishes no OpenAPI of its own; every path, parameter, status code and field name below was observed in an actual response. Nothing here is inferred from documentation.
+  x-operator: institution

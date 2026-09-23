@@ -1,0 +1,954 @@
+openapi: 3.2.0
+info:
+  title: RCAC Resources API
+  version: 0.0.1
+servers:
+- url: https://www.rcac.purdue.edu/api
+  description: Production server
+tags:
+- name: Resources
+paths:
+  /resources/batchsystems:
+    get:
+      description: Display a listing of batchsystems.
+      parameters:
+      - in: query
+        name: limit
+        description: Number of result to return.
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: name
+          enum:
+          - id
+          - name
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: desc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Resources
+      summary: Get resources batchsystems
+      x-summary-source: derived
+      operationId: getResourcesBatchsystems
+      x-operation-id-source: derived
+    post:
+      description: Create a batchsystem
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  description: The name of the batch system
+                  type: string
+                  default: null
+              required: []
+      tags:
+      - Resources
+      summary: Create resources batchsystems
+      x-summary-source: derived
+      operationId: postResourcesBatchsystems
+      x-operation-id-source: derived
+  /resources/batchsystems/{id}:
+    get:
+      description: Read a batchsystem
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+        '404':
+          description: Record not found
+      tags:
+      - Resources
+      summary: Get resources batchsystems by id
+      x-summary-source: derived
+      operationId: getResourcesBatchsystemsById
+      x-operation-id-source: derived
+    put:
+      description: Update a batchsystem
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry modification
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  description: The name of the batch system
+                  type: string
+                  default: null
+              required: []
+      tags:
+      - Resources
+      summary: Replace resources batchsystems by id
+      x-summary-source: derived
+      operationId: putResourcesBatchsystemsById
+      x-operation-id-source: derived
+    delete:
+      description: Delete a batchsystem
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Resources
+      summary: Delete resources batchsystems by id
+      x-summary-source: derived
+      operationId: deleteResourcesBatchsystemsById
+      x-operation-id-source: derived
+  /resources/members/{id}:
+    get:
+      description: Retrieve list of active users for a resource
+      parameters:
+      - in: path
+        name: id
+        description: Resource ID
+        required: true
+        schema:
+          type: integer
+          example: '99'
+      - in: query
+        name: membertype
+        description: Filter by group member type
+        required: false
+        schema:
+          type: string
+          default: null
+          enum:
+          - '2'
+          - manager
+      - in: query
+        name: datecreated
+        description: Filter for records created after the specified date
+        required: false
+        schema:
+          type: string
+          default: null
+          format: date-time
+          example: '2021-01-30T08:30:00Z'
+      responses:
+        '200':
+          description: Successful entry read
+        '404':
+          description: Record not found
+      tags:
+      - Resources
+      summary: Get resources members by id
+      x-summary-source: derived
+      operationId: getResourcesMembersById
+      x-operation-id-source: derived
+  /resources/members:
+    post:
+      description: Create a resource member association
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+        '403':
+          description: Forbidden
+        '404':
+          description: User or Resource record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                user:
+                  description: User ID
+                  type: integer
+                  default: null
+                resource:
+                  description: Resource ID
+                  type: integer
+                  default: null
+                loginShell:
+                  description: Login shell
+                  type: string
+                  default: null
+                pilogin:
+                  description: PI's username
+                  type: string
+                  default: null
+                piid:
+                  description: PI's user ID
+                  type: integer
+                  default: null
+              required:
+              - user
+              - resource
+      tags:
+      - Resources
+      summary: Create resources members
+      x-summary-source: derived
+      operationId: postResourcesMembers
+      x-operation-id-source: derived
+  /resources/members/{user id}.{resource id}:
+    get:
+      description: Read a resource member status
+      parameters:
+      - in: path
+        name: user id.resource id
+        description: User ID and Resource ID separated by a period
+        required: true
+        schema:
+          type: string
+          example: '12345.67'
+      responses:
+        '200':
+          description: Successful entry read
+        '403':
+          description: Forbidden
+        '404':
+          description: Record not found
+        '415':
+          description: Missing or invalid ID format
+      tags:
+      - Resources
+      summary: Get resources members by user id} {resource id
+      x-summary-source: derived
+      operationId: getResourcesMembersByUser id}{resource id
+      x-operation-id-source: derived
+    delete:
+      description: Delete a member/resource association
+      parameters:
+      - in: path
+        name: user id.resource id
+        description: User ID and Resource ID separated by a period
+        required: true
+        schema:
+          type: string
+          example: '12345.67'
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+        '403':
+          description: Forbidden
+        '412':
+          description: User is still a member of one or more queues for the resource
+        '415':
+          description: Missing or invalid ID format
+      tags:
+      - Resources
+      summary: Delete resources members by user id} {resource id
+      x-summary-source: derived
+      operationId: deleteResourcesMembersByUser id}{resource id
+      x-operation-id-source: derived
+  /resources:
+    get:
+      description: Display a listing of the resource.
+      parameters:
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: type
+        description: Filter by resource type ID
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: state
+        description: Filter by state
+        required: false
+        schema:
+          type: string
+          default: active
+          enum:
+          - active
+          - inactive
+          - all
+      - in: query
+        name: limit
+        description: Number of result to return.
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: name
+          enum:
+          - id
+          - name
+          - datetimecreated
+          - datetimeremoved
+          - parentid
+      - in: query
+        name: order_dir
+        description: Direction to order results by.
+        type: string
+        required: false
+        default: desc
+        schema:
+          type: string
+          default: asc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Resources
+      summary: Get resources
+      x-summary-source: derived
+      operationId: getResources
+      x-operation-id-source: derived
+    post:
+      description: Create a resource
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  description: The name of the resource type
+                  type: string
+                  default: null
+                parentid:
+                  description: Parent resource ID
+                  type: integer
+                  default: 0
+                resourcetype:
+                  description: Resource type ID
+                  type: integer
+                  default: null
+                producttype:
+                  description: Product type ID
+                  type: integer
+                  default: 0
+                rolename:
+                  description: An alias containing only alpha-numeric characters, dashes, and underscores
+                  type: string
+                  default: null
+                listname:
+                  description: An alias containing only alpha-numeric characters, dashes, and underscores
+                  type: string
+                  default: null
+                description:
+                  description: A short description of the resource
+                  type: string
+                  default: null
+              required:
+              - name
+              - resourcetype
+      tags:
+      - Resources
+      summary: Create resources
+      x-summary-source: derived
+      operationId: postResources
+      x-operation-id-source: derived
+  /resources/{id}:
+    get:
+      description: Read a resource
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      tags:
+      - Resources
+      summary: Get resources by id
+      x-summary-source: derived
+      operationId: getResourcesById
+      x-operation-id-source: derived
+    put:
+      description: Update a resource
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry modification
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  description: The name of the resource type
+                  type: string
+                  default: null
+                parentid:
+                  description: Parent resource ID
+                  type: integer
+                  default: null
+                resourcetype:
+                  description: Resource type ID
+                  type: integer
+                  default: null
+                producttype:
+                  description: Product type ID
+                  type: integer
+                  default: null
+                rolename:
+                  description: An alias containing only alpha-numeric characters, dashes, and underscores
+                  type: string
+                  default: null
+                listname:
+                  description: An alias containing only alpha-numeric characters, dashes, and underscores
+                  type: string
+                  default: null
+                description:
+                  description: A short description of the resource
+                  type: string
+                  default: null
+              required: []
+      tags:
+      - Resources
+      summary: Replace resources by id
+      x-summary-source: derived
+      operationId: putResourcesById
+      x-operation-id-source: derived
+    delete:
+      description: Delete a resource
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Resources
+      summary: Delete resources by id
+      x-summary-source: derived
+      operationId: deleteResourcesById
+      x-operation-id-source: derived
+  /resources/subresources/:
+    get:
+      description: Display a listing of the resource.
+      parameters:
+      - in: query
+        name: state
+        description: Filter by state
+        required: false
+        schema:
+          type: string
+          default: active
+          enum:
+          - active
+          - trashed
+          - all
+      - in: query
+        name: resource
+        description: Filter by resource ID
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: limit
+        description: Number of result to return.
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: name
+          enum:
+          - id
+          - name
+          - datetimecreated
+          - datetimeremoved
+          - parentid
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: desc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Resources
+      summary: Get resources subresources
+      x-summary-source: derived
+      operationId: getResourcesSubresources
+      x-operation-id-source: derived
+    post:
+      description: Create a resource
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                resourceid:
+                  description: ID of the parent resource
+                  type: integer
+                  default: null
+                name:
+                  description: The name of the sub-resource
+                  type: string
+                  default: null
+                cluster:
+                  description: Cluster name
+                  type: string
+                  default: null
+                nodecores:
+                  description: Number of node cores
+                  type: integer
+                  default: 0
+                nodemem:
+                  description: Memory per node
+                  type: string
+                  default: null
+                nodegpus:
+                  description: Number of GPUs per node
+                  type: integer
+                  default: 0
+                nodeattributes:
+                  description: Node attributes
+                  type: string
+                  default: null
+                description:
+                  description: Short description of the sub-resource
+                  type: string
+                  default: null
+                notice:
+                  description: Notification status
+                  type: integer
+                  default: 0
+                queuestatus:
+                  description: Queue status
+                  type: integer
+                  default: null
+              required:
+              - resourceid
+              - name
+              - cluster
+      tags:
+      - Resources
+      summary: Create resources subresources
+      x-summary-source: derived
+      operationId: postResourcesSubresources
+      x-operation-id-source: derived
+  /resources/subresources/{id}:
+    get:
+      description: Read a resource
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+        '404':
+          description: Record not found
+      tags:
+      - Resources
+      summary: Get resources subresources by id
+      x-summary-source: derived
+      operationId: getResourcesSubresourcesById
+      x-operation-id-source: derived
+    put:
+      description: Update a resource
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry modification
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  description: The name of the sub-resource
+                  type: string
+                  default: null
+                cluster:
+                  description: Cluster name
+                  type: string
+                  default: null
+                nodecores:
+                  description: Number of node cores
+                  type: integer
+                  default: null
+                nodemem:
+                  description: Memory per node
+                  type: string
+                  default: null
+                nodegpus:
+                  description: Number of GPUs per node
+                  type: integer
+                  default: null
+                nodeattributes:
+                  description: Node attributes
+                  type: string
+                  default: null
+                description:
+                  description: Short description of the sub-resource
+                  type: string
+                  default: null
+                notice:
+                  description: Notification status
+                  type: integer
+                  default: null
+                queuestatus:
+                  description: Queue status
+                  type: integer
+                  default: null
+              required: []
+      tags:
+      - Resources
+      summary: Replace resources subresources by id
+      x-summary-source: derived
+      operationId: putResourcesSubresourcesById
+      x-operation-id-source: derived
+    delete:
+      description: Delete a resource
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Resources
+      summary: Delete resources subresources by id
+      x-summary-source: derived
+      operationId: deleteResourcesSubresourcesById
+      x-operation-id-source: derived
+  /resources/types:
+    get:
+      description: Display a listing of resource types.
+      parameters:
+      - in: query
+        name: limit
+        description: Number of result to return.
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: name
+          enum:
+          - id
+          - name
+          - description
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: desc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Resources
+      summary: Get resources types
+      x-summary-source: derived
+      operationId: getResourcesTypes
+      x-operation-id-source: derived
+    post:
+      description: Create a resource type
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+          content:
+            application/json:
+              example:
+                id: 1
+                name: New type
+                resources_count: 0
+                api: https://yourhost/api/resources/types/1
+        '401':
+          description: Unauthorized
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  description: The name of the resource type
+                  type: string
+                  default: null
+                description:
+                  description: A short description of the resource type
+                  type: string
+                  default: null
+                facets:
+                  description: A list of facet fields
+                  type: array
+                  default: null
+              required:
+              - name
+      tags:
+      - Resources
+      summary: Create resources types
+      x-summary-source: derived
+      operationId: postResourcesTypes
+      x-operation-id-source: derived
+  /resources/types/{id}:
+    get:
+      description: Read a resource type
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+          content:
+            application/json:
+              example:
+                id: 1
+                name: Compute
+                resources_count: 34
+                api: https://yourhost/api/resources/types/1
+        '404':
+          description: Record not found
+      tags:
+      - Resources
+      summary: Get resources types by id
+      x-summary-source: derived
+      operationId: getResourcesTypesById
+      x-operation-id-source: derived
+    put:
+      description: Update a resource type
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: Successful entry modification
+          content:
+            application/json:
+              example:
+                id: 1
+                name: Updated type
+                resources_count: 34
+                api: https://yourhost/api/resources/types/1
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  description: The name of the resource type
+                  type: string
+                  default: null
+                description:
+                  description: A short description of the resource type
+                  type: string
+                  default: null
+                facets:
+                  description: A list of facet fields
+                  type: array
+                  default: null
+              required:
+              - name
+      tags:
+      - Resources
+      summary: Replace resources types by id
+      x-summary-source: derived
+      operationId: putResourcesTypesById
+      x-operation-id-source: derived
+    delete:
+      description: Delete a resource type
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Resources
+      summary: Delete resources types by id
+      x-summary-source: derived
+      operationId: deleteResourcesTypesById
+      x-operation-id-source: derived
+components:
+  securitySchemes:
+    api_token:
+      type: apiKey
+      name: api_token
+      in: header

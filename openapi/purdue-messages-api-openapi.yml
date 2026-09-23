@@ -1,0 +1,529 @@
+openapi: 3.2.0
+info:
+  title: RCAC Messages API
+  version: 0.0.1
+servers:
+- url: https://www.rcac.purdue.edu/api
+  description: Production server
+tags:
+- name: Messages
+paths:
+  /messages:
+    get:
+      description: Display a listing of entries
+      parameters:
+      - in: query
+        name: state
+        description: Message state
+        required: false
+        schema:
+          type: string
+          default: pending
+          enum:
+          - pending
+          - complete
+          - incomplete
+      - in: query
+        name: start
+        description: Submitted datetime start
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2021-01-30T08:30:00Z'
+      - in: query
+        name: stop
+        description: Submitted datetime end
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2021-01-30T08:30:00Z'
+      - in: query
+        name: returnstatus
+        description: Filter by return status
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: limit
+        description: Number of result per page.
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: datetimecreated
+          enum:
+          - id
+          - userid
+          - messagequeuetypeid
+          - messagequeueoptionsid
+          - pid
+          - datetimesubmitted
+          - datetimestarted
+          - datetimecompleted
+          - returnstatus
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: desc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Messages
+      summary: Get messages
+      x-summary-source: derived
+      operationId: getMessages
+      x-operation-id-source: derived
+    post:
+      description: Create an entry
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+          content:
+            application/json:
+              example:
+                id: 341137
+                userid: 1234
+                messagequeuetypeid: 1
+                targetobjectid: 98686
+                messagequeueoptionsid: 0
+                datetimesubmitted: '2021-11-16T19:00:42.000000Z'
+                datetimestarted: null
+                datetimecompleted: null
+                pid: 0
+                returnstatus: 0
+                output: ''
+                type:
+                  id: 1
+                  name: get gpfs quota
+                  resourceid: 64
+                  classname: storagedir
+                api: https://example.org/api/messages/341137
+                target: /foo/bar
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                messagequeuetypeid:
+                  description: Message type ID.
+                  type: integer
+                  default: null
+                targetobjectid:
+                  description: Target object ID
+                  type: integer
+                  default: null
+                messagequeueoptionsid:
+                  description: Message options ID
+                  type: integer
+                  default: 0
+                userid:
+                  description: User ID
+                  type: integer
+                  default: 0
+              required:
+              - messagequeuetypeid
+              - targetobjectid
+      tags:
+      - Messages
+      summary: Create messages
+      x-summary-source: derived
+      operationId: postMessages
+      x-operation-id-source: derived
+  /messages/{id}:
+    get:
+      description: Retrieve an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+          content:
+            application/json:
+              example:
+                id: 341137
+                userid: 1234
+                messagequeuetypeid: 1
+                targetobjectid: 98686
+                messagequeueoptionsid: 0
+                datetimesubmitted: '2021-11-16T19:00:42.000000Z'
+                datetimestarted: null
+                datetimecompleted: null
+                pid: 0
+                returnstatus: 0
+                output: ''
+                type:
+                  id: 1
+                  name: get gpfs quota
+                  resourceid: 64
+                  classname: storagedir
+                api: https://example.org/api/messages/341137
+                target: /foo/bar
+        '404':
+          description: Record not found
+      tags:
+      - Messages
+      summary: Get messages by id
+      x-summary-source: derived
+      operationId: getMessagesById
+      x-operation-id-source: derived
+    put:
+      description: Update an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: Successful entry modification
+          content:
+            application/json:
+              example:
+                id: 341137
+                userid: 1234
+                messagequeuetypeid: 1
+                targetobjectid: 98686
+                messagequeueoptionsid: 0
+                datetimesubmitted: '2021-11-16T19:00:42.000000Z'
+                datetimestarted: null
+                datetimecompleted: null
+                pid: 0
+                returnstatus: 0
+                output: ''
+                type:
+                  id: 1
+                  name: get gpfs quota
+                  resourceid: 64
+                  classname: storagedir
+                api: https://example.org/api/messages/341137
+                target: /foo/bar
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                messagequeuetypeid:
+                  description: Message type ID.
+                  type: integer
+                  default: null
+                targetobjectid:
+                  description: Target object ID
+                  type: integer
+                  default: null
+                messagequeueoptionsid:
+                  description: Message options ID
+                  type: integer
+                  default: null
+                userid:
+                  description: User ID
+                  type: integer
+                  default: null
+                pid:
+                  description: Process ID
+                  type: integer
+                  default: null
+                datetimestarted:
+                  description: Datetime started
+                  type: string
+                  default: null
+                datetimecompleted:
+                  description: Datetime completed
+                  type: string
+                  default: null
+                returnstatus:
+                  description: Return status code
+                  type: integer
+                  default: null
+                output:
+                  description: Process output
+                  type: string
+                  default: null
+                started:
+                  description: Starting processing
+                  type: integer
+                  default: null
+                completed:
+                  description: Ending processing
+                  type: integer
+                  default: null
+                retry:
+                  description: Number of minutes to retry in
+                  type: integer
+                  default: 0
+              required: []
+      tags:
+      - Messages
+      summary: Replace messages by id
+      x-summary-source: derived
+      operationId: putMessagesById
+      x-operation-id-source: derived
+    delete:
+      description: Delete an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Messages
+      summary: Delete messages by id
+      x-summary-source: derived
+      operationId: deleteMessagesById
+      x-operation-id-source: derived
+  /messages/types:
+    get:
+      description: Display a listing of entries
+      parameters:
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: resourceid
+        description: Resource ID
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: classname
+        description: Class name
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: limit
+        description: Number of result per page.
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          enum:
+          - id
+          - resourceid
+          - name
+          - classname
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: asc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Messages
+      summary: Get messages types
+      x-summary-source: derived
+      operationId: getMessagesTypes
+      x-operation-id-source: derived
+    post:
+      description: Create an entry
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+          content:
+            application/json:
+              example:
+                id: 1
+                name: get gpfs quota
+                resourceid: 64
+                classname: storagedir
+                api: https://example.org/api/messages/types/1
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  description: Name
+                  type: string
+                  default: null
+                classname:
+                  description: Class name
+                  type: string
+                  default: null
+                resourceid:
+                  description: Resource ID
+                  type: integer
+                  default: 0
+              required:
+              - name
+      tags:
+      - Messages
+      summary: Create messages types
+      x-summary-source: derived
+      operationId: postMessagesTypes
+      x-operation-id-source: derived
+  /messages/types/{id}:
+    get:
+      description: Retrieve an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+          content:
+            application/json:
+              example:
+                id: 1
+                name: get gpfs quota
+                resourceid: 64
+                classname: storagedir
+                api: https://example.org/api/messages/types/1
+        '404':
+          description: Record not found
+      tags:
+      - Messages
+      summary: Get messages types by id
+      x-summary-source: derived
+      operationId: getMessagesTypesById
+      x-operation-id-source: derived
+    put:
+      description: Update an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: Successful entry modification
+          content:
+            application/json:
+              example:
+                id: 1
+                name: get gpfs quota
+                resourceid: 64
+                classname: storagedir
+                api: https://example.org/api/messages/types/1
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  description: Name
+                  type: string
+                  default: null
+                classname:
+                  description: Class name
+                  type: string
+                  default: null
+                resourceid:
+                  description: Resource ID
+                  type: integer
+                  default: null
+              required: []
+      tags:
+      - Messages
+      summary: Replace messages types by id
+      x-summary-source: derived
+      operationId: putMessagesTypesById
+      x-operation-id-source: derived
+    delete:
+      description: Delete an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Messages
+      summary: Delete messages types by id
+      x-summary-source: derived
+      operationId: deleteMessagesTypesById
+      x-operation-id-source: derived
+components:
+  securitySchemes:
+    api_token:
+      type: apiKey
+      name: api_token
+      in: header

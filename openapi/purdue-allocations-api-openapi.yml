@@ -1,0 +1,101 @@
+openapi: 3.2.0
+info:
+  title: RCAC Allocations API
+  version: 0.0.1
+servers:
+- url: https://www.rcac.purdue.edu/api
+  description: Production server
+tags:
+- name: Allocations
+paths:
+  /allocations/{hostname?}:
+    get:
+      description: Display a listing of allocations.
+      parameters:
+      - in: path
+        name: hostname
+        description: Scheduler hostname.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: format
+        description: Output format. JSON is the default but output can be formatted to accommodate schedulers such as SLURM.
+        required: false
+        schema:
+          type: string
+          enum:
+          - json
+          - slurmcfg
+      tags:
+      - Allocations
+      summary: Get allocations by hostname?
+      x-summary-source: derived
+      operationId: getAllocationsByHostname?
+      x-operation-id-source: derived
+  /allocations:
+    post:
+      description: Create an allocation
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+        '401':
+          description: Unauthorized
+        '409':
+          description: Invalid data
+      tags:
+      - Allocations
+      summary: Create allocations
+      x-summary-source: derived
+      operationId: postAllocations
+      x-operation-id-source: derived
+  /allocations/{id}:
+    put:
+      description: Update an allocation
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '201':
+          description: Successful entry creation
+        '401':
+          description: Unauthorized
+        '409':
+          description: Invalid data
+      tags:
+      - Allocations
+      summary: Replace allocations by id
+      x-summary-source: derived
+      operationId: putAllocationsById
+      x-operation-id-source: derived
+    delete:
+      description: Delete an allocation
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Allocations
+      summary: Delete allocations by id
+      x-summary-source: derived
+      operationId: deleteAllocationsById
+      x-operation-id-source: derived
+components:
+  securitySchemes:
+    api_token:
+      type: apiKey
+      name: api_token
+      in: header

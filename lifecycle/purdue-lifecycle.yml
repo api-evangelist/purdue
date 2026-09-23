@@ -1,0 +1,60 @@
+specification: API Evangelist Lifecycle Profile
+specificationVersion: '0.1'
+provider: Purdue University
+providerId: purdue
+x-method: generated   # manifest authorship vocabulary (build-provenance-manifest.py)
+x-source-url: https://www.rcac.purdue.edu/api
+generated: '2026-08-30'
+method: probed
+source: Live probes and repository history on 2026-08-30.
+x-operator: institution
+description: >-
+  Purdue University publishes no API versioning policy, no deprecation policy, no changelog and no
+  status page for any of the surfaces below. Versioning is expressed only in URL path segments.
+  This is the normal posture for a research university, and it is recorded rather than
+  extrapolated.
+surfaces:
+- name: Purdue RCAC API
+  baseURL: https://www.rcac.purdue.edu/api
+  x-operator: institution
+  declared_version: 0.0.1
+  version_source: info.version in the provider's own OpenAPI at https://www.rcac.purdue.edu/api
+  versioning_strategy: none observed - no version segment in the base path
+  deprecation_policy: none published
+  changelog: none published
+  status_page: none published
+  note: >-
+    206 paths and 452 operations under a declared version of 0.0.1, with no stability statement.
+    The contract is machine-readable and complete; its lifecycle commitments are absent.
+- name: Purdue HFS Dining Menus API
+  baseURL: https://api.hfs.purdue.edu/menus/v2
+  x-operator: institution
+  declared_version: v2
+  version_source: URL path segment /menus/v2/
+  versioning_strategy: path-segment major version
+  deprecation_policy: none published
+  changelog: none published
+  status_page: none published
+  note: A v1 is implied by the presence of v2 but was not probed and is not claimed.
+- name: PURR OAI-PMH
+  baseURL: https://purr.purdue.edu/oaipmh
+  x-operator: institution
+  declared_version: OAI-PMH 2.0
+  version_source: OAI-PMH/Identify/protocolVersion
+  versioning_strategy: governed by the OAI-PMH specification, not by Purdue
+  deprecation_policy: none published
+- name: Purdue Shibboleth IdP metadata
+  baseURL: https://sso.purdue.edu/idp/shibboleth
+  x-operator: institution
+  declared_version: SAML 2.0
+  versioning_strategy: >-
+    Metadata carries a validUntil expiry (observed 2026-09-13 in the InCommon copy), which is the
+    federation's freshness mechanism rather than a Purdue policy.
+retired_or_absent:
+- name: Purdue Libraries API
+  url: https://api.lib.purdue.edu/
+  status: 200
+  finding: >-
+    Host resolves and returns 200, but the body is a placeholder - "Libraries API documentation
+    goes here..." - and has been since at least the 2026-06-03 review. Never a live surface; not
+    recorded as one.

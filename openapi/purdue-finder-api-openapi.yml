@@ -1,0 +1,875 @@
+openapi: 3.2.0
+info:
+  title: RCAC Finder API
+  version: 0.0.1
+servers:
+- url: https://www.rcac.purdue.edu/api
+  description: Production server
+tags:
+- name: Finder
+paths:
+  /finder/facets:
+    get:
+      description: Display a listing of entries
+      parameters:
+      - in: query
+        name: parentid
+        description: Parent department ID
+        required: false
+        schema:
+          type: integer
+          default: 0
+      - in: query
+        name: limit
+        description: Number of result per page.
+        type: integer
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        description: Field to sort results by.
+        type: string
+        required: false
+        schema:
+          type: string
+          default: datetimecreated
+          enum:
+          - id
+          - motd
+          - datetimecreated
+          - datetimeremoved
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        type: string
+        required: false
+        default: desc
+        schema:
+          type: string
+          default: asc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Finder
+      summary: Get finder facets
+      x-summary-source: derived
+      operationId: getFinderFacets
+      x-operation-id-source: derived
+    post:
+      description: Create a new entry
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+          content:
+            application/json:
+              example:
+                id: 1
+                name: Is your dataset restricted to U.S. persons only?
+                control_type: radio
+                parent: 0
+                weight: 1
+                status: 1
+                description: '<p>Export controlled data (ITAR/EAR) are restricted by law to U.S. persons only. This means that non-U.S. persons including international students or individuals from foreign countries are barred from accessing this data.</p>
+
+
+                  <p>Contact <a href="https://yourinstitution/research/regulatory-affairs/";>Regulatory Affairs</a> for more information.</p>
+
+                  '
+                created_at: '2021-04-28T12:27:39.000000Z'
+                updated_at: '2021-04-28T12:27:39.000000Z'
+                deleted_at: null
+                api: https://example.org/api/finder/facets/11
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  description: Facet name
+                  type: string
+                  default: null
+                parentid:
+                  description: Parent department ID
+                  type: integer
+                  default: null
+              required:
+              - name
+      tags:
+      - Finder
+      summary: Create finder facets
+      x-summary-source: derived
+      operationId: postFinderFacets
+      x-operation-id-source: derived
+  /finder/facets/{id}:
+    get:
+      description: Retrieve an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+          content:
+            application/json:
+              example:
+                id: 1
+                name: Is your dataset restricted to U.S. persons only?
+                control_type: radio
+                parent: 0
+                weight: 1
+                status: 1
+                description: '<p>Export controlled data (ITAR/EAR) are restricted by law to U.S. persons only. This means that non-U.S. persons including international students or individuals from foreign countries are barred from accessing this data.</p>
+
+
+                  <p>Contact <a href="https://yourinstitution/research/regulatory-affairs/";>Regulatory Affairs</a> for more information.</p>
+
+                  '
+                created_at: '2021-04-28T12:27:39.000000Z'
+                updated_at: '2021-04-28T12:27:39.000000Z'
+                deleted_at: null
+                api: https://example.org/api/finder/facets/11
+        '404':
+          description: Record not found
+      tags:
+      - Finder
+      summary: Get finder facets by id
+      x-summary-source: derived
+      operationId: getFinderFacetsById
+      x-operation-id-source: derived
+    put:
+      description: Update an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: Successful entry modification
+          content:
+            application/json:
+              example:
+                id: 1
+                name: Is your dataset restricted to U.S. persons only?
+                control_type: radio
+                parent: 0
+                weight: 1
+                status: 1
+                description: '<p>Export controlled data (ITAR/EAR) are restricted by law to U.S. persons only. This means that non-U.S. persons including international students or individuals from foreign countries are barred from accessing this data.</p>
+
+
+                  <p>Contact <a href="https://yourinstitution/research/regulatory-affairs/";>Regulatory Affairs</a> for more information.</p>
+
+                  '
+                created_at: '2021-04-28T12:27:39.000000Z'
+                updated_at: '2021-04-28T12:27:39.000000Z'
+                deleted_at: null
+                api: https://example.org/api/finder/facets/11
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  description: Facet name
+                  type: string
+                  default: null
+                parentid:
+                  description: Parent department ID
+                  type: integer
+                  default: null
+              required: []
+      tags:
+      - Finder
+      summary: Replace finder facets by id
+      x-summary-source: derived
+      operationId: putFinderFacetsById
+      x-operation-id-source: derived
+    delete:
+      description: Delete an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Finder
+      summary: Delete finder facets by id
+      x-summary-source: derived
+      operationId: deleteFinderFacetsById
+      x-operation-id-source: derived
+  /finder/fields:
+    get:
+      description: Display a listing of entries
+      parameters:
+      - in: query
+        name: status
+        description: Published status
+        required: false
+        schema:
+          type: integer
+          default: 0
+      - in: query
+        name: limit
+        description: Number of result per page.
+        type: integer
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        description: Field to sort results by.
+        type: string
+        required: false
+        schema:
+          type: string
+          default: label
+          enum:
+          - id
+          - name
+          - label
+          - created_at
+          - deleted_at
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        type: string
+        required: false
+        default: desc
+        schema:
+          type: string
+          default: asc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Finder
+      summary: Get finder fields
+      x-summary-source: derived
+      operationId: getFinderFields
+      x-operation-id-source: derived
+    post:
+      description: Create a new entry
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+          content:
+            application/json:
+              example:
+                id: 4
+                name: cost
+                label: Cost
+                weight: 3
+                status: 1
+                created_at: '2021-04-28T11:34:01.000000Z'
+                updated_at: '2021-04-28T11:34:01.000000Z'
+                deleted_at: null
+                services_count: 15
+                api: https://example.org/api/finder/fields/4
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  description: Field name
+                  type: string
+                  default: null
+                label:
+                  description: Field label
+                  type: string
+                  default: null
+                weight:
+                  description: Field weight
+                  type: integer
+                  default: null
+                status:
+                  description: Published state of the record
+                  type: integer
+                  default: 1
+              required:
+              - name
+              - label
+      tags:
+      - Finder
+      summary: Create finder fields
+      x-summary-source: derived
+      operationId: postFinderFields
+      x-operation-id-source: derived
+  /finder/fields/{id}:
+    get:
+      description: Retrieve an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+          content:
+            application/json:
+              example:
+                id: 4
+                name: cost
+                label: Cost
+                weight: 3
+                status: 1
+                created_at: '2021-04-28T11:34:01.000000Z'
+                updated_at: '2021-04-28T11:34:01.000000Z'
+                deleted_at: null
+                services_count: 15
+                api: https://example.org/api/finder/fields/4
+        '404':
+          description: Record not found
+      tags:
+      - Finder
+      summary: Get finder fields by id
+      x-summary-source: derived
+      operationId: getFinderFieldsById
+      x-operation-id-source: derived
+    put:
+      description: Update an entry
+      parameters: []
+      responses:
+        '202':
+          description: Successful entry modification
+          content:
+            application/json:
+              example:
+                id: 4
+                name: cost
+                label: Cost
+                weight: 3
+                status: 1
+                created_at: '2021-04-28T11:34:01.000000Z'
+                updated_at: '2021-04-28T11:34:01.000000Z'
+                deleted_at: null
+                services_count: 15
+                api: https://example.org/api/finder/fields/4
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  description: Field name
+                  type: string
+                  default: null
+                label:
+                  description: Field label
+                  type: string
+                  default: null
+                weight:
+                  description: Field weight
+                  type: integer
+                  default: null
+                status:
+                  description: Published state of the record
+                  type: integer
+                  default: 1
+              required: []
+      tags:
+      - Finder
+      summary: Replace finder fields by id
+      x-summary-source: derived
+      operationId: putFinderFieldsById
+      x-operation-id-source: derived
+    delete:
+      description: Delete an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Finder
+      summary: Delete finder fields by id
+      x-summary-source: derived
+      operationId: deleteFinderFieldsById
+      x-operation-id-source: derived
+  /finder/settings:
+    get:
+      description: Get settings
+      parameters: []
+      responses:
+        '200':
+          description: Successful entry modification
+          content:
+            application/json:
+              example:
+                name: Finder
+                title: Data Storage Solutions Finder
+                subtitle: This tool will offer recommendations of solutions appropriate to your usage needs and the data security constraints.
+                question_header: Answer these questions to help identify storage solutions and services that are most suitable for your needs.
+                service_header: Select data storage solutions you would like to compare in details.
+                chart_header: Select data storage solutions you would like to compare.
+                email_form_header: This is the email email_form
+                email_address: help@example.org
+                email_name: Example Org
+                main_header: Main Header
+                button_select_all: Select All
+                button_clear_selections: Clear Selections
+      tags:
+      - Finder
+      summary: Get finder settings
+      x-summary-source: derived
+      operationId: getFinderSettings
+      x-operation-id-source: derived
+  /finder/servicelist:
+    get:
+      description: Get service list
+      parameters: []
+      responses:
+        '200':
+          description: Successful entry modification
+          content:
+            application/json:
+              example:
+              - id: 14
+                title: Amazon Drive
+                summary: A personal cloud storage platform hosted by Amazon.
+                facet_matches:
+                - 4
+                - 7
+                - 10
+                - 13
+                - 15
+                field_data:
+                  field_also_known_as:
+                    value: '<p><span>Amazon Clouddrive, Amazon Photos</span></p>
+
+                      '
+                    label: Also Known As
+                    weight: 12
+                  field_capacity_details:
+                    value: '<p><span>Free basic tier (5 GB), several paid plans</span>.</p>
+
+                      '
+                    label: Capacity Details
+                    weight: 1
+                  field_cost:
+                    value: '<p><span>Free (5 GB), paid.</span></p>
+
+                      '
+                    label: Cost
+                    weight: 3
+              - id: 8
+                title: Box Research Lab Folder
+                summary: Box Research Lab Folder
+                facet_matches:
+                - 3
+                - 4
+                - 7
+                - 10
+                - 13
+                - 15
+                - 16
+                field_data:
+                  field_also_known_as:
+                    value: '<p>Box, Box.com</p>
+
+                      '
+                    label: Also Known As
+                    weight: 12
+                  field_capacity_details:
+                    value: '<p>Box provides unlimited storage space, however individual files may not exceed 15 GB.</p>
+
+                      '
+                    label: Capacity Details
+                    weight: 1
+                  field_cost:
+                    value: '<p>Free</p>
+
+                      '
+                    label: Cost
+                    weight: 3
+      tags:
+      - Finder
+      summary: Get finder servicelist
+      x-summary-source: derived
+      operationId: getFinderServicelist
+      x-operation-id-source: derived
+  /finder/facettree:
+    get:
+      description: Get facet tree
+      parameters: []
+      responses:
+        '200':
+          description: Successful entry modification
+          content:
+            application/json:
+              example:
+              - id: 11
+                name: Is your dataset restricted to U.S. persons only?
+                control_type: radio
+                parent: 0
+                weight: 1
+                selected: false
+                description: '<p>Export controlled data (ITAR/EAR) are restricted by law to U.S. persons only. This means that non-U.S. persons including international students or individuals from foreign countries are barred from accessing this data.</p>
+
+
+                  <p>Contact <a href="https://yourinstitution/research/regulatory-affairs/";>Regulatory Affairs</a> for more information.</p>
+
+                  '
+                choices:
+                - id: 12
+                  name: 'Yes'
+                  control_type: null
+                  parent: 11
+                  weight: 0
+                  description: null
+                - id: 13
+                  name: 'No'
+                  control_type: null
+                  parent: 11
+                  weight: 1
+                  description: null
+              - id: 8
+                name: Will your project utilize a community cluster?
+                control_type: radio
+                parent: 0
+                weight: 2
+                selected: false
+                description: '<p><a href="https://yourinstitution/services/communityclusters/";>Community clusters</a> provide cost effective computing resources for researchers to run tasks requiring large amounts of computing resources.</p>
+
+
+                  <p>For more information on community clusters, <a href="mailto:yourinstitution">contact Your Institution</a>.</p>
+
+                  '
+                choices:
+                - id: 9
+                  name: 'Yes'
+                  control_type: null
+                  parent: 8
+                  weight: 0
+                  description: null
+                - id: 10
+                  name: 'No'
+                  control_type: null
+                  parent: 8
+                  weight: 1
+                  description: null
+      tags:
+      - Finder
+      summary: Get finder facettree
+      x-summary-source: derived
+      operationId: getFinderFacettree
+      x-operation-id-source: derived
+  /finder/sendmail:
+    post:
+      description: Send an email
+      parameters: []
+      responses:
+        '200':
+          description: Successful entry creation
+          content:
+            application/json:
+              example: Your message has been sent.
+      tags:
+      - Finder
+      summary: Create finder sendmail
+      x-summary-source: derived
+      operationId: postFinderSendmail
+      x-operation-id-source: derived
+  /finder/services:
+    get:
+      description: Display a listing of entries
+      parameters:
+      - in: query
+        name: parentid
+        description: Parent department ID
+        required: false
+        schema:
+          type: integer
+          default: 0
+      - in: query
+        name: limit
+        description: Number of result per page.
+        type: integer
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: state
+        description: Published or unpublished state or entries.
+        type: string
+        required: false
+        schema:
+          type: string
+          default: published
+          enum:
+          - published
+          - unpublished
+      - in: query
+        name: order
+        description: Field to sort results by.
+        type: string
+        required: false
+        schema:
+          type: string
+          default: title
+          enum:
+          - id
+          - title
+          - summary
+          - created_at
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        type: string
+        required: false
+        default: desc
+        schema:
+          type: string
+          default: asc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Finder
+      summary: Get finder services
+      x-summary-source: derived
+      operationId: getFinderServices
+      x-operation-id-source: derived
+    post:
+      description: Create a new entry
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+          content:
+            application/json:
+              example:
+                id: 14
+                title: Amazon Drive
+                summary: A personal cloud storage platform hosted by Amazon.
+                status: 1
+                created_at: '2021-04-28T11:20:01.000000Z'
+                updated_at: '2021-04-28T11:20:01.000000Z'
+                deleted_at: null
+                api: https://example.org/api/finder/services/14
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                title:
+                  description: Service title
+                  type: string
+                  default: null
+                summary:
+                  description: Short description of the service
+                  type: string
+                  default: null
+                status:
+                  description: Published or unpublished status
+                  type: integer
+                  default: 1
+              required:
+              - title
+      tags:
+      - Finder
+      summary: Create finder services
+      x-summary-source: derived
+      operationId: postFinderServices
+      x-operation-id-source: derived
+  /finder/services/{id}:
+    get:
+      description: Retrieve an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+          content:
+            application/json:
+              example:
+                id: 14
+                title: Amazon Drive
+                summary: A personal cloud storage platform hosted by Amazon.
+                status: 1
+                created_at: '2021-04-28T11:20:01.000000Z'
+                updated_at: '2021-04-28T11:20:01.000000Z'
+                deleted_at: null
+                api: https://example.org/api/finder/services/14
+        '404':
+          description: Record not found
+      tags:
+      - Finder
+      summary: Get finder services by id
+      x-summary-source: derived
+      operationId: getFinderServicesById
+      x-operation-id-source: derived
+    put:
+      description: Update an entry
+      parameters: []
+      responses:
+        '202':
+          description: Successful entry modification
+          content:
+            application/json:
+              example:
+                id: 14
+                title: Amazon Drive
+                summary: A personal cloud storage platform hosted by Amazon.
+                status: 1
+                created_at: '2021-04-28T11:20:01.000000Z'
+                updated_at: '2021-04-28T11:20:01.000000Z'
+                deleted_at: null
+                api: https://example.org/api/finder/services/14
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                title:
+                  description: Service title
+                  type: string
+                  default: null
+                summary:
+                  description: Short description of the service
+                  type: string
+                  default: null
+                status:
+                  description: Published or unpublished status
+                  type: integer
+                  default: 1
+                fields:
+                  description: Fields for a service
+                  type: array
+                  default: null
+              required: []
+      tags:
+      - Finder
+      summary: Replace finder services by id
+      x-summary-source: derived
+      operationId: putFinderServicesById
+      x-operation-id-source: derived
+    delete:
+      description: Delete an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Finder
+      summary: Delete finder services by id
+      x-summary-source: derived
+      operationId: deleteFinderServicesById
+      x-operation-id-source: derived
+components:
+  securitySchemes:
+    api_token:
+      type: apiKey
+      name: api_token
+      in: header

@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/purdue/main/json-schema/purdue-hfs-location-schema.json",
+  "title": "Purdue HFS Dining Location",
+  "description": "A dining location as returned by GET https://api.hfs.purdue.edu/menus/v2/locations, operated by Purdue University Housing and Food Services. Every property below was observed in a live keyless response on 2026-08-30; none is inferred from documentation, because HFS publishes none.",
+  "x-provenance": {
+    "generated": "2026-08-30",
+    "method": "derived",
+    "source": "openapi/purdue-hfs-dining-menus-api-openapi.yml (itself generated from live probes of https://api.hfs.purdue.edu/menus/v2/locations)",
+    "x-operator": "institution"
+  },
+  "type": "object",
+  "required": ["LocationId", "Name"],
+  "properties": {
+    "LocationId": { "type": "string", "description": "Short opaque location key, e.g. BOWL." },
+    "Name": { "type": "string" },
+    "FormalName": { "type": "string" },
+    "Address": {
+      "type": "object",
+      "properties": {
+        "Street": { "type": "string" },
+        "City": { "type": "string" },
+        "State": { "type": "string" },
+        "ZipCode": { "type": "string" },
+        "Country": { "type": "string" },
+        "CountryCode": { "type": "string" }
+      }
+    },
+    "PhoneNumber": { "type": "string" },
+    "Latitude": { "type": "number" },
+    "Longitude": { "type": "number" },
+    "Images": { "type": "array", "items": { "type": "string", "format": "uuid" } },
+    "ImageUrls": { "type": "array", "items": { "type": "string", "format": "uri" } },
+    "LogoUrl": { "type": "string", "format": "uri" },
+    "DarkModeLogoUrl": { "type": "string", "format": "uri" }
+  }
+}

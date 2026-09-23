@@ -1,0 +1,253 @@
+openapi: 3.2.0
+info:
+  title: RCAC Themes API
+  version: 0.0.1
+servers:
+- url: https://www.rcac.purdue.edu/api
+  description: Production server
+tags:
+- name: Themes
+paths:
+  /themes:
+    get:
+      description: Display a listing of entries
+      parameters:
+      - in: query
+        name: client_id
+        description: Client (admin = 1|site = 0) ID
+        required: false
+        schema:
+          type: integer
+          default: 0
+          enum:
+          - 0
+          - 1
+      - in: query
+        name: element
+        description: Theme element name.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: limit
+        description: Number of result per page.
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: title
+          enum:
+          - id
+          - title
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: desc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Themes
+      summary: Get themes
+      x-summary-source: derived
+      operationId: getThemes
+      x-operation-id-source: derived
+    post:
+      description: Create a new entry
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+          content:
+            application/json:
+              example:
+                id: 1
+                name: Admin (default)
+                type: theme
+                element: admin
+                folder: ''
+                client_id: 1
+                enabled: 1
+                access: 1
+                protected: 1
+                params: []
+                checked_out: 0
+                checked_out_time: null
+                ordering: 0
+                updated_at: null
+                updated_by: 0
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  description: Theme name
+                  type: string
+                  default: null
+                element:
+                  description: Theme directory name
+                  type: string
+                  default: null
+                enabled:
+                  description: Is the theme enabled?
+                  type: integer
+                  default: 0
+                client_id:
+                  description: Client (admin = 1|site = 0) ID
+                  type: integer
+                  default: null
+              required:
+              - name
+              - element
+      tags:
+      - Themes
+      summary: Create themes
+      x-summary-source: derived
+      operationId: postThemes
+      x-operation-id-source: derived
+  /themes/{id}:
+    get:
+      description: Retrieve an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+          content:
+            application/json:
+              example:
+                id: 1
+                name: Admin (default)
+                type: theme
+                element: admin
+                folder: ''
+                client_id: 1
+                enabled: 1
+                access: 1
+                protected: 1
+                params: []
+                checked_out: 0
+                checked_out_time: null
+                ordering: 0
+                updated_at: null
+                updated_by: 0
+        '404':
+          description: Record not found
+      tags:
+      - Themes
+      summary: Get themes by id
+      x-summary-source: derived
+      operationId: getThemesById
+      x-operation-id-source: derived
+    put:
+      description: Update an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: Successful entry modification
+          content:
+            application/json:
+              example:
+                id: 1
+                name: Admin (default)
+                type: theme
+                element: admin
+                folder: ''
+                client_id: 1
+                enabled: 1
+                access: 1
+                protected: 1
+                params: []
+                checked_out: 0
+                checked_out_time: null
+                ordering: 0
+                updated_at: null
+                updated_by: 0
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  description: Theme name
+                  type: string
+                  default: null
+                enabled:
+                  description: Is the theme enabled?
+                  type: integer
+                  default: 0
+              required: []
+      tags:
+      - Themes
+      summary: Replace themes by id
+      x-summary-source: derived
+      operationId: putThemesById
+      x-operation-id-source: derived
+    delete:
+      description: Delete an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful deletion
+        '404':
+          description: Record not found
+      tags:
+      - Themes
+      summary: Delete themes by id
+      x-summary-source: derived
+      operationId: deleteThemesById
+      x-operation-id-source: derived
+components:
+  securitySchemes:
+    api_token:
+      type: apiKey
+      name: api_token
+      in: header

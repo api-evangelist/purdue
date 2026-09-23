@@ -1,0 +1,74 @@
+openapi: 3.2.0
+info:
+  title: Purdue Housing and Food Services Dining Menus Items API
+  summary: Keyless read API for Purdue dining court locations, daily menus and item nutrition.
+  description: A public, keyless HTTP API operated by Purdue University Housing and Food Services (HFS) at api.hfs.purdue.edu, serving the dining-court locations, published daily menus and per-item nutrition and allergen data used by Purdue's own dining apps and by student-built campus apps.
+  version: v2
+  contact:
+    name: Purdue University Housing and Food Services
+    url: https://www.housing.purdue.edu/
+  x-unofficial-description: true
+servers:
+- url: https://api.hfs.purdue.edu/menus/v2
+  description: Production - observed live, keyless, 2026-08-30
+tags:
+- name: Items
+  description: Nutrition and allergen detail for a single menu item.
+paths:
+  /items/{itemId}:
+    get:
+      tags:
+      - Items
+      operationId: getMenuItem
+      summary: Get nutrition and allergen detail for one menu item
+      description: Returns the nutrition panel for a menu item ID taken from a menu response. The collection form `/items` responds 405, which is how the path was confirmed to exist.
+      parameters:
+      - name: itemId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        example: 9f2ef8e3-0d9c-4fc3-aa1d-949b3af47633
+      responses:
+        '200':
+          description: Nutrition detail for the item.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MenuItemDetail'
+        '405':
+          description: Returned for the collection form `/items` with no ID.
+components:
+  schemas:
+    MenuItemDetail:
+      type: object
+      properties:
+        Nutrition:
+          type: array
+          items:
+            type: object
+            properties:
+              Name:
+                type: string
+              Value:
+                type:
+                - number
+                - 'null'
+              LabelValue:
+                type:
+                - string
+                - 'null'
+              DailyValue:
+                type:
+                - number
+                - 'null'
+              Ordinal:
+                type: integer
+x-method: generated
+x-source-url: https://api.hfs.purdue.edu/menus/v2/locations
+x-provenance:
+  generated: '2026-08-30'
+  method: generated
+  source: Hand-written by API Evangelist from live, keyless HTTP probes of https://api.hfs.purdue.edu/menus/v2/ on 2026-08-30. Purdue University Housing and Food Services publishes no OpenAPI of its own; every path, parameter, status code and field name below was observed in an actual response. Nothing here is inferred from documentation.
+  x-operator: institution

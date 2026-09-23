@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  provenance: generated=2026-08-30 method=probed
+  x-method: searched
+  x-source-url: https://purr.purdue.edu/oaipmh?verb=Identify
+  source: https://purr.purdue.edu/oaipmh?verb=Identify
+  Verbatim live OAI-PMH 2.0 Identify response from the Purdue University Research Repository (PURR).
+  x-operator: institution - purr.purdue.edu resolves to 128.211.145.24 (Purdue netblock);
+  the Identify response names adminEmail mwitt@purdue.edu.
+-->
+<?xml-stylesheet type="text/xsl" href="https://purr.purdue.edu/oaipmh/stylesheet?metadataPrefix="?>
+<OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd">
+  <responseDate>2026-08-30T19:48:37+00:00</responseDate>
+  <request verb="Identify">purr.purdue.edu/oaipmh</request>
+  <Identify>
+    <repositoryName>Purdue University Research Repository</repositoryName>
+    <baseURL>purr.purdue.edu</baseURL>
+    <protocolVersion>2.0</protocolVersion>
+    <adminEmail>mwitt@purdue.edu</adminEmail>
+    <earliestDatestamp>2012-02-22T11:51:19Z</earliestDatestamp>
+    <deletedRecord>no</deletedRecord>
+    <granularity>YYYY-MM-DDThh:mm:ssZ</granularity>
+  </Identify>
+</OAI-PMH>

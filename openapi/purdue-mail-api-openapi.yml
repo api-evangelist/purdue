@@ -1,0 +1,109 @@
+openapi: 3.2.0
+info:
+  title: RCAC Mail API
+  version: 0.0.1
+servers:
+- url: https://www.rcac.purdue.edu/api
+  description: Production server
+tags:
+- name: Mail
+paths:
+  /mail:
+    get:
+      description: Display a listing of entries
+      parameters: []
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                search:
+                  description: A word or phrase to search for.
+                  type: string
+                  default: null
+                limit:
+                  description: Number of result per page.
+                  type: integer
+                  default: 20
+                page:
+                  description: Number of where to start returning results.
+                  type: integer
+                  default: 1
+                order:
+                  description: Field to sort results by.
+                  type: string
+                  default: sent_at
+                order_dir:
+                  description: Direction to sort results by.
+                  type: string
+                  default: asc
+              required: []
+      tags:
+      - Mail
+      summary: Get mail
+      x-summary-source: derived
+      operationId: getMail
+      x-operation-id-source: derived
+    post:
+      description: Create a new entry
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+          content:
+            application/json:
+              example:
+                id: 2
+                subject: Scratch Filesystem Purge Policy Violation
+                body: Don't violate our policies!
+                template: 0
+                alert: info
+                created_at: '2022-05-24 12:31:01'
+                updated_at: null
+                deleted_at: null
+                sent_at: '2022-05-24 12:31:01'
+                sent_by: 1234
+                api: https://example.org/api/mailer/2
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  description: Short label for templates
+                  type: string
+                  default: null
+                subject:
+                  description: Message subject
+                  type: string
+                  default: null
+                body:
+                  description: Message contents, formatted using MarkDown
+                  type: string
+                  default: null
+                template:
+                  description: If the message is a template or not
+                  type: integer
+                  default: 0
+                alert:
+                  description: An alert level to use for styling HTML portions of emails
+                  type: string
+                  default: null
+              required:
+              - subject
+      tags:
+      - Mail
+      summary: Create mail
+      x-summary-source: derived
+      operationId: postMail
+      x-operation-id-source: derived
+components:
+  securitySchemes:
+    api_token:
+      type: apiKey
+      name: api_token
+      in: header

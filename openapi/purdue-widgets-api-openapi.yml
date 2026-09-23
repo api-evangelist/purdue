@@ -1,0 +1,425 @@
+openapi: 3.2.0
+info:
+  title: RCAC Widgets API
+  version: 0.0.1
+servers:
+- url: https://www.rcac.purdue.edu/api
+  description: Production server
+tags:
+- name: Widgets
+paths:
+  /widgets:
+    get:
+      description: Display a listing of entries
+      parameters:
+      - in: query
+        name: client_id
+        description: Client (admin = 1|site = 0) ID
+        required: false
+        schema:
+          type: integer
+          default: null
+          enum:
+          - 0
+          - 1
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: limit
+        description: Number of result per page.
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: datetimecreated
+          enum:
+          - id
+          - motd
+          - datetimecreated
+          - datetimeremoved
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: asc
+          enum:
+          - asc
+          - desc
+      responses:
+        '200':
+          description: List of widgets
+          content:
+            application/json:
+              example:
+                current_page: 1
+                data:
+                - id: 17
+                  title: Breadcrumbs
+                  note: ''
+                  content: ''
+                  ordering: 1
+                  position: breadcrumbs
+                  checked_out: 0
+                  checked_out_time: null
+                  publish_up: null
+                  publish_down: null
+                  published: 1
+                  module: breadcrumbs
+                  access: 1
+                  showtitle: 1
+                  params:
+                    showHere: '0'
+                    showHome: '1'
+                    homeText: Home
+                    showLast: '1'
+                    separator: /
+                    moduleclass_sfx: null
+                    cache: '1'
+                    cache_time: '900'
+                    cachemode: itemid
+                  client_id: 0
+                  language: '*'
+                  language_title: null
+                  editor: Shawn M Rice
+                  access_level: Public
+                  pages: 0
+                  name: breadcrumbs
+                  api: https://yourhost/api/widgets/17
+                  menu_assignment: 0
+                  can:
+                    edit: false
+                    delete: false
+                - id: 132
+                  title: Science Highlights
+                  note: ''
+                  content: ''
+                  ordering: 1
+                  position: featureLeft
+                  checked_out: 0
+                  checked_out_time: null
+                  publish_up: null
+                  publish_down: null
+                  published: 1
+                  module: news
+                  access: 1
+                  showtitle: 0
+                  params:
+                    catid: '3'
+                    item_title: '0'
+                    link_titles: null
+                    item_heading: h4
+                    showLastSeparator: '1'
+                    readmore: '1'
+                    limit: '5'
+                    ordering: published
+                    direction: DESC
+                    layout: null
+                    moduleclass_sfx: null
+                    cache: '0'
+                    cache_time: '900'
+                    cachemode: itemid
+                  client_id: 0
+                  language: '*'
+                  language_title: null
+                  editor: Shawn M Rice
+                  access_level: Public
+                  pages: 100
+                  name: news
+                  api: https://yourhost/api/widgets/132
+                  menu_assignment: 1
+                  can:
+                    edit: false
+                    delete: false
+                - id: 134
+                  title: Announcements
+                  note: ''
+                  content: ''
+                  ordering: 1
+                  position: featureRight
+                  checked_out: 0
+                  checked_out_time: null
+                  publish_up: null
+                  publish_down: null
+                  published: 1
+                  module: news
+                  access: 1
+                  showtitle: 0
+                  params:
+                    catid: '2'
+                    item_title: '0'
+                    link_titles: null
+                    item_heading: h4
+                    showLastSeparator: '1'
+                    readmore: '1'
+                    limit: '5'
+                    ordering: published
+                    direction: DESC
+                    layout: null
+                    moduleclass_sfx: null
+                    cache: '0'
+                    cache_time: '900'
+                    cachemode: itemid
+                  client_id: 0
+                  language: '*'
+                  language_title: null
+                  editor: null
+                  access_level: Public
+                  pages: 0
+                  name: news
+                  api: https://yourhost/api/widgets/134
+                  menu_assignment: 1
+                  can:
+                    edit: false
+                    delete: false
+                first_page_url: https://yourhost/api/widgets?page=1
+                from: 1
+                last_page: 2
+                last_page_url: https://yourhost/api/widgets?page=2
+                next_page_url: https://yourhost/api/widgets?page=2
+                path: https://yourhost/api/widgets
+                per_page: 3
+                prev_page_url: null
+                to: 3
+                total: 5
+      tags:
+      - Widgets
+      summary: Get widgets
+      x-summary-source: derived
+      operationId: getWidgets
+      x-operation-id-source: derived
+    post:
+      description: Create a new entry
+      parameters: []
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                title:
+                  description: Widget title
+                  type: string
+                  default: null
+                position:
+                  description: Widget position
+                  type: string
+                  default: null
+                widget:
+                  description: The type of widget
+                  type: string
+                  default: null
+                params:
+                  description: A list of key value pairs
+                  type: array
+                  default: null
+                menu:
+                  description: A list of menu item assignments
+                  type: array
+                  default: null
+              required:
+              - title
+              - position
+              - widget
+      tags:
+      - Widgets
+      summary: Create widgets
+      x-summary-source: derived
+      operationId: postWidgets
+      x-operation-id-source: derived
+  /widgets/{id}:
+    get:
+      description: Retrieve an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful record lookup
+          content:
+            application/json:
+              example:
+                id: 134
+                title: Announcements
+                note: ''
+                content: ''
+                ordering: 1
+                position: featureRight
+                checked_out: 0
+                checked_out_time: null
+                publish_up: null
+                publish_down: null
+                published: 1
+                module: news
+                access: 1
+                showtitle: 0
+                params:
+                  catid: '2'
+                  item_title: '0'
+                  link_titles: null
+                  item_heading: h4
+                  showLastSeparator: '1'
+                  readmore: '1'
+                  limit: '5'
+                  ordering: published
+                  direction: DESC
+                  layout: null
+                  moduleclass_sfx: null
+                  cache: '0'
+                  cache_time: '900'
+                  cachemode: itemid
+                client_id: 0
+                language: '*'
+                language_title: null
+                editor: null
+                access_level: Public
+                pages: 0
+                name: news
+                api: https://yourhost/api/widgets/134
+                menu_assignment: 1
+                can:
+                  edit: false
+                  delete: false
+        '404':
+          description: Record not found
+      tags:
+      - Widgets
+      summary: Get widgets by id
+      x-summary-source: derived
+      operationId: getWidgetsById
+      x-operation-id-source: derived
+    put:
+      description: Update an entry
+      parameters: []
+      responses:
+        '200':
+          description: Successful record update
+          content:
+            application/json:
+              example:
+                id: 134
+                title: Announcements
+                note: ''
+                content: ''
+                ordering: 1
+                position: featureRight
+                checked_out: 0
+                checked_out_time: null
+                publish_up: null
+                publish_down: null
+                published: 1
+                module: news
+                access: 1
+                showtitle: 0
+                params:
+                  catid: '2'
+                  item_title: '0'
+                  link_titles: null
+                  item_heading: h4
+                  showLastSeparator: '1'
+                  readmore: '1'
+                  limit: '5'
+                  ordering: published
+                  direction: DESC
+                  layout: null
+                  moduleclass_sfx: null
+                  cache: '0'
+                  cache_time: '900'
+                  cachemode: itemid
+                client_id: 0
+                language: '*'
+                language_title: null
+                editor: null
+                access_level: Public
+                pages: 0
+                name: news
+                api: https://yourhost/api/widgets/134
+                menu_assignment: 1
+                can:
+                  edit: false
+                  delete: false
+        '404':
+          description: Record not found
+        '415':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                title:
+                  description: Widget title
+                  type: string
+                  default: null
+                position:
+                  description: Widget position
+                  type: string
+                  default: null
+                widget:
+                  description: The type of widget
+                  type: string
+                  default: null
+                params:
+                  description: A list of key value pairs
+                  type: array
+                  default: null
+                menu:
+                  description: A list of menu item assignments
+                  type: array
+                  default: null
+              required: []
+      tags:
+      - Widgets
+      summary: Replace widgets by id
+      x-summary-source: derived
+      operationId: putWidgetsById
+      x-operation-id-source: derived
+    delete:
+      description: Delete an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful deletion
+        '404':
+          description: Record not found
+      tags:
+      - Widgets
+      summary: Delete widgets by id
+      x-summary-source: derived
+      operationId: deleteWidgetsById
+      x-operation-id-source: derived
+components:
+  securitySchemes:
+    api_token:
+      type: apiKey
+      name: api_token
+      in: header

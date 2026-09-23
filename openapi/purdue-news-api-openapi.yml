@@ -1,0 +1,1284 @@
+openapi: 3.2.0
+info:
+  title: RCAC News API
+  version: 0.0.1
+servers:
+- url: https://www.rcac.purdue.edu/api
+  description: Production server
+tags:
+- name: News
+paths:
+  /news:
+    get:
+      description: Display a listing of news articles
+      parameters:
+      - in: query
+        name: start
+        description: Filter entries scheduled on or after this date
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2021-01-30T08:30:00Z'
+      - in: query
+        name: stop
+        description: Filter entries scheduled to end before this date
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2021-01-30T08:30:00Z'
+      - in: query
+        name: type
+        description: New type ID
+        required: false
+        schema:
+          type: integer
+          default: 'null'
+      - in: query
+        name: state
+        description: The article state.
+        required: false
+        schema:
+          type: string
+          default: published
+          enum:
+          - published
+          - unpublished
+      - in: query
+        name: resource
+        description: A comma-separated list of associated resource IDs to filter by
+        required: false
+        schema:
+          type: string
+          example: 1,2,3,4
+      - in: query
+        name: location
+        description: A location to filter entries by.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: limit
+        description: Number of result per page.
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: datetimecreated
+          enum:
+          - id
+          - headline
+          - datetimecreated
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: desc
+          enum:
+          - asc
+          - desc
+      tags:
+      - News
+      summary: Get news
+      x-summary-source: derived
+      operationId: getNews
+      x-operation-id-source: derived
+    post:
+      description: Create a news article
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+        '401':
+          description: Unauthorized
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                headline:
+                  description: The entry's headline
+                  type: string
+                  default: null
+                body:
+                  description: The entry's body
+                  type: string
+                  default: null
+                newstypeid:
+                  description: ID of the news type
+                  type: integer
+                  default: null
+                published:
+                  description: Published state
+                  type: integer
+                  default: 1
+                template:
+                  description: If entry is a template or not
+                  type: integer
+                  default: 0
+                datetimenews:
+                  description: Start date and time
+                  type: string
+                  default: null
+                datetimenewsend:
+                  description: Stop date and time
+                  type: string
+                  default: null
+                location:
+                  description: Entry location
+                  type: string
+                  default: null
+                url:
+                  description: URL for the entry
+                  type: string
+                  default: null
+              required:
+              - headline
+              - body
+              - newstypeid
+              - datetimenews
+      tags:
+      - News
+      summary: Create news
+      x-summary-source: derived
+      operationId: postNews
+      x-operation-id-source: derived
+  /news/{id}:
+    get:
+      description: Read a news article
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+        '404':
+          description: Record not found
+      tags:
+      - News
+      summary: Get news by id
+      x-summary-source: derived
+      operationId: getNewsById
+      x-operation-id-source: derived
+    put:
+      description: Update a news article
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: Successful entry modification
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                headline:
+                  description: The entry's headline
+                  type: string
+                  default: null
+                body:
+                  description: The entry's body
+                  type: string
+                  default: null
+                newstypeid:
+                  description: ID of the news type
+                  type: integer
+                  default: null
+                published:
+                  description: Published state
+                  type: integer
+                  default: 1
+                template:
+                  description: If entry is a template or not
+                  type: integer
+                  default: 0
+                datetimenews:
+                  description: Start date and time
+                  type: string
+                  default: null
+                datetimenewsend:
+                  description: Stop date and time
+                  type: string
+                  default: null
+                location:
+                  description: Entry location
+                  type: string
+                  default: null
+                url:
+                  description: URL for the entry
+                  type: string
+                  default: null
+              required: []
+      tags:
+      - News
+      summary: Replace news by id
+      x-summary-source: derived
+      operationId: putNewsById
+      x-operation-id-source: derived
+    delete:
+      description: Delete a news article
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - News
+      summary: Delete news by id
+      x-summary-source: derived
+      operationId: deleteNewsById
+      x-operation-id-source: derived
+  /news/{id}/views:
+    get:
+      description: Retrieve news article view stats
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+      tags:
+      - News
+      summary: Get news by id views
+      x-summary-source: derived
+      operationId: getNewsByIdViews
+      x-operation-id-source: derived
+  /news/preview:
+    post:
+      description: Preview a news article
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry preparation
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                body:
+                  description: The entry's body
+                  type: string
+                  default: null
+                vars:
+                  description: A list of key/value pairs for variable replacement in the body text
+                  type: array
+                  default: null
+              required:
+              - body
+      tags:
+      - News
+      summary: Create news preview
+      x-summary-source: derived
+      operationId: postNewsPreview
+      x-operation-id-source: derived
+  /news/{id}/email:
+    post:
+      description: Email a news article
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: Successful email
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                headline:
+                  description: Optional alternate article headline
+                  type: string
+                  default: null
+                body:
+                  description: Optional alternate article body
+                  type: string
+                  default: null
+                resources:
+                  description: A list of resource IDs to send the email to mailing lists.
+                  type: array
+                  default: null
+                associations:
+                  description: A list of user IDs to send the email to. If none provided, Resource mailing lists are used instead.
+                  type: array
+                  default: null
+              required: []
+      tags:
+      - News
+      summary: Create news by id email
+      x-summary-source: derived
+      operationId: postNewsByIdEmail
+      x-operation-id-source: derived
+  /news/associations:
+    get:
+      description: Display a listing of news article types
+      parameters:
+      - in: query
+        name: tagresources
+        description: Filter by types that allow articles to tag resources
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: location
+        description: Filter by types that allow articles to set location
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: future
+        description: Filter by types that allow articles to set future
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: ongoing
+        description: Filter by types that allow articles to set ongoing
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: limit
+        description: Number of result per page.
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: datetimecreated
+          enum:
+          - id
+          - motd
+          - datetimecreated
+          - datetimeremoved
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: desc
+          enum:
+          - asc
+          - desc
+      responses:
+        '200':
+          description: Successful entries lookup
+          content:
+            application/json:
+              example:
+                data:
+                - id: '1'
+                  name: Examples
+                  tagresources: 0
+                  tagusers: 1
+                  location: 1
+                  future: 1
+                  calendar: 1
+                  url: 1
+                  api: https://example.com/api/news/types/1
+                - id: '2'
+                  name: Outages and Maintenance
+                  tagresources: 1
+                  tagusers: 0
+                  location: 0
+                  future: 1
+                  calendar: 1
+                  url: 0
+                  api: https://example.com/api/news/types/2
+                links:
+                  first: https://example.com/api/news/types?limit=20&order=name&order_dir=asc&page=1
+                  last: https://example.com/api/news/types?limit=20&order=name&order_dir=asc&page=1
+                  prev: null
+                  next: null
+                meta:
+                  current_page: 1
+                  from: 1
+                  last_page: 1
+                  path: https://example.com/api/news/types
+                  per_page: 20
+                  to: 2
+                  total: 2
+        '415':
+          description: Invalid data
+      tags:
+      - News
+      summary: Get news associations
+      x-summary-source: derived
+      operationId: getNewsAssociations
+      x-operation-id-source: derived
+    post:
+      description: Create a news associations
+      parameters: []
+      responses:
+        '200':
+          description: Successful entry creation
+          content:
+            application/json:
+              example:
+                id: 1
+                associd: 1234
+                assoctype: user
+                newsid: 1
+                comment: Examples
+                api: https://example.com/api/news/associations/1
+        '415':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                associd:
+                  description: The association ID
+                  type: integer
+                  default: null
+                assoctype:
+                  description: The association type
+                  type: string
+                  default: null
+                newsid:
+                  description: The news article ID
+                  type: integer
+                  default: null
+                comment:
+                  description: Comment / notes
+                  type: string
+                  default: null
+              required:
+              - associd
+              - assoctype
+              - newsid
+      tags:
+      - News
+      summary: Create news associations
+      x-summary-source: derived
+      operationId: postNewsAssociations
+      x-operation-id-source: derived
+  /news/associations/{id}:
+    get:
+      description: Read a news associations
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+          content:
+            application/json:
+              example:
+                id: 1
+                associd: 1234
+                assoctype: user
+                newsid: 1
+                comment: Examples
+                api: https://example.com/api/news/associations/1
+        '404':
+          description: Record not found
+      tags:
+      - News
+      summary: Get news associations by id
+      x-summary-source: derived
+      operationId: getNewsAssociationsById
+      x-operation-id-source: derived
+    put:
+      description: Update a news association
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry modification
+          content:
+            application/json:
+              example:
+                id: 1
+                associd: 1234
+                assoctype: user
+                newsid: 1
+                comment: Examples
+                api: https://example.com/api/news/associations/1
+        '404':
+          description: Record not found
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                associd:
+                  description: The association ID
+                  type: integer
+                  default: null
+                assoctype:
+                  description: The association type
+                  type: string
+                  default: null
+                newsid:
+                  description: The news article ID
+                  type: integer
+                  default: null
+                comment:
+                  description: Comment / notes
+                  type: string
+                  default: null
+              required: []
+      tags:
+      - News
+      summary: Replace news associations by id
+      x-summary-source: derived
+      operationId: putNewsAssociationsById
+      x-operation-id-source: derived
+    delete:
+      description: Delete a news associations
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - News
+      summary: Delete news associations by id
+      x-summary-source: derived
+      operationId: deleteNewsAssociationsById
+      x-operation-id-source: derived
+  /news/slack:
+    post:
+      description: Proccess Slack interactions
+      parameters:
+      - in: query
+        name: tagresources
+        description: Filter by types that allow articles to tag resources
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: location
+        description: Filter by types that allow articles to set location
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: future
+        description: Filter by types that allow articles to set future
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: ongoing
+        description: Filter by types that allow articles to set ongoing
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: limit
+        description: Number of result per page.
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: datetimecreated
+          enum:
+          - id
+          - motd
+          - datetimecreated
+          - datetimeremoved
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: desc
+          enum:
+          - asc
+          - desc
+      responses:
+        '200':
+          description: Successful entries lookup
+          content:
+            application/json:
+              example:
+                message: Text
+        '415':
+          description: Invalid data
+      tags:
+      - News
+      summary: Create news slack
+      x-summary-source: derived
+      operationId: postNewsSlack
+      x-operation-id-source: derived
+  /news/types:
+    get:
+      description: Display a listing of news article types
+      parameters:
+      - in: query
+        name: tagresources
+        description: Filter by types that allow articles to tag resources
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: location
+        description: Filter by types that allow articles to set location
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: future
+        description: Filter by types that allow articles to set future
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: ongoing
+        description: Filter by types that allow articles to set ongoing
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: limit
+        description: Number of result per page.
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: datetimecreated
+          enum:
+          - id
+          - motd
+          - datetimecreated
+          - datetimeremoved
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: desc
+          enum:
+          - asc
+          - desc
+      responses:
+        '200':
+          description: Successful entries lookup
+          content:
+            application/json:
+              example:
+                data:
+                - id: '1'
+                  name: Examples
+                  tagresources: 0
+                  tagusers: 1
+                  location: 1
+                  future: 1
+                  calendar: 1
+                  url: 1
+                  api: https://example.com/api/news/types/1
+                - id: '2'
+                  name: Outages and Maintenance
+                  tagresources: 1
+                  tagusers: 0
+                  location: 0
+                  future: 1
+                  calendar: 1
+                  url: 0
+                  api: https://example.com/api/news/types/2
+                links:
+                  first: https://example.com/api/news/types?limit=20&order=name&order_dir=asc&page=1
+                  last: https://example.com/api/news/types?limit=20&order=name&order_dir=asc&page=1
+                  prev: null
+                  next: null
+                meta:
+                  current_page: 1
+                  from: 1
+                  last_page: 1
+                  path: https://example.com/api/news/types
+                  per_page: 20
+                  to: 2
+                  total: 2
+        '415':
+          description: Invalid data
+      tags:
+      - News
+      summary: Get news types
+      x-summary-source: derived
+      operationId: getNewsTypes
+      x-operation-id-source: derived
+    post:
+      description: Create a news article type
+      parameters: []
+      responses:
+        '200':
+          description: Successful entry creation
+          content:
+            application/json:
+              example:
+                id: '1'
+                name: Examples
+                tagresources: 0
+                tagusers: 1
+                location: 1
+                future: 1
+                calendar: 1
+                url: 1
+                parentid: 0
+                state: upcoming
+                order_dir: desc
+                api: https://example.com/api/news/types/1
+        '415':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  description: The name of the type
+                  type: string
+                  default: null
+                alias:
+                  description: A URL-friendly alias for the type. If none provided, one will be generated from the `name`.
+                  type: string
+                  default: null
+                tagresources:
+                  description: Allow articles to tag resources
+                  type: integer
+                  default: 0
+                tagusers:
+                  description: Allow articles to tag users
+                  type: integer
+                  default: 0
+                location:
+                  description: Allow articles to set location
+                  type: integer
+                  default: 0
+                future:
+                  description: Allow articles to set future
+                  type: integer
+                  default: 0
+                ongoing:
+                  description: Allow articles to set ongoing
+                  type: integer
+                  default: 0
+                url:
+                  description: A URL associated with the news article
+                  type: integer
+                  default: 0
+                parentid:
+                  description: Parent type ID
+                  type: integer
+                  default: null
+                state:
+                  description: Default filter for listings
+                  type: string
+                  default: null
+                order_dir:
+                  description: Default sorting direction for listings
+                  type: string
+                  default: null
+              required:
+              - name
+      tags:
+      - News
+      summary: Create news types
+      x-summary-source: derived
+      operationId: postNewsTypes
+      x-operation-id-source: derived
+  /news/types/{id}:
+    get:
+      description: Read a news article type
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+          content:
+            application/json:
+              example:
+                id: '1'
+                name: Examples
+                tagresources: 0
+                tagusers: 1
+                location: 1
+                future: 1
+                calendar: 1
+                url: 1
+                parentid: 0
+                state: upcoming
+                order_dir: desc
+                api: https://example.com/api/news/types/1
+        '404':
+          description: Record not found
+      tags:
+      - News
+      summary: Get news types by id
+      x-summary-source: derived
+      operationId: getNewsTypesById
+      x-operation-id-source: derived
+    put:
+      description: Update a news article type
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry modification
+          content:
+            application/json:
+              example:
+                id: '1'
+                name: Examples
+                tagresources: 0
+                tagusers: 1
+                location: 1
+                future: 1
+                calendar: 1
+                url: 1
+                parentid: 0
+                state: upcoming
+                order_dir: desc
+                api: https://example.com/api/news/types/1
+        '404':
+          description: Record not found
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  description: The name of the type
+                  type: string
+                  default: null
+                alias:
+                  description: A URL-friendly alias for the type. If none provided, one will be generated from the `name`.
+                  type: string
+                  default: null
+                tagresources:
+                  description: Allow articles to tag resources
+                  type: integer
+                  default: null
+                tagusers:
+                  description: Allow articles to tag users
+                  type: integer
+                  default: null
+                location:
+                  description: Allow articles to set location
+                  type: integer
+                  default: null
+                future:
+                  description: Allow articles to set future
+                  type: integer
+                  default: null
+                ongoing:
+                  description: Allow articles to set ongoing
+                  type: integer
+                  default: null
+                url:
+                  description: A URL associated with the news article
+                  type: integer
+                  default: null
+                parentid:
+                  description: Parent type ID
+                  type: integer
+                  default: null
+                state:
+                  description: Default filter for listings
+                  type: string
+                  default: null
+                order_dir:
+                  description: Default sorting direction for listings
+                  type: string
+                  default: null
+              required: []
+      tags:
+      - News
+      summary: Replace news types by id
+      x-summary-source: derived
+      operationId: putNewsTypesById
+      x-operation-id-source: derived
+    delete:
+      description: Delete a news article type
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - News
+      summary: Delete news types by id
+      x-summary-source: derived
+      operationId: deleteNewsTypesById
+      x-operation-id-source: derived
+  /news/{news_id}/updates:
+    get:
+      description: Display a listing of news article updates
+      parameters:
+      - in: path
+        name: news_id
+        description: News article identifier
+        required: true
+        schema:
+          type: integer
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: limit
+        description: Number of result per page.
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: datetimecreated
+          enum:
+          - id
+          - datetimecreated
+          - datetimeremoved
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: desc
+          enum:
+          - asc
+          - desc
+      tags:
+      - News
+      summary: Get news by news id updates
+      x-summary-source: derived
+      operationId: getNewsByNewsIdUpdates
+      x-operation-id-source: derived
+    post:
+      description: Create a news article update
+      parameters:
+      - in: path
+        name: news_id
+        description: News article identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry creation
+          content:
+            application/json:
+              example:
+                id: 1
+                userid: 12344
+                edituserid: 12345
+                datetimecreated: '2021-01-27 20:03:51'
+                datetimeedited: null
+                datetimeremoved: null
+                body: Example text
+                newsid: 1
+        '404':
+          description: Record not found
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                body:
+                  description: The update being made
+                  type: string
+                  default: null
+                newsid:
+                  description: News article ID
+                  type: integer
+                  default: null
+              required:
+              - body
+              - newsid
+      tags:
+      - News
+      summary: Create news by news id updates
+      x-summary-source: derived
+      operationId: postNewsByNewsIdUpdates
+      x-operation-id-source: derived
+  /news/{news_id}/updates/{id}:
+    get:
+      description: Read a news article update
+      parameters:
+      - in: path
+        name: news_id
+        description: News article identifier
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Entry found
+          content:
+            application/json:
+              example:
+                id: 1
+                userid: 12344
+                edituserid: 12345
+                datetimecreated: '2021-01-27 20:03:51'
+                datetimeedited: null
+                datetimeremoved: null
+                body: Example text
+                newsid: 1
+        '404':
+          description: Record not found
+      tags:
+      - News
+      summary: Get news by news id updates by id
+      x-summary-source: derived
+      operationId: getNewsByNewsIdUpdatesById
+      x-operation-id-source: derived
+    put:
+      description: Update a news article update
+      parameters:
+      - in: path
+        name: news_id
+        description: News article identifier
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry modification
+          content:
+            application/json:
+              example:
+                id: 1
+                userid: 12344
+                edituserid: 12345
+                datetimecreated: '2021-01-27 20:03:51'
+                datetimeedited: '2021-01-28 13:40:01'
+                datetimeremoved: null
+                body: Example text that was edited
+                newsid: 1
+        '404':
+          description: Record not found
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                body:
+                  description: Contents of the update
+                  type: string
+                  default: null
+              required: []
+      tags:
+      - News
+      summary: Replace news by news id updates by id
+      x-summary-source: derived
+      operationId: putNewsByNewsIdUpdatesById
+      x-operation-id-source: derived
+    delete:
+      description: Delete a news article update
+      parameters:
+      - in: path
+        name: news_id
+        description: News article identifier
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - News
+      summary: Delete news by news id updates by id
+      x-summary-source: derived
+      operationId: deleteNewsByNewsIdUpdatesById
+      x-operation-id-source: derived
+components:
+  securitySchemes:
+    api_token:
+      type: apiKey
+      name: api_token
+      in: header

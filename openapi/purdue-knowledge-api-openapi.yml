@@ -1,0 +1,917 @@
+openapi: 3.2.0
+info:
+  title: RCAC Knowledge API
+  version: 0.0.1
+servers:
+- url: https://www.rcac.purdue.edu/api
+  description: Production server
+tags:
+- name: Knowledge
+paths:
+  /knowledge/feedback:
+    get:
+      description: Display a listing of feedback
+      parameters:
+      - in: query
+        name: user_id
+        description: The user ID of the feedback submitter.
+        required: false
+        schema:
+          type: integer
+          default: 0
+      - in: query
+        name: target_id
+        description: The page association the feedback is related to.
+        required: false
+        schema:
+          type: integer
+          default: 0
+      - in: query
+        name: type
+        description: The type of feedback.
+        required: false
+        schema:
+          type: string
+          default: null
+          enum:
+          - positive
+          - neutral
+          - negative
+      - in: query
+        name: start
+        description: Feedback created on or after this datetime.
+        required: false
+        schema:
+          type: string
+          default: ''
+          format: date-time
+          example: '2021-01-30T08:30:00Z'
+      - in: query
+        name: stop
+        description: Feedback created before this datetime.
+        required: false
+        schema:
+          type: string
+          default: ''
+          format: date-time
+          example: '2021-01-30T08:30:00Z'
+      - in: query
+        name: ip
+        description: The IP address of the feedback submitter.
+        required: false
+        schema:
+          type: string
+          default: ''
+      - in: query
+        name: search
+        description: A word or phrase to search for in feedback comments.
+        required: false
+        schema:
+          type: string
+          default: ''
+      - in: query
+        name: limit
+        description: Number of result per page.
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: created_at
+          enum:
+          - id
+          - created_at
+          - ip
+          - user_id
+          - target_id
+          - type
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: asc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Knowledge
+      summary: Get knowledge feedback
+      x-summary-source: derived
+      operationId: getKnowledgeFeedback
+      x-operation-id-source: derived
+    post:
+      description: Create an entry
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+          content:
+            application/json:
+              example:
+                id: 1
+                target_id: 5020
+                ip: 10.195.27.2
+                type: positive
+                user_id: 0
+                created_at: '2021-03-04T23:29:24.000000Z'
+                updated_at: '2021-03-04T23:29:24.000000Z'
+                comments: Testing the helpful commments
+                api: https://example.org/api/knowledge/feedback/1
+        '401':
+          description: Unauthorized
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                user_id:
+                  description: ID of user making the feedback
+                  type: integer
+                  default: null
+                target_id:
+                  description: Targetted page association ID
+                  type: integer
+                  default: null
+                comments:
+                  description: User comments
+                  type: string
+                  default: null
+                type:
+                  description: Type of feedback (e.g., positive, nuetral, negative)
+                  type: string
+                  default: null
+              required:
+              - target_id
+              - type
+      tags:
+      - Knowledge
+      summary: Create knowledge feedback
+      x-summary-source: derived
+      operationId: postKnowledgeFeedback
+      x-operation-id-source: derived
+  /knowledge/feedback/{id}:
+    get:
+      description: Retrieve an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+          content:
+            application/json:
+              example:
+                id: 1
+                target_id: 5020
+                ip: 10.195.27.2
+                type: positive
+                user_id: 0
+                created_at: '2021-03-04T23:29:24.000000Z'
+                updated_at: '2021-03-04T23:29:24.000000Z'
+                comments: Testing the helpful commments
+                api: https://example.org/api/knowledge/feedback/1
+        '404':
+          description: Record not found
+      tags:
+      - Knowledge
+      summary: Get knowledge feedback by id
+      x-summary-source: derived
+      operationId: getKnowledgeFeedbackById
+      x-operation-id-source: derived
+    put:
+      description: Update an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: Successful entry modification
+          content:
+            application/json:
+              example:
+                id: 1
+                target_id: 5020
+                ip: 10.195.27.2
+                type: positive
+                user_id: 0
+                created_at: '2021-03-04T23:29:24.000000Z'
+                updated_at: '2021-03-04T23:45:01.000000Z'
+                comments: Updated comment
+                api: https://example.org/api/knowledge/feedback/1
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                comments:
+                  description: User comments
+                  type: string
+                  default: null
+                type:
+                  description: Type of feedback (e.g., positive, nuetral, negative)
+                  type: string
+                  default: null
+              required: []
+      tags:
+      - Knowledge
+      summary: Replace knowledge feedback by id
+      x-summary-source: derived
+      operationId: putKnowledgeFeedbackById
+      x-operation-id-source: derived
+    delete:
+      description: Retrieve an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Knowledge
+      summary: Delete knowledge feedback by id
+      x-summary-source: derived
+      operationId: deleteKnowledgeFeedbackById
+      x-operation-id-source: derived
+  /knowledge:
+    get:
+      description: Display a listing of articles
+      parameters:
+      - in: query
+        name: parent
+        description: Parent page ID.
+        required: false
+        schema:
+          type: integer
+          default: 0
+      - in: query
+        name: access
+        description: Access level.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: state
+        description: The page state.
+        required: false
+        schema:
+          type: string
+          default: published
+          enum:
+          - published
+          - archived
+          - unpublished
+          - trashed
+      - in: query
+        name: search
+        description: A word or phrase to search for in feedback comments.
+        required: false
+        schema:
+          type: string
+          default: ''
+      - in: query
+        name: limit
+        description: Number of result per page.
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: created_at
+          enum:
+          - id
+          - created_at
+          - ip
+          - user_id
+          - target_id
+          - type
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: asc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Knowledge
+      summary: Get knowledge
+      x-summary-source: derived
+      operationId: getKnowledge
+      x-operation-id-source: derived
+    post:
+      description: Create an entry
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+          content:
+            application/json:
+              example:
+                id: 1
+                parent_id: 0
+                page_id: 1
+                lft: 0
+                rgt: 1
+                level: 0
+                path: ''
+                state: 1
+                access: 1
+                page:
+                  id: 1
+                  title: User Guides
+                  alias: kb
+                  created_at: '2020-05-28T16:57:38.000000Z'
+                  updated_at: '2021-10-22T18:40:52.000000Z'
+                  deleted_at: null
+                  state: 1
+                  access: 1
+                  content: <p>Here you will find all the user guides.</p>
+                  params: []
+                  main: 1
+                  snippet: 0
+                api: https://example.org/api/knowledge/1
+                url: https://example.org/knowledge
+        '401':
+          description: Unauthorized
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                title:
+                  description: Title
+                  type: string
+                  default: null
+                slug:
+                  description: URL slug. If not provided, one is genereated from the title.
+                  type: string
+                  default: null
+                content:
+                  description: Content
+                  type: string
+                  default: null
+                state:
+                  description: Published state
+                  type: integer
+                  default: 1
+                access:
+                  description: Access level
+                  type: integer
+                  default: 1
+                parent_id:
+                  description: Parent page ID
+                  type: integer
+                  default: 0
+                tags:
+                  description: A comma-separated list of keywords or phrases
+                  type: string
+                  default: null
+              required:
+              - title
+              - content
+      tags:
+      - Knowledge
+      summary: Create knowledge
+      x-summary-source: derived
+      operationId: postKnowledge
+      x-operation-id-source: derived
+  /knowledge/{id}:
+    get:
+      description: Retrieve an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+          content:
+            application/json:
+              example:
+                id: 1
+                parent_id: 0
+                page_id: 1
+                lft: 0
+                rgt: 1
+                level: 0
+                path: ''
+                state: 1
+                access: 1
+                page:
+                  id: 1
+                  title: User Guides
+                  alias: kb
+                  created_at: '2020-05-28T16:57:38.000000Z'
+                  updated_at: '2021-10-22T18:40:52.000000Z'
+                  deleted_at: null
+                  state: 1
+                  access: 1
+                  content: <p>Here you will find all the user guides.</p>
+                  params: []
+                  main: 1
+                  snippet: 0
+                api: https://example.org/api/knowledge/1
+                url: https://example.org/knowledge
+        '404':
+          description: Record not found
+      tags:
+      - Knowledge
+      summary: Get knowledge by id
+      x-summary-source: derived
+      operationId: getKnowledgeById
+      x-operation-id-source: derived
+    put:
+      description: Update an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: Successful entry modification
+          content:
+            application/json:
+              example:
+                id: 1
+                parent_id: 0
+                page_id: 1
+                lft: 0
+                rgt: 1
+                level: 0
+                path: ''
+                state: 1
+                access: 1
+                page:
+                  id: 1
+                  title: User Guides
+                  alias: kb
+                  created_at: '2020-05-28T16:57:38.000000Z'
+                  updated_at: '2021-10-22T18:40:52.000000Z'
+                  deleted_at: null
+                  state: 1
+                  access: 1
+                  content: <p>Here you will find all the user guides. Look around all you like.</p>
+                  params: []
+                  main: 1
+                  snippet: 0
+                api: https://example.org/api/knowledge/1
+                url: https://example.org/knowledge
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                title:
+                  description: Title
+                  type: string
+                  default: null
+                slug:
+                  description: URL slug. If not provided, one is genereated from the title.
+                  type: string
+                  default: null
+                content:
+                  description: Content
+                  type: string
+                  default: null
+                state:
+                  description: Published state
+                  type: integer
+                  default: 1
+                access:
+                  description: Access level
+                  type: integer
+                  default: 1
+                parent_id:
+                  description: Parent page ID
+                  type: integer
+                  default: 0
+                tags:
+                  description: A comma-separated list of keywords or phrases. Pass an empty value to unset all tags.
+                  type: string
+                  default: null
+              required: []
+      tags:
+      - Knowledge
+      summary: Replace knowledge by id
+      x-summary-source: derived
+      operationId: putKnowledgeById
+      x-operation-id-source: derived
+    delete:
+      description: Retrieve an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Knowledge
+      summary: Delete knowledge by id
+      x-summary-source: derived
+      operationId: deleteKnowledgeById
+      x-operation-id-source: derived
+  /knowledge/diff:
+    delete:
+      description: See a diff between two entries
+      parameters:
+      - in: query
+        name: oldid
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      - in: query
+        name: newid
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful diff between entries
+        '404':
+          description: Record not found
+      tags:
+      - Knowledge
+      summary: Delete knowledge diff
+      x-summary-source: derived
+      operationId: deleteKnowledgeDiff
+      x-operation-id-source: derived
+  /knowledge/snippets:
+    get:
+      description: Display a listing of articles
+      parameters:
+      - in: query
+        name: parent
+        description: Parent page ID.
+        required: false
+        schema:
+          type: integer
+          default: 0
+      - in: query
+        name: access
+        description: Access level.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: state
+        description: The page state.
+        required: false
+        schema:
+          type: string
+          default: published
+          enum:
+          - published
+          - unpublished
+          - trashed
+      - in: query
+        name: search
+        description: A word or phrase to search for in feedback comments.
+        required: false
+        schema:
+          type: string
+          default: ''
+      - in: query
+        name: limit
+        description: Number of result per page.
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: created_at
+          enum:
+          - id
+          - created_at
+          - ip
+          - user_id
+          - target_id
+          - type
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: asc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Knowledge
+      summary: Get knowledge snippets
+      x-summary-source: derived
+      operationId: getKnowledgeSnippets
+      x-operation-id-source: derived
+    post:
+      description: Create an entry
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry modification
+          content:
+            application/json:
+              example:
+                id: 1
+                parent_id: 0
+                page_id: 1
+                lft: 0
+                rgt: 1
+                level: 1
+                path: storage
+                state: 1
+                access: 1
+                page:
+                  id: 1
+                  title: File Storage and Transfer
+                  alias: storage
+                  created_at: '2020-05-28T16:57:38.000000Z'
+                  updated_at: '2021-10-22T18:40:52.000000Z'
+                  deleted_at: null
+                  state: 1
+                  access: 1
+                  content: <p>File Storage and Transfer for ${resource.name}.</p>
+                  params: []
+                  main: 1
+                  snippet: 0
+                api: https://example.org/api/knowledge/snippets/1
+        '401':
+          description: Unauthorized
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                title:
+                  description: Title
+                  type: string
+                  default: null
+                slug:
+                  description: URL slug
+                  type: string
+                  default: null
+                content:
+                  description: Content
+                  type: string
+                  default: null
+                state:
+                  description: Published state
+                  type: integer
+                  default: 1
+                access:
+                  description: Access level
+                  type: integer
+                  default: 1
+                parent_id:
+                  description: Parent page ID
+                  type: integer
+                  default: null
+              required:
+              - title
+              - content
+      tags:
+      - Knowledge
+      summary: Create knowledge snippets
+      x-summary-source: derived
+      operationId: postKnowledgeSnippets
+      x-operation-id-source: derived
+  /knowledge/snippets/{id}:
+    get:
+      description: Retrieve an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry modification
+          content:
+            application/json:
+              example:
+                id: 1
+                parent_id: 0
+                page_id: 1
+                lft: 0
+                rgt: 1
+                level: 1
+                path: storage
+                state: 1
+                access: 1
+                page:
+                  id: 1
+                  title: File Storage and Transfer
+                  alias: storage
+                  created_at: '2020-05-28T16:57:38.000000Z'
+                  updated_at: '2021-10-22T18:40:52.000000Z'
+                  deleted_at: null
+                  state: 1
+                  access: 1
+                  content: <p>File Storage and Transfer for ${resource.name}.</p>
+                  params: []
+                  main: 1
+                  snippet: 0
+                api: https://example.org/api/knowledge/snippets/1
+        '404':
+          description: Record not found
+      tags:
+      - Knowledge
+      summary: Get knowledge snippets by id
+      x-summary-source: derived
+      operationId: getKnowledgeSnippetsById
+      x-operation-id-source: derived
+    put:
+      description: Update an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: Successful entry modification
+          content:
+            application/json:
+              example:
+                id: 1
+                parent_id: 0
+                page_id: 1
+                lft: 0
+                rgt: 1
+                level: 1
+                path: storage
+                state: 1
+                access: 1
+                page:
+                  id: 1
+                  title: File Storage and Transfer
+                  alias: storage
+                  created_at: '2020-05-28T16:57:38.000000Z'
+                  updated_at: '2021-10-22T18:40:52.000000Z'
+                  deleted_at: null
+                  state: 1
+                  access: 1
+                  content: <p>File Storage and Transfer for ${resource.name}.</p>
+                  params: []
+                  main: 1
+                  snippet: 0
+                api: https://example.org/api/knowledge/snippets/1
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                title:
+                  description: Title
+                  type: string
+                  default: null
+                slug:
+                  description: URL slug. If not provided, one is genereated from the title.
+                  type: string
+                  default: null
+                content:
+                  description: Content
+                  type: string
+                  default: null
+                state:
+                  description: Published state
+                  type: integer
+                  default: 1
+                access:
+                  description: Access level
+                  type: integer
+                  default: 1
+                parent_id:
+                  description: Parent page ID
+                  type: integer
+                  default: 0
+              required: []
+      tags:
+      - Knowledge
+      summary: Replace knowledge snippets by id
+      x-summary-source: derived
+      operationId: putKnowledgeSnippetsById
+      x-operation-id-source: derived
+    delete:
+      description: Delete an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Knowledge
+      summary: Delete knowledge snippets by id
+      x-summary-source: derived
+      operationId: deleteKnowledgeSnippetsById
+      x-operation-id-source: derived
+components:
+  securitySchemes:
+    api_token:
+      type: apiKey
+      name: api_token
+      in: header

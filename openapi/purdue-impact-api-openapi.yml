@@ -1,0 +1,465 @@
+openapi: 3.2.0
+info:
+  title: RCAC Impact API
+  version: 0.0.1
+servers:
+- url: https://www.rcac.purdue.edu/api
+  description: Production server
+tags:
+- name: Impact
+paths:
+  /impact/constants:
+    get:
+      description: Display a listing of constants
+      parameters:
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        type: string
+        required: false
+        default: ''
+        schema:
+          type: string
+      - in: query
+        name: limit
+        description: Number of result per page.
+        type: integer
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        type: integer
+        required: false
+        default: 1
+        schema:
+          type: string
+      - in: query
+        name: order
+        description: Field to sort results by.
+        type: string
+        required: false
+        default: datetimecreated
+        allowedValues: id, motd, datetimecreated, datetimeremoved
+        schema:
+          type: string
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        type: string
+        required: false
+        default: desc
+        schema:
+          type: string
+          default: asc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Impact
+      summary: Get impact constants
+      x-summary-source: derived
+      operationId: getImpactConstants
+      x-operation-id-source: derived
+    post:
+      description: Create a constant
+      parameters: []
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  description: Constant name
+                  type: string
+                  default: null
+                value:
+                  description: Value
+                  type: string
+                  default: null
+                impacttableid:
+                  description: Impact table ID
+                  type: integer
+                  default: null
+              required:
+              - name
+              - value
+              - impacttableid
+      tags:
+      - Impact
+      summary: Create impact constants
+      x-summary-source: derived
+      operationId: postImpactConstants
+      x-operation-id-source: derived
+  /impact/constants/{id}:
+    get:
+      description: Retrieve a constant
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      tags:
+      - Impact
+      summary: Get impact constants by id
+      x-summary-source: derived
+      operationId: getImpactConstantsById
+      x-operation-id-source: derived
+    put:
+      description: Update a constant
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  description: Constant name
+                  type: string
+                  default: null
+                value:
+                  description: Value
+                  type: string
+                  default: null
+                impacttableid:
+                  description: Impact table ID
+                  type: integer
+                  default: null
+              required: []
+      tags:
+      - Impact
+      summary: Replace impact constants by id
+      x-summary-source: derived
+      operationId: putImpactConstantsById
+      x-operation-id-source: derived
+    delete:
+      description: Delete a constant
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      tags:
+      - Impact
+      summary: Delete impact constants by id
+      x-summary-source: derived
+      operationId: deleteImpactConstantsById
+      x-operation-id-source: derived
+  /impact:
+    get:
+      description: Display a listing of entries
+      parameters:
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: limit
+        description: Number of result per page.
+        type: integer
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        type: integer
+        required: false
+        default: 1
+        schema:
+          type: string
+      - in: query
+        name: order
+        description: Field to sort results by.
+        type: string
+        required: false
+        default: datetimecreated
+        allowedValues: id, motd, datetimecreated, datetimeremoved
+        schema:
+          type: string
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        type: string
+        required: false
+        default: desc
+        schema:
+          type: string
+          default: asc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Impact
+      summary: Get impact
+      x-summary-source: derived
+      operationId: getImpact
+      x-operation-id-source: derived
+    post:
+      description: Create an entry
+      parameters: []
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  description: Impact name
+                  type: string
+                  default: null
+                value:
+                  description: Value
+                  type: string
+                  default: null
+                impacttableid:
+                  description: Impact table ID
+                  type: integer
+                  default: null
+              required:
+              - name
+              - value
+              - impacttableid
+      tags:
+      - Impact
+      summary: Create impact
+      x-summary-source: derived
+      operationId: postImpact
+      x-operation-id-source: derived
+  /impact/{id}:
+    get:
+      description: Retrieve an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      tags:
+      - Impact
+      summary: Get impact by id
+      x-summary-source: derived
+      operationId: getImpactById
+      x-operation-id-source: derived
+    put:
+      description: Update an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  description: Impact name
+                  type: string
+                  default: null
+                value:
+                  description: Value
+                  type: string
+                  default: null
+                impacttableid:
+                  description: Impact table ID
+                  type: integer
+                  default: null
+              required: []
+      tags:
+      - Impact
+      summary: Replace impact by id
+      x-summary-source: derived
+      operationId: putImpactById
+      x-operation-id-source: derived
+    delete:
+      description: Delete an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      tags:
+      - Impact
+      summary: Delete impact by id
+      x-summary-source: derived
+      operationId: deleteImpactById
+      x-operation-id-source: derived
+  /impact/tables:
+    get:
+      description: Display a listing of tables
+      parameters:
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        type: string
+        required: false
+        default: ''
+        schema:
+          type: string
+      - in: query
+        name: limit
+        description: Number of result per page.
+        type: integer
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        type: integer
+        required: false
+        default: 1
+        schema:
+          type: string
+      - in: query
+        name: order
+        description: Field to sort results by.
+        type: string
+        required: false
+        default: datetimecreated
+        allowedValues: id, motd, datetimecreated, datetimeremoved
+        schema:
+          type: string
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        type: string
+        required: false
+        default: desc
+        schema:
+          type: string
+          default: asc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Impact
+      summary: Get impact tables
+      x-summary-source: derived
+      operationId: getImpactTables
+      x-operation-id-source: derived
+    post:
+      description: Create a new table
+      parameters: []
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  description: Table name
+                  type: string
+                  default: null
+                columnname:
+                  description: Column name
+                  type: string
+                  default: null
+                updatekey:
+                  description: Update key
+                  type: string
+                  default: null
+              required:
+              - name
+      tags:
+      - Impact
+      summary: Create impact tables
+      x-summary-source: derived
+      operationId: postImpactTables
+      x-operation-id-source: derived
+  /impact/tables/{id}:
+    get:
+      description: Retrieve an issue
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      tags:
+      - Impact
+      summary: Get impact tables by id
+      x-summary-source: derived
+      operationId: getImpactTablesById
+      x-operation-id-source: derived
+    put:
+      description: Update an issue
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  description: Table name
+                  type: string
+                  default: null
+                columnname:
+                  description: Column name
+                  type: string
+                  default: null
+                updatekey:
+                  description: Update key
+                  type: string
+                  default: null
+              required: []
+      tags:
+      - Impact
+      summary: Replace impact tables by id
+      x-summary-source: derived
+      operationId: putImpactTablesById
+      x-operation-id-source: derived
+    delete:
+      description: Delete an issue
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      tags:
+      - Impact
+      summary: Delete impact tables by id
+      x-summary-source: derived
+      operationId: deleteImpactTablesById
+      x-operation-id-source: derived
+components:
+  securitySchemes:
+    api_token:
+      type: apiKey
+      name: api_token
+      in: header

@@ -1,0 +1,401 @@
+openapi: 3.2.0
+info:
+  title: Purdue Media API
+  x-refined-note:
+  - x-refined-note differs across the merged source definitions and was not carried
+  version: '1.0'
+  description: 'Operations tagged Media across 2 of this provider''s published API definitions: purdue-rcac-api.json, purdue-media-api-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://www.rcac.purdue.edu/api
+  description: Production server
+- url: https://api.hfs.purdue.edu/menus/v2
+  description: Production - observed live, keyless, 2026-08-30
+tags:
+- name: Media
+paths:
+  /media/folder:
+    get:
+      description: Display a listing of files
+      parameters:
+      - in: query
+        name: path
+        description: Path
+        required: true
+        schema:
+          type: string
+      tags:
+      - Media
+      summary: Get media folder
+      x-summary-source: derived
+      operationId: getMediaFolder
+      x-operation-id-source: derived
+    post:
+      description: Create a directory
+      parameters: []
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                disk:
+                  description: Storage disk
+                  type: string
+                  default: public
+                path:
+                  description: Path to create new directory in
+                  type: string
+                  default: null
+                name:
+                  description: Folder name
+                  type: string
+                  default: null
+              required:
+              - name
+      tags:
+      - Media
+      summary: Create media folder
+      x-summary-source: derived
+      operationId: postMediaFolder
+      x-operation-id-source: derived
+    put:
+      description: Update a directory
+      parameters: []
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                disk:
+                  description: Storage disk
+                  type: string
+                  default: public
+                before:
+                  description: Original folder path
+                  type: string
+                  default: null
+                after:
+                  description: Renamed folder path
+                  type: string
+                  default: null
+              required:
+              - before
+              - after
+      tags:
+      - Media
+      summary: Replace media folder
+      x-summary-source: derived
+      operationId: putMediaFolder
+      x-operation-id-source: derived
+    servers:
+    - url: https://www.rcac.purdue.edu/api
+      description: Production server
+  /media/folder/delete:
+    delete:
+      description: Delete a folder
+      parameters:
+      - in: query
+        name: disk
+        description: Storage disk
+        required: false
+        schema:
+          type: string
+          default: public
+      - in: query
+        name: path
+        description: Folder path
+        required: true
+        schema:
+          type: string
+      tags:
+      - Media
+      summary: Delete media folder delete
+      x-summary-source: derived
+      operationId: deleteMediaFolderDelete
+      x-operation-id-source: derived
+    servers:
+    - url: https://www.rcac.purdue.edu/api
+      description: Production server
+  /media:
+    get:
+      description: Display a listing of files
+      parameters:
+      - in: query
+        name: disk
+        description: Storage disk
+        required: false
+        schema:
+          type: string
+          default: public
+      - in: query
+        name: path
+        description: Which folder to get tree of
+        required: false
+        schema:
+          type: string
+          default: /
+      tags:
+      - Media
+      summary: Get media
+      x-summary-source: derived
+      operationId: getMedia
+      x-operation-id-source: derived
+    servers:
+    - url: https://www.rcac.purdue.edu/api
+      description: Production server
+  /media/tree:
+    get:
+      description: Get directory tree
+      parameters:
+      - in: query
+        name: folder
+        description: Which folder to get tree of
+        required: true
+        schema:
+          type: string
+      tags:
+      - Media
+      summary: Get media tree
+      x-summary-source: derived
+      operationId: getMediaTree
+      x-operation-id-source: derived
+    servers:
+    - url: https://www.rcac.purdue.edu/api
+      description: Production server
+  /media/layout:
+    get:
+      description: Get directory tree
+      parameters:
+      - in: query
+        name: layout
+        description: Which view layout to return
+        required: true
+        schema:
+          type: string
+      tags:
+      - Media
+      summary: Get media layout
+      x-summary-source: derived
+      operationId: getMediaLayout
+      x-operation-id-source: derived
+    servers:
+    - url: https://www.rcac.purdue.edu/api
+      description: Production server
+  /media/upload:
+    post:
+      description: Upload
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+        '401':
+          description: Unauthorized
+        '415':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                disk:
+                  description: Filesystem disk
+                  type: string
+                  default: null
+                path:
+                  description: File path to upload the file to
+                  type: string
+                  default: null
+                file:
+                  description: File to be uploaded
+                  type: array
+                  default: null
+                overwrite:
+                  description: Overwrite existing file of the same name
+                  type: bool
+                  default: null
+              required:
+              - file
+      tags:
+      - Media
+      summary: Create media upload
+      x-summary-source: derived
+      operationId: postMediaUpload
+      x-operation-id-source: derived
+    servers:
+    - url: https://www.rcac.purdue.edu/api
+      description: Production server
+  /media/move:
+    put:
+      description: Rename/move a file
+      parameters: []
+      responses:
+        '202':
+          description: Successful entry modification
+        '404':
+          description: Record not found
+        '422':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                disk:
+                  description: Filesystem disk
+                  type: string
+                  default: null
+                before:
+                  description: Source file path
+                  type: string
+                  default: null
+                after:
+                  description: Destination file path
+                  type: string
+                  default: null
+              required:
+              - before
+              - after
+      tags:
+      - Media
+      summary: Replace media move
+      x-summary-source: derived
+      operationId: putMediaMove
+      x-operation-id-source: derived
+    servers:
+    - url: https://www.rcac.purdue.edu/api
+      description: Production server
+  /media/delete:
+    delete:
+      description: Delete a file
+      parameters: []
+      responses:
+        '204':
+          description: Successful deletion
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                disk:
+                  description: Filesystem disk
+                  type: string
+                  default: null
+                items:
+                  description: A list of file paths
+                  type: array
+                  default: null
+              required:
+              - items
+      tags:
+      - Media
+      summary: Delete media delete
+      x-summary-source: derived
+      operationId: deleteMediaDelete
+      x-operation-id-source: derived
+    servers:
+    - url: https://www.rcac.purdue.edu/api
+      description: Production server
+  /media/download:
+    get:
+      description: Download a file
+      parameters: []
+      responses:
+        '200':
+          description: Successful entry download
+        '404':
+          description: File not found
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                disk:
+                  description: Filesystem disk
+                  type: string
+                  default: null
+                path:
+                  description: File path
+                  type: string
+                  default: null
+              required:
+              - path
+      tags:
+      - Media
+      summary: Get media download
+      x-summary-source: derived
+      operationId: getMediaDownload
+      x-operation-id-source: derived
+    servers:
+    - url: https://www.rcac.purdue.edu/api
+      description: Production server
+  /media/url:
+    get:
+      description: Get file URL
+      parameters: []
+      responses:
+        '200':
+          description: Successful entry download
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                disk:
+                  description: Filesystem disk
+                  type: string
+                  default: null
+                path:
+                  description: File path
+                  type: string
+                  default: null
+              required:
+              - path
+      tags:
+      - Media
+      summary: Get media url
+      x-summary-source: derived
+      operationId: getMediaUrl
+      x-operation-id-source: derived
+    servers:
+    - url: https://www.rcac.purdue.edu/api
+      description: Production server
+  /file/{fileId}:
+    servers:
+    - url: https://api.hfs.purdue.edu/menus/v2
+      description: Production - observed live, keyless, 2026-08-30
+    get:
+      tags:
+      - Media
+      operationId: getFile
+      summary: Fetch a location logo or photo
+      parameters:
+      - name: fileId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        example: b6c2089d-7737-4953-b1d9-0ad8e7c3cc40
+      responses:
+        '200':
+          description: Image binary.
+          content:
+            image/*:
+              schema:
+                type: string
+                format: binary
+components:
+  securitySchemes:
+    api_token:
+      type: apiKey
+      name: api_token
+      in: header
+x-refined-from:
+- purdue-rcac-api.json
+- purdue-media-api-openapi.yml

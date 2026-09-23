@@ -1,0 +1,126 @@
+openapi: 3.2.0
+info:
+  title: RCAC Logs API
+  version: 0.0.1
+servers:
+- url: https://www.rcac.purdue.edu/api
+  description: Production server
+tags:
+- name: Logs
+paths:
+  /logs:
+    get:
+      description: Display a listing of entries
+      parameters:
+      - in: query
+        name: action
+        description: Action taken.
+        required: false
+        schema:
+          type: string
+          enum:
+          - create
+          - update
+          - delete
+      - in: query
+        name: type
+        description: The type of item (model name) that the action was taken on.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: limit
+        description: Number of result per page.
+        type: integer
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: created_at
+          enum:
+          - id
+          - created_at
+          - action
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: asc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Logs
+      summary: Get logs
+      x-summary-source: derived
+      operationId: getLogs
+      x-operation-id-source: derived
+  /logs/{id}:
+    get:
+      description: Read a log entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+          content:
+            application/json:
+              example:
+                id: 870
+                datetime: '2021-11-30T13:21:03.000000Z'
+                ip: 127.0.0.1
+                hostname: ''
+                userid: 1234
+                status: 200
+                transportmethod: GET
+                servername: example.org
+                uri: /admin/history/activity
+                app: ui
+                classname: ActivityController
+                classmethod: index
+                objectid: ''
+                payload: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Safari/605.1.15
+                groupid: -2
+                targetuserid: -2
+                targetobjectid: -2
+                api: https://example.org/api/logs/8703798
+        '404':
+          description: Record not found
+      tags:
+      - Logs
+      summary: Get logs by id
+      x-summary-source: derived
+      operationId: getLogsById
+      x-operation-id-source: derived
+components:
+  securitySchemes:
+    api_token:
+      type: apiKey
+      name: api_token
+      in: header

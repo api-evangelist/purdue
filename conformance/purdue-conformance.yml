@@ -1,0 +1,132 @@
+specification: API Evangelist Domain Standard Conformance
+specificationVersion: '0.1'
+provider: Purdue University
+providerId: purdue
+regime: education
+x-method: generated   # manifest authorship vocabulary (build-provenance-manifest.py)
+x-source-url: https://sso.purdue.edu/idp/shibboleth
+generated: '2026-08-30'
+method: probed
+source: >-
+  Live probes on 2026-08-30 of Purdue-operated hosts plus the InCommon metadata query service and
+  the DataCite REST API. Every claim below carries the exact URL that proves it. Reward-only -
+  standards in the education regime with no evidence are listed under not_evidenced and are not
+  claimed.
+x-operator: institution
+regime_standards:
+- scim
+- lti
+- oneroster
+- ed-fi
+- caliper
+- qti
+- oai-pmh
+- shibboleth
+- saml
+- orcid
+- datacite
+- crossref
+conformance:
+- standard: oai-pmh
+  version: '2.0'
+  status: confirmed
+  x-operator: institution
+  evidence:
+  - url: https://purr.purdue.edu/oaipmh?verb=Identify
+    status: 200
+    location: >-
+      OAI-PMH/Identify/protocolVersion = 2.0; repositoryName "Purdue University Research
+      Repository"; adminEmail mwitt@purdue.edu; earliestDatestamp 2012-02-22T11:51:19Z.
+  - url: https://purr.purdue.edu/oaipmh?verb=ListSets
+    status: 200
+    location: OAI-PMH/ListSets/set/setSpec = publications:dataset ("Datasets").
+  artifact: examples/purdue-purr-oaipmh-identify-example.xml
+  note: >-
+    Institution-operated. purr.purdue.edu is on Purdue's own netblock (128.211.145.24). PURR runs
+    on HUBzero, which itself originated at Purdue.
+- standard: oai-pmh
+  version: '2.0'
+  status: confirmed
+  x-operator: tenant
+  evidence:
+  - url: https://docs.lib.purdue.edu/do/oai/?verb=Identify
+    status: 200
+    location: >-
+      OAI-PMH/Identify/repositoryName "Purdue e-Pubs"; repositoryIdentifier docs.lib.purdue.edu;
+      adminEmail dc-support@elsevier.com.
+  note: >-
+    A second, separate OAI-PMH endpoint under a purdue.edu hostname, but docs.lib.purdue.edu is a
+    CNAME to dlpurdue.bepress.com and the Identify response names Elsevier as the administrator.
+    The repository and its content are Purdue's; the server and its contract are bepress Digital
+    Commons'. Recorded as tenant, and the endpoint is credited to Purdue only as a relationship,
+    never as Purdue engineering.
+- standard: saml
+  version: '2.0'
+  status: confirmed
+  x-operator: institution
+  evidence:
+  - url: https://sso.purdue.edu/idp/shibboleth
+    status: 200
+    location: >-
+      SAML 2.0 EntityDescriptor, entityID https://idp.purdue.edu/idp/shibboleth, served
+      unauthenticated from Purdue's own host.
+  - url: https://mdq.incommon.org/entities/https%3A%2F%2Fidp.purdue.edu%2Fidp%2Fshibboleth
+    status: 200
+    location: >-
+      Signed EntityDescriptor in the InCommon metadata query service; OrganizationName and
+      OrganizationDisplayName "Purdue University Main Campus"; OrganizationURL http://www.purdue.edu/;
+      validUntil 2026-09-13T18:37:27.309Z.
+  artifact: examples/purdue-shibboleth-idp-metadata-example.xml
+- standard: shibboleth
+  status: confirmed
+  x-operator: institution
+  evidence:
+  - url: https://sso.purdue.edu/idp/shibboleth
+    status: 200
+    location: >-
+      IDPSSODescriptor with protocolSupportEnumeration including urn:mace:shibboleth:1.0, and
+      SingleSignOnService bindings at https://sso.purdue.edu/idp/profile/Shibboleth/SSO and
+      .../SAML2/{Redirect,POST,POST-SimpleSign}/SSO.
+  note: >-
+    Purdue runs its own Shibboleth IdP and is registered in InCommon (and therefore reachable
+    through eduGAIN). Identity federation is institution-operated by definition and is the single
+    most defensible machine-readable surface in this profile.
+- standard: datacite
+  status: confirmed
+  x-operator: institution
+  evidence:
+  - url: https://api.datacite.org/providers/purdue
+    status: 200
+    location: >-
+      data.attributes.symbol PURDUE, name "Purdue University West Lafayette",
+      memberType direct_member, isActive true, member since 2010-01-01.
+  - url: https://api.datacite.org/repositories?provider-id=purdue
+    status: 200
+    location: >-
+      4 repositories registered under the Purdue provider - purdue.purduelib ("Purdue University
+      Research Repository", url https://purr.purdue.edu/), purdue.etd, purdue.hubzero,
+      purdue.re3data.
+  note: Purdue is a direct DataCite member and mints DOIs for its own repositories.
+not_evidenced:
+- standard: scim
+  reason: No SCIM service-provider-config or discovery endpoint found on any purdue.edu host.
+- standard: lti
+  reason: >-
+    Purdue's LMS is a vendor product; no institution-published LTI tool registration, platform
+    configuration or JWKS endpoint was found on a purdue.edu host.
+- standard: oneroster
+  reason: No OneRoster endpoint or published claim found.
+- standard: ed-fi
+  reason: Ed-Fi is a K-12 standard; no evidence and none expected.
+- standard: caliper
+  reason: No Caliper event store or sensor endpoint published.
+- standard: qti
+  reason: No QTI content or delivery endpoint published.
+- standard: orcid
+  reason: >-
+    Purdue researchers use ORCID iDs, but no institution-operated ORCID member API integration,
+    Trusted Party record, or machine-readable claim was found on a purdue.edu host. Not claimed.
+- standard: crossref
+  reason: >-
+    No Crossref member record was confirmed for the institution itself. Purdue e-Pubs content
+    surfaces under bepress; that is the vendor's registration, not Purdue's.

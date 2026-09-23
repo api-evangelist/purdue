@@ -1,0 +1,397 @@
+openapi: 3.2.0
+info:
+  title: RCAC Software API
+  version: 0.0.1
+servers:
+- url: https://www.rcac.purdue.edu/api
+  description: Production server
+tags:
+- name: Software
+paths:
+  /software:
+    get:
+      description: Display a listing of entries
+      parameters: []
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                type_id:
+                  description: Filter by application type ID
+                  type: integer
+                  default: '0'
+                resource_id:
+                  description: Filter by resource ID
+                  type: integer
+                  default: '0'
+                state:
+                  description: Filter by state, if permissions allow. Otherwise, only accepted value is published.
+                  type: string
+                  default: published
+                search:
+                  description: A word or phrase to search for.
+                  type: string
+                  default: null
+                limit:
+                  description: Number of result per page.
+                  type: integer
+                  default: 20
+                page:
+                  description: Number of where to start returning results.
+                  type: integer
+                  default: 1
+                order:
+                  description: Field to sort results by.
+                  type: string
+                  default: published_at
+                order_dir:
+                  description: Direction to sort results by.
+                  type: string
+                  default: asc
+              required: []
+      tags:
+      - Software
+      summary: Get software
+      x-summary-source: derived
+      operationId: getSoftware
+      x-operation-id-source: derived
+    post:
+      description: Create a new entry
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+          content:
+            application/json:
+              example:
+                id: 2
+                alias: gcc
+                title: GCC
+                description: GCC compiler
+                content: <p>Detailed info here.</p>
+                type_id: 1
+                created_at: '2023-09-20 14:23:01'
+                updated_at: null
+                deleted_at: null
+                api: https://example.org/api/software/2
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                type_id:
+                  description: Type ID
+                  type: integer
+                  default: 0
+                title:
+                  description: Title
+                  type: string
+                  default: null
+                alias:
+                  description: Alias
+                  type: string
+                  default: null
+                description:
+                  description: Short description
+                  type: string
+                  default: null
+                content:
+                  description: Detailed info
+                  type: string
+                  default: null
+              required:
+              - type_id
+              - title
+      tags:
+      - Software
+      summary: Create software
+      x-summary-source: derived
+      operationId: postSoftware
+      x-operation-id-source: derived
+  /software/{id}:
+    get:
+      description: Retrieve an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+          content:
+            application/json:
+              example:
+                id: 2
+                alias: gcc
+                title: GCC
+                description: GCC compiler
+                content: <p>Detailed info here.</p>
+                type_id: 1
+                created_at: '2023-09-20 14:23:01'
+                updated_at: null
+                deleted_at: null
+                api: https://example.org/api/software/2
+        '404':
+          description: Record not found
+      tags:
+      - Software
+      summary: Get software by id
+      x-summary-source: derived
+      operationId: getSoftwareById
+      x-operation-id-source: derived
+    put:
+      description: Update an entry
+      parameters: []
+      responses:
+        '202':
+          description: Successful entry modification
+          content:
+            application/json:
+              example:
+                id: 2
+                alias: gcc
+                title: GCC
+                description: GCC compiler
+                content: <p>Detailed info here.</p>
+                type_id: 1
+                created_at: '2023-09-20 14:23:01'
+                updated_at: null
+                deleted_at: null
+                api: https://example.org/api/software/2
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                type_id:
+                  description: Type ID
+                  type: integer
+                  default: 0
+                title:
+                  description: Title
+                  type: string
+                  default: null
+                alias:
+                  description: Alias
+                  type: string
+                  default: null
+                description:
+                  description: Short description
+                  type: string
+                  default: null
+                content:
+                  description: Detailed info
+                  type: string
+                  default: null
+              required: []
+      tags:
+      - Software
+      summary: Replace software by id
+      x-summary-source: derived
+      operationId: putSoftwareById
+      x-operation-id-source: derived
+    delete:
+      description: Delete an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Software
+      summary: Delete software by id
+      x-summary-source: derived
+      operationId: deleteSoftwareById
+      x-operation-id-source: derived
+  /software/types:
+    get:
+      description: Display a listing of entries
+      parameters: []
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                search:
+                  description: A word or phrase to search for.
+                  type: string
+                  default: null
+                limit:
+                  description: Number of result per page.
+                  type: integer
+                  default: 20
+                page:
+                  description: Number of where to start returning results.
+                  type: integer
+                  default: 1
+                order:
+                  description: Field to sort results by.
+                  type: string
+                  default: name
+                order_dir:
+                  description: Direction to sort results by.
+                  type: string
+                  default: asc
+              required: []
+      tags:
+      - Software
+      summary: Get software types
+      x-summary-source: derived
+      operationId: getSoftwareTypes
+      x-operation-id-source: derived
+    post:
+      description: Create a new entry
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+          content:
+            application/json:
+              example:
+                id: 9
+                title: Journal
+                alias: journal
+                api: https://example.org/api/software/types/9
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                title:
+                  description: Title
+                  type: string
+                  default: null
+                alias:
+                  description: Alias
+                  type: string
+                  default: null
+              required:
+              - title
+      tags:
+      - Software
+      summary: Create software types
+      x-summary-source: derived
+      operationId: postSoftwareTypes
+      x-operation-id-source: derived
+  /software/types/{id}:
+    get:
+      description: Retrieve an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+          content:
+            application/json:
+              example:
+                id: 9
+                title: Journal
+                alias: journal
+                api: https://example.org/api/software/types/9
+        '404':
+          description: Record not found
+      tags:
+      - Software
+      summary: Get software types by id
+      x-summary-source: derived
+      operationId: getSoftwareTypesById
+      x-operation-id-source: derived
+    put:
+      description: Update an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: Successful entry modification
+          content:
+            application/json:
+              example:
+                id: 9
+                name: Journal
+                alias: journal
+                api: https://example.org/api/software/types/9
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                title:
+                  description: Title
+                  type: string
+                  default: null
+                alias:
+                  description: Alias
+                  type: string
+                  default: null
+              required: []
+      tags:
+      - Software
+      summary: Replace software types by id
+      x-summary-source: derived
+      operationId: putSoftwareTypesById
+      x-operation-id-source: derived
+    delete:
+      description: Delete an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Software
+      summary: Delete software types by id
+      x-summary-source: derived
+      operationId: deleteSoftwareTypesById
+      x-operation-id-source: derived
+components:
+  securitySchemes:
+    api_token:
+      type: apiKey
+      name: api_token
+      in: header

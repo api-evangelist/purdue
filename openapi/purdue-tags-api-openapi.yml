@@ -1,0 +1,259 @@
+openapi: 3.2.0
+info:
+  title: RCAC Tags API
+  version: 0.0.1
+servers:
+- url: https://www.rcac.purdue.edu/api
+  description: Production server
+tags:
+- name: Tags
+paths:
+  /tags:
+    get:
+      description: Display a listing of entries
+      parameters:
+      - in: query
+        name: limit
+        description: Number of result per page.
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: state
+        description: Tag state.
+        required: false
+        schema:
+          type: string
+          default: active
+          enum:
+          - active
+          - trashed
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: domain
+        description: Namespace for tags
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: name
+          enum:
+          - id
+          - name
+          - slug
+          - created_at
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: asc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Tags
+      summary: Get tags
+      x-summary-source: derived
+      operationId: getTags
+      x-operation-id-source: derived
+    post:
+      description: Create a new entry
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+          content:
+            application/json:
+              example:
+                id: 1
+                parent_id: 0
+                slug: anaconda
+                name: Anaconda
+                domain: crm
+                created_at: '2021-07-13T20:38:57.000000Z'
+                created_by: 98254
+                updated_at: '2021-07-13T20:38:57.000000Z'
+                updated_by: 0
+                deleted_at: null
+                deleted_by: 0
+                tagged_count: 0
+                alias_count: 0
+                api: https://example.org/api/tags/1
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  description: Tag to be created.
+                  type: string
+                  default: null
+                slug:
+                  description: Normalized text (alpha-numeric, no punctuation)
+                  type: string
+                  default: null
+                domain:
+                  description: Namespace for tag
+                  type: string
+                  default: null
+                parent_id:
+                  description: Parent tag ID. Set this to create an alias for that tag.
+                  type: integer
+                  default: null
+              required:
+              - name
+      tags:
+      - Tags
+      summary: Create tags
+      x-summary-source: derived
+      operationId: postTags
+      x-operation-id-source: derived
+  /tags/{id}:
+    get:
+      description: Retrieve an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+          content:
+            application/json:
+              example:
+                id: 1
+                parent_id: 0
+                slug: anaconda
+                name: Anaconda
+                domain: crm
+                created_at: '2021-07-13T20:38:57.000000Z'
+                created_by: 98254
+                updated_at: '2021-07-13T20:38:57.000000Z'
+                updated_by: 0
+                deleted_at: null
+                deleted_by: 0
+                tagged_count: 0
+                alias_count: 0
+                api: https://example.org/api/tags/1
+        '404':
+          description: Record not found
+      tags:
+      - Tags
+      summary: Get tags by id
+      x-summary-source: derived
+      operationId: getTagsById
+      x-operation-id-source: derived
+    put:
+      description: Update an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: Successful entry modification
+          content:
+            application/json:
+              example:
+                id: 1
+                parent_id: 0
+                slug: anaconda
+                name: Anaconda
+                domain: crm
+                created_at: '2021-07-13T20:38:57.000000Z'
+                created_by: 98254
+                updated_at: '2021-07-13T20:38:57.000000Z'
+                updated_by: 0
+                deleted_at: null
+                deleted_by: 0
+                tagged_count: 0
+                alias_count: 0
+                api: https://example.org/api/tags/1
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  description: Tag text
+                  type: string
+                  default: null
+                slug:
+                  description: Normalized text (alpha-numeric, no punctuation)
+                  type: string
+                  default: null
+                domain:
+                  description: Namespace for tag
+                  type: string
+                  default: null
+                aliases:
+                  description: Comma-separated list of aliases or alternatives
+                  type: string
+                  default: null
+              required: []
+      tags:
+      - Tags
+      summary: Replace tags by id
+      x-summary-source: derived
+      operationId: putTagsById
+      x-operation-id-source: derived
+    delete:
+      description: Delete an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful deletion
+        '404':
+          description: Record not found
+      tags:
+      - Tags
+      summary: Delete tags by id
+      x-summary-source: derived
+      operationId: deleteTagsById
+      x-operation-id-source: derived
+components:
+  securitySchemes:
+    api_token:
+      type: apiKey
+      name: api_token
+      in: header

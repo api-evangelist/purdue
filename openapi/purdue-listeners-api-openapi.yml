@@ -1,0 +1,286 @@
+openapi: 3.2.0
+info:
+  title: RCAC Listeners API
+  version: 0.0.1
+servers:
+- url: https://www.rcac.purdue.edu/api
+  description: Production server
+tags:
+- name: Listeners
+paths:
+  /listeners:
+    get:
+      description: Display a listing of entries
+      parameters:
+      - in: query
+        name: state
+        description: Listener enabled/disabled state
+        required: false
+        schema:
+          type: string
+          default: published
+          enum:
+          - published
+          - unpublished
+      - in: query
+        name: limit
+        description: Number of result per page.
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: folder
+          enum:
+          - id
+          - name
+          - element
+          - folder
+          - state
+          - access
+          - ordering
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: desc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Listeners
+      summary: Get listeners
+      x-summary-source: derived
+      operationId: getListeners
+      x-operation-id-source: derived
+    post:
+      description: Create a new entry
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+          content:
+            application/json:
+              example:
+                id: 10042
+                name: Content - OpenGraph
+                type: listener
+                element: opengraph
+                folder: content
+                client_id: 0
+                enabled: 1
+                access: 1
+                protected: 1
+                params: []
+                checked_out: 61344
+                checked_out_time: '2021-11-17T21:58:24.000000Z'
+                ordering: 11
+                updated_at: null
+                updated_by: 0
+                editor: Jane Doe
+                access_level: Public
+                api: https://example.org/api/listeners/10042
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  description: Name
+                  type: string
+                  default: null
+                element:
+                  description: Element
+                  type: string
+                  default: null
+                folder:
+                  description: Folder (listener group)
+                  type: string
+                  default: null
+                enabled:
+                  description: Enabled
+                  type: integer
+                  default: 0
+                access:
+                  description: Access
+                  type: integer
+                  default: 1
+                params:
+                  description: List of params
+                  type: array
+                  default: null
+              required:
+              - name
+              - element
+              - folder
+      tags:
+      - Listeners
+      summary: Create listeners
+      x-summary-source: derived
+      operationId: postListeners
+      x-operation-id-source: derived
+  /listeners/{id}:
+    get:
+      description: Retrieve an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+          content:
+            application/json:
+              example:
+                id: 10042
+                name: Content - OpenGraph
+                type: listener
+                element: opengraph
+                folder: content
+                client_id: 0
+                enabled: 1
+                access: 1
+                protected: 1
+                params: []
+                checked_out: 61344
+                checked_out_time: '2021-11-17T21:58:24.000000Z'
+                ordering: 11
+                updated_at: null
+                updated_by: 0
+                editor: Jane Doe
+                access_level: Public
+                api: https://example.org/api/listeners/10042
+        '404':
+          description: Record not found
+      tags:
+      - Listeners
+      summary: Get listeners by id
+      x-summary-source: derived
+      operationId: getListenersById
+      x-operation-id-source: derived
+    put:
+      description: Update an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: Successful entry modification
+          content:
+            application/json:
+              example:
+                id: 10042
+                name: Content - OpenGraph
+                type: listener
+                element: opengraph
+                folder: content
+                client_id: 0
+                enabled: 1
+                access: 1
+                protected: 1
+                params: []
+                checked_out: 61344
+                checked_out_time: '2021-11-17T21:58:24.000000Z'
+                ordering: 11
+                updated_at: null
+                updated_by: 0
+                editor: Jane Doe
+                access_level: Public
+                api: https://example.org/api/listeners/10042
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  description: Name
+                  type: string
+                  default: null
+                element:
+                  description: Element
+                  type: string
+                  default: null
+                folder:
+                  description: Folder (listener group)
+                  type: string
+                  default: null
+                enabled:
+                  description: Enabled
+                  type: integer
+                  default: null
+                access:
+                  description: Access
+                  type: integer
+                  default: null
+                params:
+                  description: List of params
+                  type: array
+                  default: null
+              required: []
+      tags:
+      - Listeners
+      summary: Replace listeners by id
+      x-summary-source: derived
+      operationId: putListenersById
+      x-operation-id-source: derived
+    delete:
+      description: Delete an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Listeners
+      summary: Delete listeners by id
+      x-summary-source: derived
+      operationId: deleteListenersById
+      x-operation-id-source: derived
+components:
+  securitySchemes:
+    api_token:
+      type: apiKey
+      name: api_token
+      in: header

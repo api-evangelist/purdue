@@ -1,0 +1,2662 @@
+openapi: 3.2.0
+info:
+  title: RCAC Queues API
+  version: 0.0.1
+servers:
+- url: https://www.rcac.purdue.edu/api
+  description: Production server
+tags:
+- name: Queues
+paths:
+  /queues/loans:
+    get:
+      description: Display a listing of loans for a queue
+      parameters:
+      - in: query
+        name: queueid
+        description: ID of the queue the loan whent to
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: lenderqueueid
+        description: ID of the lender queue
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: state
+        description: Sate of the loan.
+        required: false
+        schema:
+          type: string
+          enum:
+          - ended
+          - ongoing
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: limit
+        description: Number of result to return.
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: datetimestart
+          enum:
+          - id
+          - queueid
+          - lenderqueueid
+          - datetimestart
+          - datetimestop
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: asc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Queues
+      summary: Get queues loans
+      x-summary-source: derived
+      operationId: getQueuesLoans
+      x-operation-id-source: derived
+    post:
+      description: Create a queue loan
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                queueid:
+                  description: ID of the queue being loaned to
+                  type: integer
+                  default: null
+                lenderqueueid:
+                  description: ID of the queue being loaned
+                  type: integer
+                  default: null
+                datetimestart:
+                  description: Date/time of when the loan starts
+                  type: string
+                  default: null
+                datetimestop:
+                  description: Date/time of when the loan stops
+                  type: string
+                  default: null
+                nodecount:
+                  description: Node count
+                  type: integer
+                  default: null
+                corecount:
+                  description: Core count
+                  type: integer
+                  default: null
+                serviceunits:
+                  description: Service units
+                  type: float
+                  default: null
+                comment:
+                  description: Comments on this loan
+                  type: string
+                  default: null
+              required:
+              - queueid
+              - lenderqueueid
+              - datetimestart
+              - nodecount
+              - corecount
+      tags:
+      - Queues
+      summary: Create queues loans
+      x-summary-source: derived
+      operationId: postQueuesLoans
+      x-operation-id-source: derived
+  /queues/loans/{id}:
+    get:
+      description: Read a queue loan
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+        '404':
+          description: Record not found
+      tags:
+      - Queues
+      summary: Get queues loans by id
+      x-summary-source: derived
+      operationId: getQueuesLoansById
+      x-operation-id-source: derived
+    put:
+      description: Update a queue loan
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry modification
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                datetimestart:
+                  description: Date/time of when the loan starts
+                  type: string
+                  default: null
+                datetimestop:
+                  description: Date/time of when the loan stops
+                  type: string
+                  default: null
+                nodecount:
+                  description: Node count
+                  type: integer
+                  default: null
+                corecount:
+                  description: Core count
+                  type: integer
+                  default: null
+                serviceunits:
+                  description: Service units
+                  type: float
+                  default: null
+                comment:
+                  description: Comments on this loan
+                  type: string
+                  default: null
+              required: []
+      tags:
+      - Queues
+      summary: Replace queues loans by id
+      x-summary-source: derived
+      operationId: putQueuesLoansById
+      x-operation-id-source: derived
+    delete:
+      description: Delete a queue loan
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Queues
+      summary: Delete queues loans by id
+      x-summary-source: derived
+      operationId: deleteQueuesLoansById
+      x-operation-id-source: derived
+  /queues/qos:
+    get:
+      description: Display a listing of QoS
+      parameters:
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: hostname
+        description: A scheduler hostname
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: priority
+        description: Filter by priority level.
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: scheduler_id
+        description: Filter by scheduler ID. If unknown, can use hostname.
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: format
+        description: Output format. JSON is the default but output can be formatted to accommodate schedulers such as SLURM.
+        required: false
+        schema:
+          type: string
+          enum:
+          - json
+          - slurmcfg
+      - in: query
+        name: limit
+        description: Number of result to return.
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: name
+          enum:
+          - id
+          - name
+          - schedulerid
+          - datetimestart
+          - datetimestop
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: asc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Queues
+      summary: Get queues qos
+      x-summary-source: derived
+      operationId: getQueuesQos
+      x-operation-id-source: derived
+    post:
+      description: Create a QoS
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                scheduler_id:
+                  description: Associate the QoS to a specific scheduler
+                  type: integer
+                  default: null
+                name:
+                  description: Entry name
+                  type: string
+                  default: null
+                description:
+                  description: Entry description
+                  type: string
+                  default: null
+                flags:
+                  description: Comma-separated list of flags
+                  type: string
+                  default: null
+                max_jobs_pa:
+                  description: Max jobs per account
+                  type: integer
+                  default: null
+                max_jobs_per_user:
+                  description: Max jobs per user
+                  type: integer
+                  default: null
+                max_jobs_accrue_pa:
+                  description: Max jobs accrueable per account
+                  type: integer
+                  default: null
+                max_jobs_accrue_pu:
+                  description: Max jobs accrueable per user
+                  type: integer
+                  default: null
+                max_submit_jobs_pa:
+                  description: Max jobs submittable per account
+                  type: integer
+                  default: null
+                max_submit_jobs_per_user:
+                  description: Max jobs submittable per user
+                  type: integer
+                  default: null
+                max_tres_pj:
+                  description: Max TRES per job
+                  type: string
+                  default: null
+                max_tres_pn:
+                  description: Max TRES per node
+                  type: string
+                  default: null
+                max_tres_pu:
+                  description: Max TRES per user
+                  type: string
+                  default: null
+                max_tres_pa:
+                  description: Max TRES per account
+                  type: string
+                  default: null
+                max_tres_mins_pj:
+                  description: Max TRES minutes per job
+                  type: integer
+                  default: null
+                max_tres_run_mins_pa:
+                  description: Max TRES run minutes per account
+                  type: integer
+                  default: null
+                max_tres_run_mins_pu:
+                  description: Max TRES run minutes per user
+                  type: integer
+                  default: null
+                min_tres_pj:
+                  description: Minimum TRES per job
+                  type: string
+                  default: null
+                max_wall_duration_per_job:
+                  description: Max wall duration per job
+                  type: integer
+                  default: null
+                grp_jobs:
+                  description: Group jobs
+                  type: integer
+                  default: null
+                grp_jobs_accrue:
+                  description: Accrueable Group jobs
+                  type: integer
+                  default: null
+                grp_submit_jobs:
+                  description: Group submit jobs
+                  type: integer
+                  default: null
+                grp_tres:
+                  description: Group TRES
+                  type: string
+                  default: null
+                grp_tres_mins:
+                  description: Group TRES minutes
+                  type: integer
+                  default: null
+                grp_tres_run_mins:
+                  description: Group TRES run minutes
+                  type: integer
+                  default: null
+                grp_wall:
+                  description: Group walltime in minutes
+                  type: integer
+                  default: null
+                preempt:
+                  description: Preempt
+                  type: string
+                  default: null
+                preempt_mode:
+                  description: Preempt mode
+                  type: integer
+                  default: null
+                preempt_exempt_time:
+                  description: Preempt exempt time (in minutes)
+                  type: integer
+                  default: null
+                priority:
+                  description: The act of 'stopping' one or more 'low-priority' jobs to let a 'high-priority' job run.
+                  type: integer
+                  default: null
+                usage_factor:
+                  description: Usage factor
+                  type: string
+                  default: null
+                usage_thres:
+                  description: Usage threshold
+                  type: string
+                  default: null
+                limit_factor:
+                  description: Limit factor
+                  type: string
+                  default: null
+                grace_time:
+                  description: Grace time in minutes
+                  type: integer
+                  default: null
+              required:
+              - scheduler_id
+              - name
+      tags:
+      - Queues
+      summary: Create queues qos
+      x-summary-source: derived
+      operationId: postQueuesQos
+      x-operation-id-source: derived
+  /queues/qos/{id}:
+    get:
+      description: Read a QoS
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+        '404':
+          description: Record not found
+      tags:
+      - Queues
+      summary: Get queues qos by id
+      x-summary-source: derived
+      operationId: getQueuesQosById
+      x-operation-id-source: derived
+    put:
+      description: Update a QoS
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry modification
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                scheduler_id:
+                  description: Associate the QoS to a specific scheduler
+                  type: integer
+                  default: null
+                name:
+                  description: Entry name
+                  type: string
+                  default: null
+                description:
+                  description: Entry description
+                  type: string
+                  default: null
+                flags:
+                  description: Comma-separated list of flags
+                  type: string
+                  default: null
+                max_jobs_pa:
+                  description: Max jobs per account
+                  type: integer
+                  default: null
+                max_jobs_per_user:
+                  description: Max jobs per user
+                  type: integer
+                  default: null
+                max_jobs_accrue_pa:
+                  description: Max jobs accrueable per account
+                  type: integer
+                  default: null
+                max_jobs_accrue_pu:
+                  description: Max jobs accrueable per user
+                  type: integer
+                  default: null
+                max_submit_jobs_pa:
+                  description: Max jobs submittable per account
+                  type: integer
+                  default: null
+                max_submit_jobs_per_user:
+                  description: Max jobs submittable per user
+                  type: integer
+                  default: null
+                max_tres_pj:
+                  description: Max TRES per job
+                  type: string
+                  default: null
+                max_tres_pn:
+                  description: Max TRES per node
+                  type: string
+                  default: null
+                max_tres_pu:
+                  description: Max TRES per user
+                  type: string
+                  default: null
+                max_tres_pa:
+                  description: Max TRES per account
+                  type: string
+                  default: null
+                max_tres_mins_pj:
+                  description: Max TRES minutes per job
+                  type: integer
+                  default: null
+                max_tres_run_mins_pa:
+                  description: Max TRES run minutes per account
+                  type: integer
+                  default: null
+                max_tres_run_mins_pu:
+                  description: Max TRES run minutes per user
+                  type: integer
+                  default: null
+                min_tres_pj:
+                  description: Minimum TRES per job
+                  type: string
+                  default: null
+                max_wall_duration_per_job:
+                  description: Max wall duration per job
+                  type: integer
+                  default: null
+                grp_jobs:
+                  description: Group jobs
+                  type: integer
+                  default: null
+                grp_jobs_accrue:
+                  description: Accrueable Group jobs
+                  type: integer
+                  default: null
+                grp_submit_jobs:
+                  description: Group submit jobs
+                  type: integer
+                  default: null
+                grp_tres:
+                  description: Group TRES
+                  type: string
+                  default: null
+                grp_tres_mins:
+                  description: Group TRES minutes
+                  type: integer
+                  default: null
+                grp_tres_run_mins:
+                  description: Group TRES run minutes
+                  type: integer
+                  default: null
+                grp_wall:
+                  description: Group walltime in minutes
+                  type: integer
+                  default: null
+                preempt:
+                  description: Preempt
+                  type: string
+                  default: null
+                preempt_mode:
+                  description: Preempt mode
+                  type: integer
+                  default: null
+                preempt_exempt_time:
+                  description: Preempt exempt time (in minutes)
+                  type: integer
+                  default: null
+                priority:
+                  description: The act of 'stopping' one or more 'low-priority' jobs to let a 'high-priority' job run.
+                  type: integer
+                  default: null
+                usage_factor:
+                  description: Usage factor
+                  type: string
+                  default: null
+                usage_thres:
+                  description: Usage threshold
+                  type: string
+                  default: null
+                limit_factor:
+                  description: Limit factor
+                  type: string
+                  default: null
+                grace_time:
+                  description: Grace time in minutes
+                  type: integer
+                  default: null
+              required: []
+      tags:
+      - Queues
+      summary: Replace queues qos by id
+      x-summary-source: derived
+      operationId: putQueuesQosById
+      x-operation-id-source: derived
+    delete:
+      description: Delete a QoS
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Queues
+      summary: Delete queues qos by id
+      x-summary-source: derived
+      operationId: deleteQueuesQosById
+      x-operation-id-source: derived
+  /queues:
+    get:
+      description: Display a listing of the queue.
+      parameters:
+      - in: query
+        name: expand
+        description: Comma-separated list of associated objects, such as group and resource, to include. Members, purchases, and loans are always included.
+        required: false
+        schema:
+          type: string
+          default: subresource
+          enum:
+          - all
+          - group
+          - resource
+          - subresource
+          - schedulerpolicy
+          - scheduler
+      - in: query
+        name: state
+        description: Queue state.
+        required: false
+        schema:
+          type: string
+          default: enabled
+          enum:
+          - enabled
+          - active
+          - disabled
+          - trashed
+      - in: query
+        name: type
+        description: Queue type ID.
+        required: false
+        schema:
+          type: integer
+          default: 0
+      - in: query
+        name: scheduler
+        description: Scheduler type ID.
+        required: false
+        schema:
+          type: integer
+          default: 0
+      - in: query
+        name: resource
+        description: Resource ID.
+        required: false
+        schema:
+          type: integer
+          default: 0
+      - in: query
+        name: subresource
+        description: Subresource ID.
+        required: false
+        schema:
+          type: integer
+          default: 0
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: limit
+        description: Number of result to return.
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: datetimecreated
+          enum:
+          - id
+          - name
+          - datetimecreated
+          - datetimeremoved
+          - queuetype
+          - schedulerid
+          - subresourceid
+          - schedulerpolicyid
+          - cluster
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: desc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Queues
+      summary: Get queues
+      x-summary-source: derived
+      operationId: getQueues
+      x-operation-id-source: derived
+    post:
+      description: Create a queue
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                schedulerid:
+                  description: Scheduler ID
+                  type: integer
+                  default: null
+                subresourceid:
+                  description: Subresource ID
+                  type: integer
+                  default: null
+                name:
+                  description: The name of the queue
+                  type: string
+                  default: null
+                groupid:
+                  description: Group ID
+                  type: integer
+                  default: null
+                queuetype:
+                  description: Queue type
+                  type: integer
+                  default: null
+                automatic:
+                  description: Automatic
+                  type: integer
+                  default: null
+                free:
+                  description: Free
+                  type: integer
+                  default: null
+                schedulerpolicyid:
+                  description: Scheduler Policy ID
+                  type: integer
+                  default: null
+                enabled:
+                  description: Enabled
+                  type: integer
+                  default: null
+                started:
+                  description: Started
+                  type: integer
+                  default: null
+                reservation:
+                  description: Reservation
+                  type: integer
+                  default: null
+                cluster:
+                  description: Cluster
+                  type: string
+                  default: null
+                priority:
+                  description: Priority
+                  type: integer
+                  default: null
+                defaultwalltime:
+                  description: Default walltime
+                  type: integer
+                  default: null
+                maxjobsqueued:
+                  description: Max Jobs Queued
+                  type: integer
+                  default: null
+                maxjobsqueueduser:
+                  description: Max Jobs Queued User
+                  type: integer
+                  default: null
+                maxjobsrun:
+                  description: Max Jobs Run
+                  type: integer
+                  default: null
+                maxjobsrunuser:
+                  description: Max Jobs Run User
+                  type: integer
+                  default: null
+                maxjobscore:
+                  description: Max Jobs Core
+                  type: integer
+                  default: null
+                nodecoresdefault:
+                  description: Default nodes core
+                  type: integer
+                  default: null
+                nodecoresmin:
+                  description: Nodes core min
+                  type: integer
+                  default: null
+                nodecoresmax:
+                  description: Nodes core max
+                  type: integer
+                  default: null
+                nodememmin:
+                  description: Node memory max
+                  type: string
+                  default: null
+                aclusersenabled:
+                  description: ACL Users enabled
+                  type: integer
+                  default: null
+                aclgroups:
+                  description: Comma-separated list of ACL Groups
+                  type: string
+                  default: null
+                maxijobfactor:
+                  description: Max ijob factor
+                  type: integer
+                  default: null
+                maxijobuserfactor:
+                  description: Max ijob user factor
+                  type: integer
+                  default: null
+                shared:
+                  description: Shared qeue
+                  type: integer
+                  default: 0
+              required:
+              - name
+      tags:
+      - Queues
+      summary: Create queues
+      x-summary-source: derived
+      operationId: postQueues
+      x-operation-id-source: derived
+  /queues/{id}:
+    get:
+      description: Read a queue
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      - in: query
+        name: expand
+        description: Comma-separated list of associated objects, such as group and resource, to include. Members, purchases, and loans are always included.
+        required: false
+        schema:
+          type: string
+          default: subresource
+          enum:
+          - all
+          - group
+          - resource
+          - subresource
+          - schedulerpolicy
+          - scheduler
+      responses:
+        '200':
+          description: Successful entry read
+        '404':
+          description: Record not found
+      tags:
+      - Queues
+      summary: Get queues by id
+      x-summary-source: derived
+      operationId: getQueuesById
+      x-operation-id-source: derived
+    put:
+      description: Update a queue
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry modification
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                schedulerid:
+                  description: Scheduler ID
+                  type: integer
+                  default: null
+                subresourceid:
+                  description: Subresource ID
+                  type: integer
+                  default: null
+                name:
+                  description: The name of the queue
+                  type: string
+                  default: null
+                groupid:
+                  description: Group ID
+                  type: integer
+                  default: null
+                queuetype:
+                  description: Queue type
+                  type: integer
+                  default: null
+                automatic:
+                  description: Automatic
+                  type: integer
+                  default: null
+                free:
+                  description: Free
+                  type: integer
+                  default: null
+                schedulerpolicyid:
+                  description: Scheduler Policy ID
+                  type: integer
+                  default: null
+                enabled:
+                  description: Enabled
+                  type: integer
+                  default: null
+                started:
+                  description: Started
+                  type: integer
+                  default: null
+                reservation:
+                  description: Reservation
+                  type: integer
+                  default: null
+                cluster:
+                  description: Cluster
+                  type: string
+                  default: null
+                priority:
+                  description: Priority
+                  type: integer
+                  default: null
+                defaultwalltime:
+                  description: Default walltime
+                  type: integer
+                  default: null
+                maxjobsqueued:
+                  description: Max Jobs Queued
+                  type: integer
+                  default: null
+                maxjobsqueueduser:
+                  description: Max Jobs Queued User
+                  type: integer
+                  default: null
+                maxjobsrun:
+                  description: Max Jobs Run
+                  type: integer
+                  default: null
+                maxjobsrunuser:
+                  description: Max Jobs Run User
+                  type: integer
+                  default: null
+                maxjobscore:
+                  description: Max Jobs Core
+                  type: integer
+                  default: null
+                nodecoresdefault:
+                  description: Default nodes core
+                  type: integer
+                  default: null
+                nodecoresmin:
+                  description: Nodes core min
+                  type: integer
+                  default: null
+                nodecoresmax:
+                  description: Nodes core max
+                  type: integer
+                  default: null
+                nodememmin:
+                  description: Node memory max
+                  type: string
+                  default: null
+                aclusersenabled:
+                  description: ACL Users enabled
+                  type: integer
+                  default: null
+                aclgroups:
+                  description: Comma-separated list of ACL Groups
+                  type: string
+                  default: null
+                maxijobfactor:
+                  description: Max ijob factor
+                  type: integer
+                  default: null
+                maxijobuserfactor:
+                  description: Max ijob user factor
+                  type: integer
+                  default: null
+                shared:
+                  description: Shared qeue
+                  type: integer
+                  default: 0
+              required: []
+      tags:
+      - Queues
+      summary: Replace queues by id
+      x-summary-source: derived
+      operationId: putQueuesById
+      x-operation-id-source: derived
+    delete:
+      description: Delete a queue
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Queues
+      summary: Delete queues by id
+      x-summary-source: derived
+      operationId: deleteQueuesById
+      x-operation-id-source: derived
+  /queues/schedulerpolicies:
+    get:
+      description: Display a listing of queue schedulers
+      parameters:
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: limit
+        description: Number of result to return.
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: name
+          enum:
+          - id
+          - name
+          - code
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: desc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Queues
+      summary: Get queues schedulerpolicies
+      x-summary-source: derived
+      operationId: getQueuesSchedulerpolicies
+      x-operation-id-source: derived
+    post:
+      description: Create a queue scheduler policy
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  description: The policy name
+                  type: string
+                  default: null
+                code:
+                  description: Short name
+                  type: string
+                  default: null
+              required:
+              - name
+      tags:
+      - Queues
+      summary: Create queues schedulerpolicies
+      x-summary-source: derived
+      operationId: postQueuesSchedulerpolicies
+      x-operation-id-source: derived
+  /queues/schedulerpolicies/{id}:
+    get:
+      description: Read a queue scheduler policy
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+        '404':
+          description: Record not found
+      tags:
+      - Queues
+      summary: Get queues schedulerpolicies by id
+      x-summary-source: derived
+      operationId: getQueuesSchedulerpoliciesById
+      x-operation-id-source: derived
+    put:
+      description: Update a queue scheduler policy
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry modification
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  description: The policy name
+                  type: string
+                  default: null
+                code:
+                  description: Short name
+                  type: string
+                  default: null
+              required: []
+      tags:
+      - Queues
+      summary: Replace queues schedulerpolicies by id
+      x-summary-source: derived
+      operationId: putQueuesSchedulerpoliciesById
+      x-operation-id-source: derived
+    delete:
+      description: Delete a queue scheduler policy
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Queues
+      summary: Delete queues schedulerpolicies by id
+      x-summary-source: derived
+      operationId: deleteQueuesSchedulerpoliciesById
+      x-operation-id-source: derived
+  /queues/schedulerreservations:
+    get:
+      description: Display a listing of queue scheduler reservations
+      parameters:
+      - in: query
+        name: scheduler
+        description: Scheduler ID to filter by.
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: limit
+        description: Number of result to return.
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: name
+          enum:
+          - id
+          - name
+          - schedulerid
+          - datetimestart
+          - datetimestop
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: asc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Queues
+      summary: Get queues schedulerreservations
+      x-summary-source: derived
+      operationId: getQueuesSchedulerreservations
+      x-operation-id-source: derived
+    post:
+      description: Create a queue scheduler reservation
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                schedulerid:
+                  description: Scheduler ID
+                  type: integer
+                  default: null
+                name:
+                  description: Entry name
+                  type: string
+                  default: null
+                nodes:
+                  description: Comma-separated list of node names
+                  type: string
+                  default: null
+                datetimestart:
+                  description: Date/time of when the reservation starts
+                  type: string
+                  default: null
+                datetimestop:
+                  description: Date/time of when the reservation stops
+                  type: string
+                  default: null
+              required:
+              - name
+              - datetimestart
+      tags:
+      - Queues
+      summary: Create queues schedulerreservations
+      x-summary-source: derived
+      operationId: postQueuesSchedulerreservations
+      x-operation-id-source: derived
+  /queues/schedulerreservations/{id}:
+    get:
+      description: Read a queue scheduler reservation
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+        '404':
+          description: Record not found
+      tags:
+      - Queues
+      summary: Get queues schedulerreservations by id
+      x-summary-source: derived
+      operationId: getQueuesSchedulerreservationsById
+      x-operation-id-source: derived
+    put:
+      description: Update a queue scheduler policy
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry modification
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                schedulerid:
+                  description: Scheduler ID
+                  type: integer
+                  default: null
+                name:
+                  description: Entry name
+                  type: string
+                  default: null
+                nodes:
+                  description: Comma-separated list of node names
+                  type: string
+                  default: null
+                datetimestart:
+                  description: Date/time of when the reservation starts
+                  type: string
+                  default: null
+                datetimestop:
+                  description: Date/time of when the reservation stops
+                  type: string
+                  default: null
+              required: []
+      tags:
+      - Queues
+      summary: Replace queues schedulerreservations by id
+      x-summary-source: derived
+      operationId: putQueuesSchedulerreservationsById
+      x-operation-id-source: derived
+    delete:
+      description: Delete a queue scheduler reservation
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Queues
+      summary: Delete queues schedulerreservations by id
+      x-summary-source: derived
+      operationId: deleteQueuesSchedulerreservationsById
+      x-operation-id-source: derived
+  /queues/schedulers:
+    get:
+      description: Display a listing of queue schedulers
+      parameters:
+      - in: query
+        name: queuesubresourceid
+        description: Filter by queue subresource ID
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: batchsystem
+        description: Filter by batchsystem ID
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: schedulerpolicyid
+        description: Filter by scheduler policy ID
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: limit
+        description: Number of result to return.
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: id
+          enum:
+          - id
+          - queuesubresourceid
+          - hostname
+          - batchsystem
+          - schedulerpolicyid
+          - datetimecreated
+          - datetimeremoved
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: asc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Queues
+      summary: Get queues schedulers
+      x-summary-source: derived
+      operationId: getQueuesSchedulers
+      x-operation-id-source: derived
+    post:
+      description: Create a scheduler
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '201':
+          description: Successful entry creation
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                queuesubresourceid:
+                  description: Queue subresource ID
+                  type: integer
+                  default: null
+                hostname:
+                  description: Hostname
+                  type: string
+                  default: null
+                batchsystem:
+                  description: Batchsystem ID
+                  type: integer
+                  default: null
+                schedulerpolocyid:
+                  description: Scheduler Policy ID
+                  type: integer
+                  default: null
+                defaultmaxwalltime:
+                  description: Default max wall time
+                  type: integer
+                  default: null
+                datetimedraindown:
+                  description: Drain timestamp
+                  type: string
+                  default: null
+              required:
+              - queuesubresourceid
+              - hostname
+              - defaultmaxwalltime
+      tags:
+      - Queues
+      summary: Create queues schedulers
+      x-summary-source: derived
+      operationId: postQueuesSchedulers
+      x-operation-id-source: derived
+  /queues/schedulers/{id}:
+    get:
+      description: Read a scheduler
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+        '404':
+          description: Record not found
+      tags:
+      - Queues
+      summary: Get queues schedulers by id
+      x-summary-source: derived
+      operationId: getQueuesSchedulersById
+      x-operation-id-source: derived
+    put:
+      description: Update a scheduler
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry modification
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                queuesubresourceid:
+                  description: Queue subresource ID
+                  type: integer
+                  default: null
+                hostname:
+                  description: Hostname
+                  type: string
+                  default: null
+                batchsystem:
+                  description: Batchsystem ID
+                  type: integer
+                  default: null
+                schedulerpolocyid:
+                  description: Scheduler Policy ID
+                  type: integer
+                  default: null
+                defaultmaxwalltime:
+                  description: Default max wall time in seconds
+                  type: integer
+                  default: null
+                datetimedraindown:
+                  description: Drain timestamp
+                  type: string
+                  default: null
+                datetimelastimportstart:
+                  description: Last import started timestamp
+                  type: string
+                  default: null
+                datetimelastimportstop:
+                  description: Last import finished timestamp
+                  type: string
+                  default: null
+              required: []
+      tags:
+      - Queues
+      summary: Replace queues schedulers by id
+      x-summary-source: derived
+      operationId: putQueuesSchedulersById
+      x-operation-id-source: derived
+    delete:
+      description: Delete a scheduler
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Queues
+      summary: Delete queues schedulers by id
+      x-summary-source: derived
+      operationId: deleteQueuesSchedulersById
+      x-operation-id-source: derived
+  /queues/sizes:
+    get:
+      description: Display a listing of queue sizes
+      parameters:
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: limit
+        description: Number of result to return.
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: datetimestart
+          enum:
+          - id
+          - queueid
+          - sellerqueueid
+          - datetimestart
+          - datetimestop
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: asc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Queues
+      summary: Get queues sizes
+      x-summary-source: derived
+      operationId: getQueuesSizes
+      x-operation-id-source: derived
+    post:
+      description: Create a queue size
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                queueid:
+                  description: ID of the queue being sold to
+                  type: integer
+                  default: null
+                sellerqueueid:
+                  description: ID of the seller queue
+                  type: integer
+                  default: null
+                datetimestart:
+                  description: Date/time of when the loan starts
+                  type: string
+                  default: null
+                datetimestop:
+                  description: Date/time of when the loan stops
+                  type: string
+                  default: null
+                nodecount:
+                  description: Node count
+                  type: integer
+                  default: null
+                corecount:
+                  description: Core count
+                  type: integer
+                  default: null
+                comment:
+                  description: Comment
+                  type: string
+                  default: null
+                serviceunits:
+                  description: Service units
+                  type: float
+                  default: null
+              required:
+              - queueid
+              - sellerqueueid
+              - datetimestart
+              - nodecount
+              - corecount
+      tags:
+      - Queues
+      summary: Create queues sizes
+      x-summary-source: derived
+      operationId: postQueuesSizes
+      x-operation-id-source: derived
+  /queues/sizes/{id}:
+    get:
+      description: Read a queue size
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+        '404':
+          description: Record not found
+      tags:
+      - Queues
+      summary: Get queues sizes by id
+      x-summary-source: derived
+      operationId: getQueuesSizesById
+      x-operation-id-source: derived
+    put:
+      description: Update a queue size
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry modification
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                queueid:
+                  description: ID of the queue being sold to
+                  type: integer
+                  default: null
+                sellerqueueid:
+                  description: ID of the seller queue
+                  type: integer
+                  default: null
+                datetimestart:
+                  description: Date/time of when the loan starts
+                  type: string
+                  default: null
+                datetimestop:
+                  description: Date/time of when the loan stops
+                  type: string
+                  default: null
+                nodecount:
+                  description: Node count
+                  type: integer
+                  default: null
+                corecount:
+                  description: Core count
+                  type: integer
+                  default: null
+                comment:
+                  description: Comment
+                  type: string
+                  default: null
+                serviceunits:
+                  description: Service units
+                  type: float
+                  default: null
+              required: []
+      tags:
+      - Queues
+      summary: Replace queues sizes by id
+      x-summary-source: derived
+      operationId: putQueuesSizesById
+      x-operation-id-source: derived
+    delete:
+      description: Delete a queue size
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Queues
+      summary: Delete queues sizes by id
+      x-summary-source: derived
+      operationId: deleteQueuesSizesById
+      x-operation-id-source: derived
+  /queues/types:
+    get:
+      description: Display a listing of queue types.
+      parameters:
+        '1':
+          in: query
+          name: limit
+          description: Number of result to return.
+          required: false
+          schema:
+            type: integer
+            default: 20
+        '2':
+          in: query
+          name: page
+          description: Number of where to start returning results.
+          required: false
+          schema:
+            type: integer
+            default: 1
+        '3':
+          in: query
+          name: order
+          description: Field to sort results by.
+          required: false
+          schema:
+            type: string
+            default: datetimestart
+            enum:
+            - id
+            - name
+        '4':
+          in: query
+          name: order_dir
+          description: Direction to sort results by.
+          required: false
+          schema:
+            type: string
+            default: asc
+            enum:
+            - asc
+            - desc
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                search:
+                  description: A word or phrase to search for.
+                  type: string
+                  default: null
+              required: []
+      tags:
+      - Queues
+      summary: Get queues types
+      x-summary-source: derived
+      operationId: getQueuesTypes
+      x-operation-id-source: derived
+    post:
+      description: Create a queue type
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  description: The name of the queue type
+                  type: string
+                  default: null
+              required:
+              - name
+      tags:
+      - Queues
+      summary: Create queues types
+      x-summary-source: derived
+      operationId: postQueuesTypes
+      x-operation-id-source: derived
+  /queues/types/{id}:
+    get:
+      description: Read a queue type
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+        '404':
+          description: Record not found
+      tags:
+      - Queues
+      summary: Get queues types by id
+      x-summary-source: derived
+      operationId: getQueuesTypesById
+      x-operation-id-source: derived
+    put:
+      description: Update a queue type
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry modification
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  description: The name of the queue type
+                  type: string
+                  default: null
+              required:
+              - name
+      tags:
+      - Queues
+      summary: Replace queues types by id
+      x-summary-source: derived
+      operationId: putQueuesTypesById
+      x-operation-id-source: derived
+    delete:
+      description: Delete a queue type
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Queues
+      summary: Delete queues types by id
+      x-summary-source: derived
+      operationId: deleteQueuesTypesById
+      x-operation-id-source: derived
+  /queues/requests:
+    get:
+      description: Display a listing of entries
+      parameters:
+      - in: query
+        name: userid
+        description: User ID
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: queueid
+        description: Queue ID
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: limit
+        description: Number of result to return.
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: datetimecreated
+          enum:
+          - id
+          - userid
+          - datetimecreated
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: desc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Queues
+      summary: Get queues requests
+      x-summary-source: derived
+      operationId: getQueuesRequests
+      x-operation-id-source: derived
+    post:
+      description: Create a new entry
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                userid:
+                  description: User ID
+                  type: integer
+                  default: null
+                comment:
+                  description: Comment
+                  type: string
+                  default: null
+                queues:
+                  description: Queues requesting access to
+                  type: array
+                  default: null
+                resources:
+                  description: Resources requesting access to
+                  type: array
+                  default: null
+                group:
+                  description: Group requesting access to
+                  type: integer
+                  default: null
+              required:
+              - userid
+      tags:
+      - Queues
+      summary: Create queues requests
+      x-summary-source: derived
+      operationId: postQueuesRequests
+      x-operation-id-source: derived
+  /queues/requests/{id}:
+    get:
+      description: Retrieve an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+        '404':
+          description: Record not found
+      tags:
+      - Queues
+      summary: Get queues requests by id
+      x-summary-source: derived
+      operationId: getQueuesRequestsById
+      x-operation-id-source: derived
+    put:
+      description: Update an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry modification
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                userid:
+                  description: User ID
+                  type: integer
+                  default: null
+                comment:
+                  description: Comment
+                  type: string
+                  default: null
+              required: []
+      tags:
+      - Queues
+      summary: Replace queues requests by id
+      x-summary-source: derived
+      operationId: putQueuesRequestsById
+      x-operation-id-source: derived
+    delete:
+      description: Delete an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Queues
+      summary: Delete queues requests by id
+      x-summary-source: derived
+      operationId: deleteQueuesRequestsById
+      x-operation-id-source: derived
+  /queues/users:
+    get:
+      description: Display a listing of queue users.
+      parameters:
+      - in: query
+        name: queueid
+        description: A queue ID to filter by.
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: userid
+        description: A user ID to filter by.
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: membertype
+        description: A member type ID to filter by.
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: notice
+        description: A notice state to filter by.
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: limit
+        description: Number of result to return.
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: datetimecreated
+          enum:
+          - id
+          - userid
+          - queueid
+          - membertype
+          - datetimecreated
+          - datetimeremoved
+          - notice
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: asc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Queues
+      summary: Get queues users
+      x-summary-source: derived
+      operationId: getQueuesUsers
+      x-operation-id-source: derived
+    post:
+      description: Create a queue user
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                queueid:
+                  description: Queue ID
+                  type: integer
+                  default: null
+                userid:
+                  description: User ID
+                  type: integer
+                  default: null
+                userrequestid:
+                  description: User Request ID
+                  type: integer
+                  default: null
+                membertype:
+                  description: Member type ID
+                  type: integer
+                  default: 1
+              required:
+              - queueid
+              - userid
+      tags:
+      - Queues
+      summary: Create queues users
+      x-summary-source: derived
+      operationId: postQueuesUsers
+      x-operation-id-source: derived
+  /queues/users/{id}:
+    get:
+      description: Read a queue user
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+        '404':
+          description: Record not found
+      tags:
+      - Queues
+      summary: Get queues users by id
+      x-summary-source: derived
+      operationId: getQueuesUsersById
+      x-operation-id-source: derived
+    put:
+      description: Update a queue user
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry modification
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                queueid:
+                  description: Queue ID
+                  type: integer
+                  default: null
+                userid:
+                  description: User ID
+                  type: integer
+                  default: null
+                userrequestid:
+                  description: User Request ID
+                  type: integer
+                  default: null
+                membertype:
+                  description: Member type ID
+                  type: integer
+                  default: 1
+                datetimelastseen:
+                  description: The datetime the user was last seen
+                  type: string
+                  default: null
+                notice:
+                  description: The notice state
+                  type: integer
+                  default: null
+              required:
+              - queueid
+              - userid
+      tags:
+      - Queues
+      summary: Replace queues users by id
+      x-summary-source: derived
+      operationId: putQueuesUsersById
+      x-operation-id-source: derived
+    delete:
+      description: Delete a queue user
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Queues
+      summary: Delete queues users by id
+      x-summary-source: derived
+      operationId: deleteQueuesUsersById
+      x-operation-id-source: derived
+  /queues/walltimes:
+    get:
+      description: Display a listing of queue walltimes.
+      parameters:
+      - in: query
+        name: queueid
+        description: Queue ID to filter by
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: datetimestart
+        description: Items that start after this date
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2021-01-30T08:30:00Z'
+      - in: query
+        name: datetimestop
+        description: Items that stop before this date
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2021-01-30T08:30:00Z'
+      - in: query
+        name: limit
+        description: Number of result to return.
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: id
+          enum:
+          - id
+          - queueid
+          - datetimestart
+          - datetimestop
+          - walltime
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: asc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Queues
+      summary: Get queues walltimes
+      x-summary-source: derived
+      operationId: getQueuesWalltimes
+      x-operation-id-source: derived
+    post:
+      description: Create a queue walltime
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                queueid:
+                  description: The ID of owning queue
+                  type: integer
+                  default: null
+                datetimestart:
+                  description: The start time
+                  type: string
+                  default: Now
+                datetimestop:
+                  description: The stop time
+                  type: string
+                  default: null
+                walltime:
+                  description: Walltime in seconds
+                  type: integer
+                  default: null
+              required:
+              - queueid
+              - walltime
+      tags:
+      - Queues
+      summary: Create queues walltimes
+      x-summary-source: derived
+      operationId: postQueuesWalltimes
+      x-operation-id-source: derived
+  /queues/walltimes/{id}:
+    get:
+      description: Read a queue walltime
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+        '404':
+          description: Record not found
+      tags:
+      - Queues
+      summary: Get queues walltimes by id
+      x-summary-source: derived
+      operationId: getQueuesWalltimesById
+      x-operation-id-source: derived
+    put:
+      description: Update a queue walltime
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry modification
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                datetimestart:
+                  description: The start time
+                  type: string
+                  default: null
+                datetimestop:
+                  description: The stop time
+                  type: string
+                  default: null
+                walltime:
+                  description: Walltime in seconds
+                  type: integer
+                  default: null
+              required: []
+      tags:
+      - Queues
+      summary: Replace queues walltimes by id
+      x-summary-source: derived
+      operationId: putQueuesWalltimesById
+      x-operation-id-source: derived
+    delete:
+      description: Delete a queue walltime
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Queues
+      summary: Delete queues walltimes by id
+      x-summary-source: derived
+      operationId: deleteQueuesWalltimesById
+      x-operation-id-source: derived
+components:
+  securitySchemes:
+    api_token:
+      type: apiKey
+      name: api_token
+      in: header

@@ -1,0 +1,1135 @@
+openapi: 3.2.0
+info:
+  title: RCAC Users API
+  version: 0.0.1
+servers:
+- url: https://www.rcac.purdue.edu/api
+  description: Production server
+tags:
+- name: Users
+paths:
+  /users/facets:
+    get:
+      description: Display a listing of entries
+      parameters:
+      - in: query
+        name: user_id
+        description: User to retrieve facets for.
+        required: true
+        schema:
+          type: integer
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: limit
+        description: Number of result per page.
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: datetimecreated
+          enum:
+          - id
+          - datetimecreated
+          - datetimeremoved
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: desc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Users
+      summary: Get users facets
+      x-summary-source: derived
+      operationId: getUsersFacets
+      x-operation-id-source: derived
+    post:
+      description: Create a new entry
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                key:
+                  description: Facet name
+                  type: string
+                  default: null
+                value:
+                  description: Facet value
+                  type: string
+                  default: null
+                user_id:
+                  description: User ID
+                  type: integer
+                  default: 0
+                access:
+                  description: View level ID
+                  type: integer
+                  default: 0
+                locked:
+                  description: Is the value editable?
+                  type: boolean
+                  default: 0
+              required:
+              - key
+              - value
+              - user_id
+      tags:
+      - Users
+      summary: Create users facets
+      x-summary-source: derived
+      operationId: postUsersFacets
+      x-operation-id-source: derived
+  /users/facets/{id}:
+    get:
+      description: Retrieve an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+        '404':
+          description: Record not found
+      tags:
+      - Users
+      summary: Get users facets by id
+      x-summary-source: derived
+      operationId: getUsersFacetsById
+      x-operation-id-source: derived
+    put:
+      description: Update an entry
+      parameters: []
+      responses:
+        '204':
+          description: Successful entry modification
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                value:
+                  description: Facet value
+                  type: string
+                  default: null
+                access:
+                  description: View level ID
+                  type: integer
+                  default: null
+              required:
+              - value
+      tags:
+      - Users
+      summary: Replace users facets by id
+      x-summary-source: derived
+      operationId: putUsersFacetsById
+      x-operation-id-source: derived
+    delete:
+      description: Delete an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful deletion
+        '404':
+          description: Record not found
+      tags:
+      - Users
+      summary: Delete users facets by id
+      x-summary-source: derived
+      operationId: deleteUsersFacetsById
+      x-operation-id-source: derived
+  /users/levels:
+    get:
+      description: Display a listing of entries
+      parameters:
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: limit
+        description: Number of result per page.
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: datetimecreated
+          enum:
+          - id
+          - datetimecreated
+          - datetimeremoved
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: desc
+          enum:
+          - asc
+          - desc
+      responses:
+        '200':
+          description: Successful creation
+          content:
+            application/json:
+              example:
+                data:
+                - id: 1
+                  title: Public
+                  ordering: 0
+                  rules:
+                  - 1
+                  api: https://yourhost/api/users/levels/1
+                - id: 2
+                  title: Registered
+                  ordering: 1
+                  rules:
+                  - 2
+                  - 8
+                  api: https://yourhost/api/users/levels/2
+      tags:
+      - Users
+      summary: Get users levels
+      x-summary-source: derived
+      operationId: getUsersLevels
+      x-operation-id-source: derived
+    post:
+      description: Create a new entry
+      parameters: []
+      responses:
+        '200':
+          description: Successful creation
+          content:
+            application/json:
+              example:
+                id: 7
+                title: Example
+                ordering: 7
+                rules:
+                - 2
+                - 3
+                - 4
+                api: https://yourhost/api/users/levels/7
+        '404':
+          description: Record not found
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                title:
+                  description: Access level title
+                  type: string
+                  default: null
+                rules:
+                  description: A list of role IDs
+                  type: array
+                  default: null
+              required:
+              - title
+              - rules
+      tags:
+      - Users
+      summary: Create users levels
+      x-summary-source: derived
+      operationId: postUsersLevels
+      x-operation-id-source: derived
+  /users/levels/{id}:
+    get:
+      description: Retrieve an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful update
+          content:
+            application/json:
+              example:
+                id: 7
+                title: Example
+                ordering: 7
+                rules:
+                - 2
+                - 3
+                - 4
+                api: https://yourhost/api/users/levels/7
+        '404':
+          description: Record not found
+      tags:
+      - Users
+      summary: Get users levels by id
+      x-summary-source: derived
+      operationId: getUsersLevelsById
+      x-operation-id-source: derived
+    put:
+      description: Update an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful update
+          content:
+            application/json:
+              example:
+                id: 7
+                title: Example
+                ordering: 7
+                rules:
+                - 2
+                - 3
+                - 4
+                - 5
+                api: https://yourhost/api/users/levels/7
+        '404':
+          description: Record not found
+        '415':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                title:
+                  description: Access level title
+                  type: string
+                  default: null
+                rules:
+                  description: A list of role IDs
+                  type: array
+                  default: null
+              required: []
+      tags:
+      - Users
+      summary: Replace users levels by id
+      x-summary-source: derived
+      operationId: putUsersLevelsById
+      x-operation-id-source: derived
+    delete:
+      description: Delete an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful deletion
+        '404':
+          description: Record not found
+      tags:
+      - Users
+      summary: Delete users levels by id
+      x-summary-source: derived
+      operationId: deleteUsersLevelsById
+      x-operation-id-source: derived
+  /users/notes:
+    get:
+      description: Display a listing of entries
+      parameters:
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: limit
+        description: Number of result per page.
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: datetimecreated
+          enum:
+          - id
+          - datetimecreated
+          - datetimeremoved
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: desc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Users
+      summary: Get users notes
+      x-summary-source: derived
+      operationId: getUsersNotes
+      x-operation-id-source: derived
+    post:
+      description: Create a new entry
+      parameters: []
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                subject:
+                  description: Subject of the note
+                  type: string
+                  default: null
+                body:
+                  description: Body of the note
+                  type: string
+                  default: null
+                user_id:
+                  description: User ID
+                  type: integer
+                  default: null
+              required:
+              - subject
+              - user_id
+      tags:
+      - Users
+      summary: Create users notes
+      x-summary-source: derived
+      operationId: postUsersNotes
+      x-operation-id-source: derived
+  /users/notes/{id}:
+    get:
+      description: Retrieve an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      tags:
+      - Users
+      summary: Get users notes by id
+      x-summary-source: derived
+      operationId: getUsersNotesById
+      x-operation-id-source: derived
+    put:
+      description: Update an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                subject:
+                  description: Subject of the note
+                  type: string
+                  default: null
+                body:
+                  description: Note content
+                  type: string
+                  default: null
+              required: []
+      tags:
+      - Users
+      summary: Replace users notes by id
+      x-summary-source: derived
+      operationId: putUsersNotesById
+      x-operation-id-source: derived
+    delete:
+      description: Delete an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful deletion
+        '404':
+          description: Record not found
+      tags:
+      - Users
+      summary: Delete users notes by id
+      x-summary-source: derived
+      operationId: deleteUsersNotesById
+      x-operation-id-source: derived
+  /users/notifications:
+    get:
+      description: Display a listing of entries
+      parameters:
+      - in: query
+        name: user_id
+        description: User the notifications are for.
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: read
+        description: Find notifications amrked as read
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: unread
+        description: Find notifications amrked as unread
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: read
+        description: Find notifications amrked as read
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: limit
+        description: Number of result per page.
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: datetimecreated
+          enum:
+          - id
+          - datetimecreated
+          - datetimeremoved
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: desc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Users
+      summary: Get users notifications
+      x-summary-source: derived
+      operationId: getUsersNotifications
+      x-operation-id-source: derived
+  /users/notifications/{id}:
+    get:
+      description: Retrieve an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      tags:
+      - Users
+      summary: Get users notifications by id
+      x-summary-source: derived
+      operationId: getUsersNotificationsById
+      x-operation-id-source: derived
+    put:
+      description: Update an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                subject:
+                  description: Subject of the note
+                  type: string
+                  default: null
+                body:
+                  description: Note content
+                  type: string
+                  default: null
+              required: []
+      tags:
+      - Users
+      summary: Replace users notifications by id
+      x-summary-source: derived
+      operationId: putUsersNotificationsById
+      x-operation-id-source: derived
+    delete:
+      description: Delete an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful deletion
+        '404':
+          description: Record not found
+      tags:
+      - Users
+      summary: Delete users notifications by id
+      x-summary-source: derived
+      operationId: deleteUsersNotificationsById
+      x-operation-id-source: derived
+  /users/notifications/mark-all-as-unread:
+    put:
+      description: Update all entries as unread
+      parameters: []
+      responses:
+        '201':
+          description: Successful deletion
+      tags:
+      - Users
+      summary: Replace users notifications mark all as unread
+      x-summary-source: derived
+      operationId: putUsersNotificationsMarkAllAsUnread
+      x-operation-id-source: derived
+  /users/permissions:
+    get:
+      description: Display a listing of entries
+      parameters:
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: limit
+        description: Number of result per page.
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: id
+          enum:
+          - id
+          - name
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: desc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Users
+      summary: Get users permissions
+      x-summary-source: derived
+      operationId: getUsersPermissions
+      x-operation-id-source: derived
+  /users/permissions/{id}:
+    post:
+      description: Create a new entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                params:
+                  description: A list of permissions.
+                  type: array
+                  default: null
+              required:
+              - params
+      tags:
+      - Users
+      summary: Create users permissions by id
+      x-summary-source: derived
+      operationId: postUsersPermissionsById
+      x-operation-id-source: derived
+    delete:
+      description: Delete an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful deletion
+        '404':
+          description: Record not found
+        '500':
+          description: Error deleting record
+      tags:
+      - Users
+      summary: Delete users permissions by id
+      x-summary-source: derived
+      operationId: deleteUsersPermissionsById
+      x-operation-id-source: derived
+  /users/roles:
+    get:
+      description: Display a listing of entries
+      parameters:
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: limit
+        description: Number of result per page.
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: name
+          enum:
+          - id
+          - name
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: asc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Users
+      summary: Get users roles
+      x-summary-source: derived
+      operationId: getUsersRoles
+      x-operation-id-source: derived
+    post:
+      description: Create a new entry
+      parameters: []
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                title:
+                  description: Role title
+                  type: string
+                  default: null
+                parent_id:
+                  description: Parent role ID
+                  type: integer
+                  default: 0
+              required:
+              - title
+      tags:
+      - Users
+      summary: Create users roles
+      x-summary-source: derived
+      operationId: postUsersRoles
+      x-operation-id-source: derived
+  /users/roles/{id}:
+    get:
+      description: Retrieve an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      tags:
+      - Users
+      summary: Get users roles by id
+      x-summary-source: derived
+      operationId: getUsersRolesById
+      x-operation-id-source: derived
+    put:
+      description: Update an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                title:
+                  description: Role title
+                  type: string
+                  default: null
+                parent_id:
+                  description: Parent role ID
+                  type: integer
+                  default: 0
+              required: []
+      tags:
+      - Users
+      summary: Replace users roles by id
+      x-summary-source: derived
+      operationId: putUsersRolesById
+      x-operation-id-source: derived
+    delete:
+      description: Delete an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      tags:
+      - Users
+      summary: Delete users roles by id
+      x-summary-source: derived
+      operationId: deleteUsersRolesById
+      x-operation-id-source: derived
+  /users:
+    get:
+      description: Display a listing of entries
+      parameters:
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        type: string
+        required: false
+        default: ''
+        schema:
+          type: string
+      - in: query
+        name: role_id
+        description: Filter by a role ID.
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: limit
+        description: Number of result per page.
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        type: integer
+        required: false
+        default: 1
+        schema:
+          type: string
+      - in: query
+        name: order
+        description: Field to sort results by.
+        type: string
+        required: false
+        default: datetimecreated
+        allowedValues: id, motd, datetimecreated, datetimeremoved
+        schema:
+          type: string
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: asc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Users
+      summary: Get users
+      x-summary-source: derived
+      operationId: getUsers
+      x-operation-id-source: derived
+    post:
+      description: Create a new entry
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+        '401':
+          description: Unauthorized
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  description: User name
+                  type: string
+                  default: null
+                email:
+                  description: Email address
+                  type: string
+                  default: null
+              required: []
+      tags:
+      - Users
+      summary: Create users
+      x-summary-source: derived
+      operationId: postUsers
+      x-operation-id-source: derived
+  /users/{id}:
+    get:
+      description: Retrieve an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      - in: query
+        name: module_permissions
+        description: A comma-separated list of modules to grab permissions from
+        required: false
+        schema:
+          type: string
+          example: news,users,resources
+      responses:
+        '200':
+          description: Successful entry read
+        '404':
+          description: Record not found
+      tags:
+      - Users
+      summary: Get users by id
+      x-summary-source: derived
+      operationId: getUsersById
+      x-operation-id-source: derived
+    put:
+      description: Update an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: Successful entry modification
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  description: User name
+                  type: string
+                  default: null
+                api_token:
+                  description: API token
+                  type: string
+                  default: null
+                puid:
+                  description: Organization ID
+                  type: integer
+                  default: null
+                username:
+                  description: Username
+                  type: string
+                  default: null
+                unixid:
+                  description: Unix user ID
+                  type: integer
+                  default: null
+                datelastseen:
+                  description: Last time the user logged in
+                  type: string
+                  default: null
+                roles:
+                  description: A list of Role IDs to apply to the user
+                  type: array
+                  default: null
+              required: []
+      tags:
+      - Users
+      summary: Replace users by id
+      x-summary-source: derived
+      operationId: putUsersById
+      x-operation-id-source: derived
+    delete:
+      description: Delete an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Users
+      summary: Delete users by id
+      x-summary-source: derived
+      operationId: deleteUsersById
+      x-operation-id-source: derived
+components:
+  securitySchemes:
+    api_token:
+      type: apiKey
+      name: api_token
+      in: header

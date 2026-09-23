@@ -1,0 +1,68 @@
+specification: API Evangelist Authentication Profile
+specificationVersion: '0.1'
+provider: Purdue University
+providerId: purdue
+x-method: generated   # manifest authorship vocabulary (build-provenance-manifest.py)
+x-source-url: https://www.rcac.purdue.edu/api
+generated: '2026-08-30'
+method: probed
+source: >-
+  Live probes on 2026-08-30 of the four institution-operated surfaces confirmed in this profile,
+  plus the securitySchemes block of Purdue RCAC's own published OpenAPI at
+  https://www.rcac.purdue.edu/api
+x-operator: institution
+description: >-
+  Purdue University operates no single API gateway, no developer portal and no self-service key
+  issuance. Authentication posture differs per surface and there is no published policy tying them
+  together. Two surfaces are fully open and keyless, one is federated behind Purdue Web
+  Authentication, and one is an open harvesting protocol.
+surfaces:
+- name: Purdue RCAC API
+  baseURL: https://www.rcac.purdue.edu/api
+  x-operator: institution
+  scheme: apiKey
+  location: header
+  parameter: api_token
+  evidence: >-
+    components.securitySchemes.api_token in the provider's own OpenAPI document
+    (type apiKey, name api_token, in header).
+  self_service: false
+  observed_behavior: >-
+    GET https://www.rcac.purdue.edu/api/groups without a token returns HTTP 500 with a
+    "Purdue Web Authentication" HTML login page rather than a 401 with a WWW-Authenticate
+    challenge. Probed 2026-08-30. Token issuance is not documented publicly; it appears to be
+    tied to Purdue institutional identity.
+  notes: >-
+    The contract is public and complete; the endpoints are not. This is auth_required, not
+    undocumented - the two are different findings and only the second is a gap in publishing.
+- name: Purdue HFS Dining Menus API
+  baseURL: https://api.hfs.purdue.edu/menus/v2
+  x-operator: institution
+  scheme: none
+  self_service: true
+  observed_behavior: >-
+    GET /menus/v2/locations returned 200 with a 35,766-byte JSON body with no credential of any
+    kind. No key, quota, sign-up or terms page was found. Probed 2026-08-30.
+- name: PURR OAI-PMH
+  baseURL: https://purr.purdue.edu/oaipmh
+  x-operator: institution
+  scheme: none
+  self_service: true
+  observed_behavior: >-
+    verb=Identify and verb=ListSets both returned 200 with valid OAI-PMH 2.0 XML, keyless.
+    Probed 2026-08-30.
+- name: Purdue Shibboleth Identity Provider
+  baseURL: https://sso.purdue.edu/idp
+  x-operator: institution
+  scheme: saml2
+  self_service: false
+  observed_behavior: >-
+    SAML 2.0 IdP metadata is served publicly and unauthenticated at
+    https://sso.purdue.edu/idp/shibboleth and signed from InCommon MDQ. The IdP itself
+    authenticates Purdue accounts and is reachable to relying parties registered in InCommon or
+    eduGAIN; it is not open to arbitrary service providers.
+  entityID: https://idp.purdue.edu/idp/shibboleth
+gaps:
+- No published authentication documentation for the HFS menus API.
+- No self-service credential issuance for any Purdue-operated API.
+- RCAC returns 500 and an HTML login page where a 401 and a JSON error body belong.

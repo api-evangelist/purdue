@@ -1,0 +1,26 @@
+openapi: 3.2.0
+info:
+  title: RCAC API
+  version: 0.0.1
+servers:
+- url: https://www.rcac.purdue.edu/api
+  description: Production server
+tags:
+- name: RCAC API
+paths:
+  /api:
+    get:
+      description: Display API schema
+      parameters: []
+      tags:
+      - RCAC API
+      summary: Get api
+      x-summary-source: derived
+      operationId: getApi
+      x-operation-id-source: derived
+components:
+  securitySchemes:
+    api_token:
+      type: apiKey
+      name: api_token
+      in: header

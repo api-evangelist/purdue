@@ -1,0 +1,788 @@
+openapi: 3.2.0
+info:
+  title: RCAC Courses API
+  version: 0.0.1
+servers:
+- url: https://www.rcac.purdue.edu/api
+  description: Production server
+tags:
+- name: Courses
+paths:
+  /courses:
+    get:
+      description: Display a listing of entries
+      parameters:
+      - in: query
+        name: userid
+        description: Owner user ID
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: groupid
+        description: Group ID
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: resourceid
+        description: Resource ID
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: deptartment
+        description: Department code
+        required: false
+        schema:
+          type: string
+          maxLength: 4
+          example: STAT
+      - in: query
+        name: notice
+        description: Notice state
+        required: false
+        schema:
+          type: integer
+          default: null
+      - in: query
+        name: start
+        description: Filter entries scheduled on or after this date
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2021-01-30T08:30:00Z'
+      - in: query
+        name: stop
+        description: Filter entries scheduled to end before this date
+        required: false
+        schema:
+          type: string
+          format: date-time
+          example: '2021-01-30T08:30:00Z'
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: limit
+        description: Number of result per page.
+        required: false
+        schema:
+          type: integer
+          default: 25
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: name
+          enum:
+          - id
+          - name
+          - owneruserid
+          - unixgroup
+          - unixid
+          - deptartment
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        type: string
+        required: false
+        default: asc
+        schema:
+          type: string
+          default: asc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Courses
+      summary: Get courses
+      x-summary-source: derived
+      operationId: getCourses
+      x-operation-id-source: derived
+    post:
+      description: Create a new entry
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+          content:
+            application/json:
+              example:
+                id: 1
+                crn: '10023'
+                department: AAE
+                coursenumber: '33400'
+                classname: Aerodynamics
+                resourceid: 70
+                notice: 0
+                datetimestart: '2017-08-21T04:00:00.000000Z'
+                datetimestop: '2017-12-16T05:00:00.000000Z'
+                semester: Fall 2017
+                groupid: 0
+                userid: 1234
+                datetimeremoved: null
+                datetimecreated: '2017-07-21T17:01:39.000000Z'
+                studentcount: 0
+                reference: ''
+                api: https://example.org/api/courses/56
+                members: []
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                crn:
+                  description: Course CRN
+                  type: string
+                  default: null
+                classname:
+                  description: Class name
+                  type: string
+                  default: null
+                coursenumber:
+                  description: Course number
+                  type: string
+                  default: null
+                userid:
+                  description: Owner user ID
+                  type: integer
+                  default: null
+                groupid:
+                  description: Group ID
+                  type: integer
+                  default: null
+                resourceid:
+                  description: Resource ID
+                  type: integer
+                  default: null
+                deptartment:
+                  description: Department ID
+                  type: string
+                  default: null
+                datetimestart:
+                  description: Start date of the entry
+                  type: string
+                  default: null
+                datetimestop:
+                  description: End date of the entry
+                  type: string
+                  default: null
+              required:
+              - classname
+              - resourceid
+              - datetimestart
+              - datetimestop
+      tags:
+      - Courses
+      summary: Create courses
+      x-summary-source: derived
+      operationId: postCourses
+      x-operation-id-source: derived
+  /courses/{id}:
+    get:
+      description: Retrieve an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+          content:
+            application/json:
+              example:
+                id: 1
+                crn: '10023'
+                department: AAE
+                coursenumber: '33400'
+                classname: Aerodynamics
+                resourceid: 70
+                notice: 0
+                datetimestart: '2017-08-21T04:00:00.000000Z'
+                datetimestop: '2017-12-16T05:00:00.000000Z'
+                semester: Fall 2017
+                groupid: 0
+                userid: 1234
+                datetimeremoved: null
+                datetimecreated: '2017-07-21T17:01:39.000000Z'
+                studentcount: 0
+                reference: ''
+                api: https://example.org/api/courses/56
+                members:
+                - id: 87
+                  classaccountid: 56
+                  userid: 12346
+                  membertype: 1
+                  datetimestart: '2017-08-21T04:00:00.000000Z'
+                  datetimestop: '2017-12-16T05:00:00.000000Z'
+                  notice: 0
+                  datetimecreated: '2017-07-21T17:01:40.000000Z'
+                  datetimeremoved: null
+                  api: https://example.org/api/courses/members/87
+                  user:
+                    id: 12346
+                    name: Fu Bar
+                    username: fubar
+                - id: 87
+                  classaccountid: 56
+                  userid: 12347
+                  membertype: 1
+                  datetimestart: '2017-08-21T04:00:00.000000Z'
+                  datetimestop: '2017-12-16T05:00:00.000000Z'
+                  notice: 0
+                  datetimecreated: '2017-07-21T17:01:40.000000Z'
+                  datetimeremoved: null
+                  api: https://example.org/api/courses/members/88
+                  user:
+                    id: 12347
+                    name: Lorrie Ipsum
+                    username: ipsuml
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      tags:
+      - Courses
+      summary: Get courses by id
+      x-summary-source: derived
+      operationId: getCoursesById
+      x-operation-id-source: derived
+    put:
+      description: Update an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry modification
+          content:
+            application/json:
+              example:
+                id: 1
+                crn: '10023'
+                department: AAE
+                coursenumber: '33400'
+                classname: Aerodynamics
+                resourceid: 70
+                notice: 0
+                datetimestart: '2017-08-21T04:00:00.000000Z'
+                datetimestop: '2017-12-16T05:00:00.000000Z'
+                semester: Fall 2017
+                groupid: 0
+                userid: 1234
+                datetimeremoved: null
+                datetimecreated: '2017-07-21T17:01:39.000000Z'
+                studentcount: 0
+                reference: ''
+                api: https://example.org/api/courses/56
+                members:
+                - id: 87
+                  classaccountid: 56
+                  userid: 12346
+                  membertype: 1
+                  datetimestart: '2017-08-21T04:00:00.000000Z'
+                  datetimestop: '2017-12-16T05:00:00.000000Z'
+                  notice: 0
+                  datetimecreated: '2017-07-21T17:01:40.000000Z'
+                  datetimeremoved: null
+                  api: https://example.org/api/courses/members/87
+                  user:
+                    id: 12346
+                    name: Fu Bar
+                    username: fubar
+                - id: 87
+                  classaccountid: 56
+                  userid: 12347
+                  membertype: 1
+                  datetimestart: '2017-08-21T04:00:00.000000Z'
+                  datetimestop: '2017-12-16T05:00:00.000000Z'
+                  notice: 0
+                  datetimecreated: '2017-07-21T17:01:40.000000Z'
+                  datetimeremoved: null
+                  api: https://example.org/api/courses/members/88
+                  user:
+                    id: 12347
+                    name: Lorrie Ipsum
+                    username: ipsuml
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                crn:
+                  description: Course CRN
+                  type: string
+                  default: null
+                classname:
+                  description: Class name
+                  type: string
+                  default: null
+                coursenumber:
+                  description: Course number
+                  type: string
+                  default: null
+                userid:
+                  description: Owner user ID
+                  type: integer
+                  default: null
+                groupid:
+                  description: Group ID
+                  type: integer
+                  default: null
+                resourceid:
+                  description: Resource ID
+                  type: integer
+                  default: null
+                deptartment:
+                  description: Department ID
+                  type: string
+                  default: null
+                datetimestart:
+                  description: Start date of the entry
+                  type: string
+                  default: null
+                datetimestop:
+                  description: End date of the entry
+                  type: string
+                  default: null
+              required: []
+      tags:
+      - Courses
+      summary: Replace courses by id
+      x-summary-source: derived
+      operationId: putCoursesById
+      x-operation-id-source: derived
+    delete:
+      description: Delete an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Courses
+      summary: Delete courses by id
+      x-summary-source: derived
+      operationId: deleteCoursesById
+      x-operation-id-source: derived
+  /courses/sync:
+    get:
+      description: Sync users with account info
+      parameters: []
+      tags:
+      - Courses
+      summary: Get courses sync
+      x-summary-source: derived
+      operationId: getCoursesSync
+      x-operation-id-source: derived
+  /courses/enrollments:
+    get:
+      description: Lookup enrollments for a class
+      parameters:
+      - in: query
+        name: crn
+        description: Course CRN
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: classid
+        description: Course ID
+        required: true
+        schema:
+          type: string
+      tags:
+      - Courses
+      summary: Get courses enrollments
+      x-summary-source: derived
+      operationId: getCoursesEnrollments
+      x-operation-id-source: derived
+  /courses/members:
+    get:
+      description: Display a listing of entries
+      parameters:
+      - in: query
+        name: classaccountid
+        description: Class account ID
+        required: false
+        schema:
+          type: integer
+          default: 0
+      - in: query
+        name: membertype
+        description: Member type ID
+        required: false
+        schema:
+          type: integer
+          default: 0
+      - in: query
+        name: userid
+        description: User ID
+        required: false
+        schema:
+          type: integer
+          default: 0
+      - in: query
+        name: notice
+        description: Notice status
+        required: false
+        schema:
+          type: integer
+          default: 0
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: search
+      - in: query
+        name: limit
+        description: Number of result per page.
+        type: integer
+        required: false
+        schema:
+          type: integer
+          default: 25
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        default: name
+        schema:
+          type: string
+          default: name
+          enum:
+          - id
+          - name
+          - owneruserid
+          - unixgroup
+          - unixid
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        type: string
+        required: false
+        default: asc
+        schema:
+          type: string
+          default: asc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Courses
+      summary: Get courses members
+      x-summary-source: derived
+      operationId: getCoursesMembers
+      x-operation-id-source: derived
+    post:
+      description: Create a new entry
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+          content:
+            application/json:
+              example:
+                id: 1
+                classaccountid: 1
+                userid: 1234
+                membertype: 1
+                datetimestart: '2016-08-22T04:00:00.000000Z'
+                datetimestop: '2016-12-17T05:00:00.000000Z'
+                notice: 0
+                datetimecreated: '2016-08-19T04:02:01.000000Z'
+                datetimeremoved: null
+                api: https://example.org/api/courses/members/1
+                user:
+                  id: 1234
+                  name: Jane Doe
+                  username: jdoe
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                classaccountid:
+                  description: Class account ID
+                  type: integer
+                  default: null
+                membertype:
+                  description: Member type ID
+                  type: integer
+                  default: null
+                userid:
+                  description: User ID
+                  type: integer
+                  default: null
+                datetimestart:
+                  description: Datetime (YYYY-MM-DD hh:mm:ss) user enrollment starts
+                  type: string
+                  default: null
+                datetimestop:
+                  description: Datetime (YYYY-MM-DD hh:mm:ss) user enrollment stops
+                  type: string
+                  default: null
+                notice:
+                  description: Notice state
+                  type: integer
+                  default: null
+              required:
+              - classaccountid
+              - userid
+      tags:
+      - Courses
+      summary: Create courses members
+      x-summary-source: derived
+      operationId: postCoursesMembers
+      x-operation-id-source: derived
+  /courses/members/{id}:
+    get:
+      description: Retrieve an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+          content:
+            application/json:
+              example:
+                id: 1
+                classaccountid: 1
+                userid: 1234
+                membertype: 1
+                datetimestart: '2016-08-22T04:00:00.000000Z'
+                datetimestop: '2016-12-17T05:00:00.000000Z'
+                notice: 0
+                datetimecreated: '2016-08-19T04:02:01.000000Z'
+                datetimeremoved: null
+                api: https://example.org/api/courses/members/1
+                user:
+                  id: 1234
+                  name: Jane Doe
+                  username: jdoe
+        '404':
+          description: Record not found
+      tags:
+      - Courses
+      summary: Get courses members by id
+      x-summary-source: derived
+      operationId: getCoursesMembersById
+      x-operation-id-source: derived
+    put:
+      description: Update an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry modification
+          content:
+            application/json:
+              example:
+                id: 1
+                classaccountid: 1
+                userid: 1234
+                membertype: 1
+                datetimestart: '2016-08-22T04:00:00.000000Z'
+                datetimestop: '2016-12-17T05:00:00.000000Z'
+                notice: 0
+                datetimecreated: '2016-08-19T04:02:01.000000Z'
+                datetimeremoved: null
+                api: https://example.org/api/courses/members/1
+                user:
+                  id: 1234
+                  name: Jane Doe
+                  username: jdoe
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                classaccountid:
+                  description: Class account ID
+                  type: integer
+                  default: 0
+                membertype:
+                  description: Member type ID
+                  type: integer
+                  default: 0
+                userid:
+                  description: User ID
+                  type: integer
+                  default: 0
+                datetimestart:
+                  description: Datetime (YYYY-MM-DD hh:mm:ss) user enrollment starts
+                  type: string
+                  default: null
+                datetimestop:
+                  description: Datetime (YYYY-MM-DD hh:mm:ss) user enrollment stops
+                  type: string
+                  default: null
+                notice:
+                  description: Notice state
+                  type: integer
+                  default: null
+              required: []
+      tags:
+      - Courses
+      summary: Replace courses members by id
+      x-summary-source: derived
+      operationId: putCoursesMembersById
+      x-operation-id-source: derived
+    delete:
+      description: Delete an entry
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Courses
+      summary: Delete courses members by id
+      x-summary-source: derived
+      operationId: deleteCoursesMembersById
+      x-operation-id-source: derived
+  /courses/members/import:
+    post:
+      description: Import
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+          content:
+            application/json:
+              example:
+                data:
+                - id: 1
+                  classaccountid: 1
+                  userid: 1234
+                  membertype: 1
+                  datetimestart: '2016-08-22T04:00:00.000000Z'
+                  datetimestop: '2016-12-17T05:00:00.000000Z'
+                  notice: 0
+                  datetimecreated: '2016-08-19T04:02:01.000000Z'
+                  datetimeremoved: null
+                  api: https://example.org/api/courses/members/1
+                  user:
+                    id: 1234
+                    name: Jane Doe
+                    username: jdoe
+                - id: 2
+                  classaccountid: 1
+                  userid: 1235
+                  membertype: 1
+                  datetimestart: '2016-08-22T04:00:00.000000Z'
+                  datetimestop: '2016-12-17T05:00:00.000000Z'
+                  notice: 0
+                  datetimecreated: '2016-08-19T04:02:01.000000Z'
+                  datetimeremoved: null
+                  api: https://example.org/api/courses/members/2
+                  user:
+                    id: 1235
+                    name: Jimmy Doe
+                    username: jimmyd
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                id:
+                  description: Class account ID
+                  type: integer
+                  default: null
+                file:
+                  description: File to be uploaded
+                  type: array
+                  default: null
+              required:
+              - id
+              - file
+      tags:
+      - Courses
+      summary: Create courses members import
+      x-summary-source: derived
+      operationId: postCoursesMembersImport
+      x-operation-id-source: derived
+components:
+  securitySchemes:
+    api_token:
+      type: apiKey
+      name: api_token
+      in: header

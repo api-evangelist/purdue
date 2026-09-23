@@ -1,0 +1,90 @@
+# Purdue University - OpenAPI governance ruleset
+#
+# provenance:
+# x-method: generated
+# x-source-url: openapi/purdue-rcac-api-openapi.yml
+#   generated: '2026-08-30'
+#   method: generated
+#   source: >-
+#     Written by API Evangelist against the two institution-operated Purdue contracts in this
+#     repository. Purdue publishes no API design guide, style guide or governance ruleset of its
+#     own; nothing below is a Purdue rule and this file must not be read as one. Every rule
+#     encodes a gap actually observed in Purdue's own published contracts on 2026-08-30.
+#   x-operator: institution
+#   applies_to:
+#     - openapi/purdue-rcac-api-openapi.yml
+#     - openapi/purdue-hfs-dining-menus-api-openapi.yml
+#   uses: spectral built-in functions only
+extends: [[spectral:oas, recommended]]
+formats:
+  - oas3
+rules:
+  purdue-info-contact-present:
+    description: >-
+      Every Purdue contract should name a contact. Observed gap - the RCAC OpenAPI at
+      www.rcac.purdue.edu/api ships info.title "RCAC API" and version 0.0.1 with no contact block,
+      so a consumer who hits the auth wall has nowhere to go.
+    severity: warn
+    given: $.info
+    then:
+      field: contact
+      function: truthy
+  purdue-info-description-present:
+    description: >-
+      Observed gap - the RCAC OpenAPI has no info.description at all across 206 paths.
+    severity: warn
+    given: $.info
+    then:
+      field: description
+      function: truthy
+  purdue-info-license-present:
+    description: Neither Purdue contract declares a license for the description document itself.
+    severity: info
+    given: $.info
+    then:
+      field: license
+      function: truthy
+  purdue-server-is-purdue-host:
+    description: >-
+      A contract saved under this institution must be served from a purdue.edu host. This is the
+      operator rule that keeps a vendor's or a third party's contract out of the Purdue profile.
+    severity: error
+    given: $.servers[*].url
+    then:
+      function: pattern
+      functionOptions:
+        match: '^https://[a-zA-Z0-9.-]*purdue\.edu(/|$)'
+  purdue-operations-are-tagged:
+    description: >-
+      Observed gap - all 452 RCAC operations are untagged, so the contract cannot be split,
+      navigated or grouped by resource.
+    severity: warn
+    given: $.paths[*][get,put,post,delete,patch]
+    then:
+      field: tags
+      function: truthy
+  purdue-operation-has-description:
+    severity: info
+    given: $.paths[*][get,put,post,delete,patch]
+    then:
+      field: description
+      function: truthy
+  purdue-security-scheme-declared:
+    description: >-
+      An auth-gated Purdue API must declare how it is authenticated. RCAC does this correctly with
+      an api_token apiKey scheme; the HFS menus API is genuinely keyless and declares none.
+    severity: info
+    given: $
+    then:
+      field: components.securitySchemes
+      function: truthy
+  purdue-no-500-as-auth-challenge:
+    description: >-
+      Observed gap, recorded as documentation rather than lint - both Purdue APIs answer an
+      unauthenticated or invalid request with 500 (RCAC returns an HTML login page; HFS returns an
+      ASP.NET stack trace for an unknown location). A contract should declare 401 and 404 where
+      they belong.
+    severity: info
+    given: $.paths[*][get,put,post,delete,patch].responses
+    then:
+      function: truthy

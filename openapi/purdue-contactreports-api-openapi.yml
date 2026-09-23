@@ -1,0 +1,1344 @@
+openapi: 3.2.0
+info:
+  title: RCAC Contactreports API
+  version: 0.0.1
+servers:
+- url: https://www.rcac.purdue.edu/api
+  description: Production server
+tags:
+- name: Contactreports
+paths:
+  /contactreports/comments:
+    get:
+      description: Display a listing of contact reports comments
+      parameters:
+      - in: query
+        name: contactreportid
+        description: ID of contact report
+        required: false
+        schema:
+          type: integer
+          default: 0
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: limit
+        description: Number of result per page.
+        type: integer
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: datetimecreated
+          enum:
+          - id
+          - datetimecreated
+          - datetimeremoved
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: desc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Contactreports
+      summary: Get contactreports comments
+      x-summary-source: derived
+      operationId: getContactreportsComments
+      x-operation-id-source: derived
+    post:
+      description: Create a contact report comment
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+          content:
+            application/json:
+              example:
+                id: 1
+                contactreportid: 1
+                userid: 1234
+                comment: Example comment
+                stemmedcomment: example comment
+                notice: 0
+                datetimecreated: '2021-09-14 13:01:55'
+                formatteddate: Sep 14, 2021&nbsp; 1:01pm
+                formattedcomment: <p>Example comment</p>
+                username: John Doe
+                api: https://example.org/api/contactreports/comments/1
+        '401':
+          description: Unauthorized
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                comment:
+                  description: The comment being made
+                  type: string
+                  default: null
+                contactreportid:
+                  description: ID of the contact report
+                  type: integer
+                  default: null
+                userid:
+                  description: User ID
+                  type: integer
+                  default: 0
+                notice:
+                  description: Notification state
+                  type: integer
+                  default: 0
+              required:
+              - comment
+              - contactreportid
+      tags:
+      - Contactreports
+      summary: Create contactreports comments
+      x-summary-source: derived
+      operationId: postContactreportsComments
+      x-operation-id-source: derived
+  /contactreports/comments/{id}:
+    get:
+      description: Retrieve a contact report comment
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry modification
+          content:
+            application/json:
+              example:
+                id: 1
+                contactreportid: 1
+                userid: 1234
+                comment: Example comment
+                stemmedcomment: example comment
+                notice: 0
+                datetimecreated: '2021-09-14 13:01:55'
+                formatteddate: Sep 14, 2021&nbsp; 1:01pm
+                formattedcomment: <p>Example comment</p>
+                username: John Doe
+                api: https://example.org/api/contactreports/comments/1
+        '404':
+          description: Record not found
+      tags:
+      - Contactreports
+      summary: Get contactreports comments by id
+      x-summary-source: derived
+      operationId: getContactreportsCommentsById
+      x-operation-id-source: derived
+    put:
+      description: Update a contact report comment
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: Successful entry modification
+          content:
+            application/json:
+              example:
+                id: 1
+                contactreportid: 1
+                userid: 1234
+                comment: Example comment
+                stemmedcomment: example comment
+                notice: 0
+                datetimecreated: '2021-09-14 13:01:55'
+                formatteddate: Sep 14, 2021&nbsp; 1:01pm
+                formattedcomment: <p>Example comment</p>
+                username: John Doe
+                api: https://example.org/api/contactreports/comments/1
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                comment:
+                  description: The comment being made
+                  type: string
+                  default: null
+                contactreportid:
+                  description: ID of the contact report
+                  type: integer
+                  default: null
+                userid:
+                  description: User ID
+                  type: integer
+                  default: null
+                notice:
+                  description: Notification state
+                  type: integer
+                  default: null
+              required: []
+      tags:
+      - Contactreports
+      summary: Replace contactreports comments by id
+      x-summary-source: derived
+      operationId: putContactreportsCommentsById
+      x-operation-id-source: derived
+    delete:
+      description: Delete a contact report comment
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Contactreports
+      summary: Delete contactreports comments by id
+      x-summary-source: derived
+      operationId: deleteContactreportsCommentsById
+      x-operation-id-source: derived
+  /contactreports/followgroups:
+    get:
+      description: Display a listing of contact reports followgroups
+      parameters:
+      - in: query
+        name: groupid
+        description: Group ID
+        required: false
+        schema:
+          type: integer
+          default: 0
+      - in: query
+        name: userid
+        description: User ID
+        required: false
+        schema:
+          type: integer
+          default: 0
+      - in: query
+        name: limit
+        description: Number of result per page.
+        type: integer
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: datecreated
+          enum:
+          - id
+          - userid
+          - datecreated
+          - targetuserid
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: desc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Contactreports
+      summary: Get contactreports followgroups
+      x-summary-source: derived
+      operationId: getContactreportsFollowgroups
+      x-operation-id-source: derived
+    post:
+      description: Create a group following
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+          content:
+            application/json:
+              example:
+                id: 1
+                groupid: 20
+                userid: 1234
+                userrequestid: 0
+                membertype: 10
+                owner: 0
+                datecreated: '2021-09-03T05:44:38.000000Z'
+                dateremoved: null
+                datelastseen: null
+                notice: 0
+                api: https://example.org/api/contactreports/followgroups/1
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                groupid:
+                  description: ID of group being followed
+                  type: integer
+                  default: null
+                userid:
+                  description: User ID of follower
+                  type: integer
+                  default: Current user's ID
+              required: []
+      tags:
+      - Contactreports
+      summary: Create contactreports followgroups
+      x-summary-source: derived
+      operationId: postContactreportsFollowgroups
+      x-operation-id-source: derived
+  /contactreports/followgroups/{id}:
+    get:
+      description: Retrieve a group following record
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+          content:
+            application/json:
+              example:
+                id: 1
+                groupid: 20
+                userid: 1234
+                userrequestid: 0
+                membertype: 10
+                owner: 0
+                datecreated: '2021-09-03T05:44:38.000000Z'
+                dateremoved: null
+                datelastseen: null
+                notice: 0
+                api: https://example.org/api/contactreports/followgroups/1
+        '404':
+          description: Record not found
+      tags:
+      - Contactreports
+      summary: Get contactreports followgroups by id
+      x-summary-source: derived
+      operationId: getContactreportsFollowgroupsById
+      x-operation-id-source: derived
+    put:
+      description: Update a group following
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry modification
+          content:
+            application/json:
+              example:
+                id: 1
+                groupid: 20
+                userid: 1234
+                userrequestid: 0
+                membertype: 10
+                owner: 0
+                datecreated: '2021-09-03T05:44:38.000000Z'
+                dateremoved: null
+                datelastseen: null
+                notice: 0
+                api: https://example.org/api/contactreports/followgroups/1
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                groupid:
+                  description: ID of group being followed
+                  type: integer
+                  default: null
+                userid:
+                  description: ID of user following the group
+                  type: integer
+                  default: null
+              required: []
+      tags:
+      - Contactreports
+      summary: Replace contactreports followgroups by id
+      x-summary-source: derived
+      operationId: putContactreportsFollowgroupsById
+      x-operation-id-source: derived
+    delete:
+      description: Delete a group following
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Contactreports
+      summary: Delete contactreports followgroups by id
+      x-summary-source: derived
+      operationId: deleteContactreportsFollowgroupsById
+      x-operation-id-source: derived
+  /contactreports/followusers:
+    get:
+      description: Display a listing of contact reports user followings
+      parameters:
+      - in: query
+        name: targetuserid
+        description: Target User ID
+        required: false
+        schema:
+          type: integer
+          default: 0
+      - in: query
+        name: userid
+        description: User ID
+        required: false
+        schema:
+          type: integer
+          default: 0
+      - in: query
+        name: limit
+        description: Number of result per page.
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: datecreated
+          enum:
+          - id
+          - userid
+          - datecreated
+          - targetuserid
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: desc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Contactreports
+      summary: Get contactreports followusers
+      x-summary-source: derived
+      operationId: getContactreportsFollowusers
+      x-operation-id-source: derived
+    post:
+      description: Create a contact report user following
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+          content:
+            application/json:
+              example:
+                id: 1
+                userid: 1
+                targetuserid: 2
+                membertype: 10
+                datecreated: '2021-09-01 09:12:01'
+                dateremoved: null
+                datelastseen: null
+                api: https://example.org/api/contactreports/followusers/1
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                targetuserid:
+                  description: User ID to follow
+                  type: integer
+                  default: null
+                userid:
+                  description: User ID of follower
+                  type: integer
+                  default: Current user's ID
+              required:
+              - targetuserid
+      tags:
+      - Contactreports
+      summary: Create contactreports followusers
+      x-summary-source: derived
+      operationId: postContactreportsFollowusers
+      x-operation-id-source: derived
+  /contactreports/followusers/{id}:
+    get:
+      description: Retrieve a contact report user following
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+          content:
+            application/json:
+              example:
+                id: 1
+                userid: 1
+                targetuserid: 2
+                membertype: 10
+                datecreated: '2021-09-01 09:12:01'
+                dateremoved: null
+                datelastseen: null
+                api: https://example.org/api/contactreports/followusers/1
+        '404':
+          description: Record not found
+      tags:
+      - Contactreports
+      summary: Get contactreports followusers by id
+      x-summary-source: derived
+      operationId: getContactreportsFollowusersById
+      x-operation-id-source: derived
+    put:
+      description: Update a contact report user following
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry modification
+          content:
+            application/json:
+              example:
+                id: 1
+                userid: 1
+                targetuserid: 2
+                membertype: 10
+                datecreated: '2021-09-01 09:12:01'
+                dateremoved: null
+                datelastseen: null
+                api: https://example.org/api/contactreports/followusers/1
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                targetuserid:
+                  description: User ID to follow
+                  type: integer
+                  default: null
+                userid:
+                  description: User ID of follower
+                  type: integer
+                  default: null
+              required: []
+      tags:
+      - Contactreports
+      summary: Replace contactreports followusers by id
+      x-summary-source: derived
+      operationId: putContactreportsFollowusersById
+      x-operation-id-source: derived
+    delete:
+      description: Delete a contact report user following
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Contactreports
+      summary: Delete contactreports followusers by id
+      x-summary-source: derived
+      operationId: deleteContactreportsFollowusersById
+      x-operation-id-source: derived
+  /contactreports:
+    get:
+      description: Display a listing of contact reports
+      parameters:
+      - in: query
+        name: limit
+        description: Number of result per page.
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: type
+        description: Contact Report type ID
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: group
+        description: Filter by group ID
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: start
+        description: Timestamp (YYYY-MM-DD or YYYY-MM-DD hh:mm:ss) for records on or after that date
+        required: false
+        schema:
+          type: string
+          format: date
+          example: '2021-01-30'
+      - in: query
+        name: stop
+        description: Timestamp (YYYY-MM-DD or YYYY-MM-DD hh:mm:ss) for records before that date
+        required: false
+        schema:
+          type: string
+          format: date
+          example: '2021-01-30'
+      - in: query
+        name: people
+        description: Filter by people associated with reports. Comma-separated list of usernames, emails, or user IDs
+        required: false
+        schema:
+          type: string
+          example: person1,person2,person3
+      - in: query
+        name: resource
+        description: Filter by resources associated with reports. Comma-separated list of resource IDs
+        required: false
+        schema:
+          type: string
+          example: 1,2,3
+      - in: query
+        name: tag
+        description: Filter by tags associated with reports. Comma-separated list of tags
+        required: false
+        schema:
+          type: string
+          example: tag1,tag2,tag3
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: notice
+        description: Filter by notice value
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: datetimecreated
+          enum:
+          - id
+          - report
+          - datetimecreated
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: desc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Contactreports
+      summary: Get contactreports
+      x-summary-source: derived
+      operationId: getContactreports
+      x-operation-id-source: derived
+    post:
+      description: Create a contact report
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+          content:
+            application/json:
+              example:
+                id: 5830
+                groupid: 142
+                userid: 61344
+                report: Example text
+                stemmedreport: eexample ttext
+                datetimecontact: '2021-09-03T04:00:00.000000Z'
+                datetimecreated: '2021-09-03T20:01:44.000000Z'
+                notice: 23
+                datetimegroupid: null
+                contactreporttypeid: 3
+                formatteddate: September 3, 2021 4:01pm
+                formattedreport: <p>Example text.</p>
+                comments: []
+                subscribed: 1
+                subscribedcommentid: 0
+                type:
+                  id: 3
+                  name: Personal Meeting
+                  timeperiodid: 1
+                  timeperiodcount: 7
+                  timeperiodlimit: 14
+                  waitperiodid: 0
+                  waitperiodcount: 0
+                username: John Doe
+                users:
+                - id: 9342
+                  contactreportid: 5830
+                  userid: 56907
+                  datetimecreated: '2021-09-03T20:01:44.000000Z'
+                  datetimelastnotify: null
+                  name: Gerhard Klimeck
+                - id: 9343
+                  contactreportid: 5830
+                  userid: 81163
+                  datetimecreated: '2021-09-03T20:01:44.000000Z'
+                  datetimelastnotify: null
+                  name: Erik S Gough
+                groupname: Lorem Ipsum
+                resources:
+                - id: 106819
+                  contactreportid: 5830
+                  resourceid: 110
+                  name: Geddes
+                - id: 106820
+                  contactreportid: 5830
+                  resourceid: 92
+                  name: Gilbreth
+                tags: []
+                age: 1200675
+                api: https://example.org/api/contactreports/5830
+                url: https://example.org/contactreports/5830
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                datetimecontact:
+                  description: Timestamp (YYYY-MM-DD or YYYY-MM-DD hh:mm:ss) of the contact
+                  type: string
+                  default: null
+                groupid:
+                  description: ID of the associated group
+                  type: integer
+                  default: 0
+                datetimegroupid:
+                  description: Timestamp (YYYY-MM-DD or YYYY-MM-DD hh:mm:ss) of the contact
+                  type: string
+                  default: null
+                userid:
+                  description: ID of the user creating the entry
+                  type: integer
+                  default: 0
+                contactreporttypeid:
+                  description: Type ID for the entry
+                  type: integer
+                  default: 0
+                report:
+                  description: The report text
+                  type: string
+                  default: null
+                notice:
+                  description: Notice state
+                  type: integer
+                  default: 0
+              required:
+              - datetimecontact
+              - report
+      tags:
+      - Contactreports
+      summary: Create contactreports
+      x-summary-source: derived
+      operationId: postContactreports
+      x-operation-id-source: derived
+  /contactreports/preview:
+    post:
+      description: Parse submitted text to see the final result
+      parameters: []
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                body:
+                  description: Unformatted text
+                  type: string
+                  default: null
+              required:
+              - body
+      tags:
+      - Contactreports
+      summary: Create contactreports preview
+      x-summary-source: derived
+      operationId: postContactreportsPreview
+      x-operation-id-source: derived
+  /contactreports/{id}:
+    get:
+      description: Retrieve a contact report
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+          content:
+            application/json:
+              example:
+                id: 5830
+                groupid: 142
+                userid: 61344
+                report: Example text
+                stemmedreport: eexample ttext
+                datetimecontact: '2021-09-03T04:00:00.000000Z'
+                datetimecreated: '2021-09-03T20:01:44.000000Z'
+                notice: 23
+                datetimegroupid: null
+                contactreporttypeid: 3
+                formatteddate: September 3, 2021 4:01pm
+                formattedreport: <p>Example text.</p>
+                comments: []
+                subscribed: 1
+                subscribedcommentid: 0
+                type:
+                  id: 3
+                  name: Personal Meeting
+                  timeperiodid: 1
+                  timeperiodcount: 7
+                  timeperiodlimit: 14
+                  waitperiodid: 0
+                  waitperiodcount: 0
+                username: John Doe
+                users:
+                - id: 9342
+                  contactreportid: 5830
+                  userid: 56907
+                  datetimecreated: '2021-09-03T20:01:44.000000Z'
+                  datetimelastnotify: null
+                  name: Gerhard Klimeck
+                - id: 9343
+                  contactreportid: 5830
+                  userid: 81163
+                  datetimecreated: '2021-09-03T20:01:44.000000Z'
+                  datetimelastnotify: null
+                  name: Erik S Gough
+                groupname: Lorem Ipsum
+                resources:
+                - id: 106819
+                  contactreportid: 5830
+                  resourceid: 110
+                  name: Geddes
+                - id: 106820
+                  contactreportid: 5830
+                  resourceid: 92
+                  name: Gilbreth
+                tags: []
+                age: 1200675
+                api: https://example.org/api/contactreports/5830
+                url: https://example.org/contactreports/5830
+        '404':
+          description: Record not found
+      tags:
+      - Contactreports
+      summary: Get contactreports by id
+      x-summary-source: derived
+      operationId: getContactreportsById
+      x-operation-id-source: derived
+    put:
+      description: Update a contact report
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry modification
+          content:
+            application/json:
+              example:
+                id: 5830
+                groupid: 142
+                userid: 61344
+                report: Example text
+                stemmedreport: eexample ttext
+                datetimecontact: '2021-09-03T04:00:00.000000Z'
+                datetimecreated: '2021-09-03T20:01:44.000000Z'
+                notice: 23
+                datetimegroupid: null
+                contactreporttypeid: 3
+                formatteddate: September 3, 2021 4:01pm
+                formattedreport: <p>Example text.</p>
+                comments: []
+                subscribed: 1
+                subscribedcommentid: 0
+                type:
+                  id: 3
+                  name: Personal Meeting
+                  timeperiodid: 1
+                  timeperiodcount: 7
+                  timeperiodlimit: 14
+                  waitperiodid: 0
+                  waitperiodcount: 0
+                username: John Doe
+                users:
+                - id: 9342
+                  contactreportid: 5830
+                  userid: 56907
+                  datetimecreated: '2021-09-03T20:01:44.000000Z'
+                  datetimelastnotify: null
+                  name: Gerhard Klimeck
+                - id: 9343
+                  contactreportid: 5830
+                  userid: 81163
+                  datetimecreated: '2021-09-03T20:01:44.000000Z'
+                  datetimelastnotify: null
+                  name: Erik S Gough
+                groupname: Lorem Ipsum
+                resources:
+                - id: 106819
+                  contactreportid: 5830
+                  resourceid: 110
+                  name: Geddes
+                - id: 106820
+                  contactreportid: 5830
+                  resourceid: 92
+                  name: Gilbreth
+                tags: []
+                age: 1200675
+                api: https://example.org/api/contactreports/5830
+                url: https://example.org/contactreports/5830
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                datetimecontact:
+                  description: Timestamp (YYYY-MM-DD or YYYY-MM-DD hh:mm:ss) of the contact
+                  type: string
+                  default: null
+                groupid:
+                  description: ID of the associated group
+                  type: integer
+                  default: null
+                report:
+                  description: The report text
+                  type: string
+                  default: null
+                contactreporttypeid:
+                  description: Type ID for the entry
+                  type: integer
+                  default: 0
+                notice:
+                  description: Notice state
+                  type: integer
+                  default: 0
+              required: []
+      tags:
+      - Contactreports
+      summary: Replace contactreports by id
+      x-summary-source: derived
+      operationId: putContactreportsById
+      x-operation-id-source: derived
+    delete:
+      description: Delete a contact report
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Contactreports
+      summary: Delete contactreports by id
+      x-summary-source: derived
+      operationId: deleteContactreportsById
+      x-operation-id-source: derived
+  /contactreports/types:
+    get:
+      description: Display a listing of contact report types
+      parameters:
+      - in: query
+        name: tagresources
+        description: Filter by `tagresources` value
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: location
+        description: Filter by `location` value
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: future
+        description: Filter by `future` value
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: ongoing
+        description: Filter by `ongoing` value
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: search
+        description: A word or phrase to search for.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: limit
+        description: Number of result per page.
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - in: query
+        name: page
+        description: Number of where to start returning results.
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: order
+        description: Field to sort results by.
+        required: false
+        schema:
+          type: string
+          default: datetimecreated
+          enum:
+          - id
+          - motd
+          - datetimecreated
+          - datetimeremoved
+      - in: query
+        name: order_dir
+        description: Direction to sort results by.
+        required: false
+        schema:
+          type: string
+          default: desc
+          enum:
+          - asc
+          - desc
+      tags:
+      - Contactreports
+      summary: Get contactreports types
+      x-summary-source: derived
+      operationId: getContactreportsTypes
+      x-operation-id-source: derived
+    post:
+      description: Create a contact report type
+      parameters: []
+      responses:
+        '201':
+          description: Successful entry creation
+          content:
+            application/json:
+              example:
+                id: 1
+                name: Examples
+                timeperiodid: 0
+                timeperiodcount: 0
+                timeperiodlimit: 0
+                waitperiodid: 0
+                waitperiodcount: 0
+                reports_count: 442
+                api: https://example.org/api/contactreports/types/1
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                comment:
+                  description: The comment being made
+                  type: string
+                  default: null
+                name:
+                  description: The name of the type
+                  type: string
+                  default: null
+                timeperiodid:
+                  description: ID of a timeperiod
+                  type: integer
+                  default: 0
+                timeperiodcount:
+                  description: Number of time periods
+                  type: integer
+                  default: 0
+                timeperiodlimit:
+                  description: Timeperiod limit
+                  type: integer
+                  default: 0
+                waitperiodid:
+                  description: ID of a timeperiod
+                  type: integer
+                  default: 0
+                waitperiodcount:
+                  description: Number of wait periods
+                  type: integer
+                  default: 0
+              required:
+              - comment
+      tags:
+      - Contactreports
+      summary: Create contactreports types
+      x-summary-source: derived
+      operationId: postContactreportsTypes
+      x-operation-id-source: derived
+  /contactreports/types/{id}:
+    get:
+      description: Read a contact report type
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful entry read
+          content:
+            application/json:
+              example:
+                id: 1
+                name: Examples
+                timeperiodid: 0
+                timeperiodcount: 0
+                timeperiodlimit: 0
+                waitperiodid: 0
+                waitperiodcount: 0
+                reports_count: 442
+                api: https://example.org/api/contactreports/types/1
+        '404':
+          description: Record not found
+      tags:
+      - Contactreports
+      summary: Get contactreports types by id
+      x-summary-source: derived
+      operationId: getContactreportsTypesById
+      x-operation-id-source: derived
+    put:
+      description: Update a contact report type
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry modification
+          content:
+            application/json:
+              example:
+                id: 1
+                name: Examples
+                timeperiodid: 0
+                timeperiodcount: 0
+                timeperiodlimit: 0
+                waitperiodid: 0
+                waitperiodcount: 0
+                reports_count: 442
+                api: https://example.org/api/contactreports/types/1
+        '404':
+          description: Record not found
+        '409':
+          description: Invalid data
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  description: The name of the type
+                  type: string
+                  default: null
+                timeperiodid:
+                  description: ID of a timeperiod
+                  type: integer
+                  default: null
+                timeperiodcount:
+                  description: Number of time periods
+                  type: integer
+                  default: null
+                timeperiodlimit:
+                  description: Timeperiod limit
+                  type: integer
+                  default: null
+                waitperiodid:
+                  description: ID of a timeperiod
+                  type: integer
+                  default: null
+                waitperiodcount:
+                  description: Number of wait periods
+                  type: integer
+                  default: null
+              required: []
+      tags:
+      - Contactreports
+      summary: Replace contactreports types by id
+      x-summary-source: derived
+      operationId: putContactreportsTypesById
+      x-operation-id-source: derived
+    delete:
+      description: Delete a contact report type
+      parameters:
+      - in: path
+        name: id
+        description: Entry identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Successful entry deletion
+        '404':
+          description: Record not found
+      tags:
+      - Contactreports
+      summary: Delete contactreports types by id
+      x-summary-source: derived
+      operationId: deleteContactreportsTypesById
+      x-operation-id-source: derived
+components:
+  securitySchemes:
+    api_token:
+      type: apiKey
+      name: api_token
+      in: header
