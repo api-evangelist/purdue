@@ -604,13 +604,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Meal'
-    Allergen:
-      type: object
-      properties:
-        Name:
-          type: string
-        Value:
-          type: boolean
     MenuItem:
       type: object
       properties:
@@ -627,15 +620,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Allergen'
-    Station:
+    Allergen:
       type: object
       properties:
         Name:
           type: string
-        Items:
-          type: array
-          items:
-            $ref: '#/components/schemas/MenuItem'
+        Value:
+          type: boolean
     Meal:
       type: object
       properties:
@@ -668,6 +659,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Station'
+    Station:
+      type: object
+      properties:
+        Name:
+          type: string
+        Items:
+          type: array
+          items:
+            $ref: '#/components/schemas/MenuItem'
   securitySchemes:
     api_token:
       type: apiKey
