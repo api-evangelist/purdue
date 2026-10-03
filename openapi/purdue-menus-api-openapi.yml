@@ -586,24 +586,6 @@ paths:
           description: Observed for an unknown location name - an unhandled System.InvalidOperationException is returned rather than a 404.
 components:
   schemas:
-    LocationMenu:
-      type: object
-      properties:
-        Location:
-          type: string
-        Date:
-          type: string
-          description: Observed as US M/D/YYYY in the response body, though the request takes YYYY-MM-DD.
-        IsPublished:
-          type: boolean
-        Notes:
-          type:
-          - string
-          - 'null'
-        Meals:
-          type: array
-          items:
-            $ref: '#/components/schemas/Meal'
     MenuItem:
       type: object
       properties:
@@ -620,13 +602,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Allergen'
-    Allergen:
-      type: object
-      properties:
-        Name:
-          type: string
-        Value:
-          type: boolean
     Meal:
       type: object
       properties:
@@ -668,6 +643,31 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/MenuItem'
+    Allergen:
+      type: object
+      properties:
+        Name:
+          type: string
+        Value:
+          type: boolean
+    LocationMenu:
+      type: object
+      properties:
+        Location:
+          type: string
+        Date:
+          type: string
+          description: Observed as US M/D/YYYY in the response body, though the request takes YYYY-MM-DD.
+        IsPublished:
+          type: boolean
+        Notes:
+          type:
+          - string
+          - 'null'
+        Meals:
+          type: array
+          items:
+            $ref: '#/components/schemas/Meal'
   securitySchemes:
     api_token:
       type: apiKey

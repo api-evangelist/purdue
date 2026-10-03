@@ -46,22 +46,6 @@ components:
           type: string
         CountryCode:
           type: string
-    LocationsResponse:
-      type: object
-      description: Observed shape of GET /locations.
-      properties:
-        Types:
-          type: array
-          items:
-            type: string
-          examples:
-          - - Dining Courts
-            - Quick Bites
-            - On-the-GO!
-        Location:
-          type: array
-          items:
-            $ref: '#/components/schemas/Location'
     Location:
       type: object
       properties:
@@ -95,6 +79,22 @@ components:
         DarkModeLogoUrl:
           type: string
           format: uri
+    LocationsResponse:
+      type: object
+      description: Observed shape of GET /locations.
+      properties:
+        Types:
+          type: array
+          items:
+            type: string
+          examples:
+          - - Dining Courts
+            - Quick Bites
+            - On-the-GO!
+        Location:
+          type: array
+          items:
+            $ref: '#/components/schemas/Location'
 x-method: generated
 x-source-url: https://api.hfs.purdue.edu/menus/v2/locations
 x-provenance:
