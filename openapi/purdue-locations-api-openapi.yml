@@ -31,21 +31,22 @@ paths:
                 $ref: '#/components/schemas/LocationsResponse'
 components:
   schemas:
-    Address:
+    LocationsResponse:
       type: object
+      description: Observed shape of GET /locations.
       properties:
-        Street:
-          type: string
-        City:
-          type: string
-        State:
-          type: string
-        ZipCode:
-          type: string
-        Country:
-          type: string
-        CountryCode:
-          type: string
+        Types:
+          type: array
+          items:
+            type: string
+          examples:
+          - - Dining Courts
+            - Quick Bites
+            - On-the-GO!
+        Location:
+          type: array
+          items:
+            $ref: '#/components/schemas/Location'
     Location:
       type: object
       properties:
@@ -79,22 +80,21 @@ components:
         DarkModeLogoUrl:
           type: string
           format: uri
-    LocationsResponse:
+    Address:
       type: object
-      description: Observed shape of GET /locations.
       properties:
-        Types:
-          type: array
-          items:
-            type: string
-          examples:
-          - - Dining Courts
-            - Quick Bites
-            - On-the-GO!
-        Location:
-          type: array
-          items:
-            $ref: '#/components/schemas/Location'
+        Street:
+          type: string
+        City:
+          type: string
+        State:
+          type: string
+        ZipCode:
+          type: string
+        Country:
+          type: string
+        CountryCode:
+          type: string
 x-method: generated
 x-source-url: https://api.hfs.purdue.edu/menus/v2/locations
 x-provenance:
