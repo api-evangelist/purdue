@@ -1,0 +1,12 @@
+{
+ "url": "https://www.rcac.purdue.edu/openapi.json",
+ "requested_url": "https://www.rcac.purdue.edu/openapi.json",
+ "status": 200,
+ "content_type": "application/json",
+ "bytes": 345043,
+ "sha256": "0a518a14dbb20bcfbc740978d7bfd02106412a980a14dcb0dacc7c01621e9bf5",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 0.991), but the bytes differ, so the archive is an earlier or reformatted copy."
+}
