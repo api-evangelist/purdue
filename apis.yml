@@ -41,7 +41,7 @@ access: 3rd-Party
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/purdue.png
 url: https://raw.githubusercontent.com/api-evangelist/purdue/refs/heads/main/apis.yml
 created: '2026-06-03'
-modified: '2026-08-30'
+modified: '2026-10-06'
 specificationVersion: '0.23'
 deliveryModel:
   model: self-operated
@@ -1560,6 +1560,8 @@ apis:
   - type: Website
     url: https://www.housing.purdue.edu/
 common:
+  - url: https://www.purdue.edu/newsroom/feed/
+    type: BlogRSS
   - type: Website
     url: https://www.purdue.edu/
   - type: GitHubOrganization
